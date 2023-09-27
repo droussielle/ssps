@@ -32,6 +32,9 @@ class PrinterController {
   // [GET] /printer/getPrinter?
   async getPrinter(req, res) {
     try {
+      if (!req.query.id) {
+        res.json({ check: false, msg: "Thiếu id máy in" });
+      }
       if (req.query.id && req.query.apitoken) {
         const printer = await Printer.find({ id: req.query.id }).exec();
         if (printer) {
