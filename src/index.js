@@ -1,53 +1,54 @@
 const express = require("express");
+const app = express();
 const morgan = require("morgan");
-const { engine } = require("express-handlebars");
+const bodyParser = require('body-parser');
 const path = require("path");
 
-const app = express();
-const port = 3000;
+//routes directory
+const route = require("./routes");
 
+//Connect to DB
 const db = require("./config/db");
 db.connect();
-// HTTP logger
+
 app.use(morgan("combined"));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-app.use(express.json());
-// Template engine setup
-app.engine(
-  "hbs",
-  engine({
-    extname: ".hbs",
-  })
-);
-const route = require("./routes");
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "resources", "views"));
-// // Define a route to render the home view
-// app.get('/', (req, res) => {
-//     res.render('home');
-// });
-// // app.get('/news', (req, res) => {
-// //     res.render('news');
-// // });
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
-// app.get('/search', (req, res) => {
-//     console.log(req.query);
-//     res.render('search');
-// });
-// app.post('/search', (req, res) => {
-//     console.log(req.body);
-//     res.render('search');
-// });
+app.set("views", path.join(__dirname, "resources", "views"));
+
+app.use((req,res,next)=>{
+  res.header('Access-Control-Allow-Origin','*');//give access to specific client, in this case is any client "*"
+  res.header('Access-Control-Allow-Headers',
+              'Origin, X-Requested-With,Content-Type, Accept, Authorization');//give access to specific header
+  if(req.method === 'OPTIONS'){ //set allowed methods
+      res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET');
+      return res.status(200).json('Okay');
+  }
+  next();
+});
+
+
+app.use((req,res,next)=>{
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+
+app.use((error,req,res,next)=>{
+  res.status(error.status || 500);
+  res.json({
+      error : {
+          message: 'Errors happen, status code: '+ (error.status || 500)+ ' message: ' + error.message
+      }
+  });
+});
 
 //Route init
 route(app);
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+
+
+module.exports = app;
