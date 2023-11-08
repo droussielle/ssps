@@ -1,17 +1,10 @@
-const jwt = require('jsonwebtoken');
+const { validatesignature } = require('./side');
 
-module.exports = (req,res,next)=>{
-    try{
-        const token = req.headers.authorization.split(" ")[1];
-
-        const decoded = jwt.verify(token,process.env.JWT_KEY);
-        req.userData=decoded;
-        next();
-    }   catch(error){
-        return res.status(401).json({
-            message:'Auth failed'
-        })
-    }
+module.exports = async (req,res,next) => {
     
-
-};
+    const isauthorized = await validatesignature(req);
+    if(isauthorized){
+        return next();
+    }
+    return res.status(403).json({message: 'not authorized'})
+}
