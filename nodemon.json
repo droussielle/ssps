@@ -1,3 +1,7 @@
 {
-    "ext":"js json scss"
+    "env":{
+        "MONGODB_PassWord" :"",
+        "Port" : "3000",
+        "JWT_code" :"nobody knows"
+    }
 }
