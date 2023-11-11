@@ -1,10 +1,12 @@
 const accountmodel = require("../models/Account");
+const spsomodel = require("../models/SPSO");
+const mongoose = require("mongoose");
 const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
 
 class SPSOController {
   //SIGNUP SERVICE 
   async signup (userinputs){
-    const {email,password,name,profile_image,phone_number} = userinputs;
+    const {email,password,name,profile_image,phone_number,spso_ID} = userinputs;
     const existUser = await accountmodel.findOne(email);
 
     if(existUser){
@@ -14,6 +16,7 @@ class SPSOController {
         let salt = await generatesalt();
         let userPassword = await generatepassword(password,salt);
         const newAccount = new accountmodel({
+          _id: new mongoose.Types.ObjectId(),
           email: email,
           password: userPassword,
           name: name,
@@ -22,10 +25,20 @@ class SPSOController {
           phone_number: phone_number,
           salt: salt,
         });
-        
-        const result = await newAccount.save();
 
-        return formatedata({id:result._id});
+        const newSPSO = new spsomodel({
+          spsoID: spso_ID,
+          account: newAccount._id
+        });
+
+        const [newAccountResult, newSPSOResult] = await Promise.all([newAccount.save(), newSPSO.save()]);
+        
+        const result = {
+          newAccountResult,
+          newSPSOResult
+        }
+
+        return result;
 
       } catch(err){
         throw err;
