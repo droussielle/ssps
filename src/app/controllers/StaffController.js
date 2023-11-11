@@ -1,6 +1,7 @@
 const accountmodel = require("../models/Account");
 const staffmodel = require("../models/Staff");
 const mongoose = require("mongoose");
+
 const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
 
 class StaffController {

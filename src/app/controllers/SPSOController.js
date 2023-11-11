@@ -1,5 +1,6 @@
 const accountmodel = require("../models/Account");
 const spsomodel = require("../models/SPSO");
+const printermodel = require("../models/Printer")
 const mongoose = require("mongoose");
 const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
 
@@ -47,6 +48,49 @@ class SPSOController {
 
   }
 
+  async addPrinter(userinputs){
+    try{
+      const {brand,model,shortDescription,location,printerStatus}=userinputs;
+      const newPrinter = new printermodel({
+        _id: new mongoose.Types.ObjectId(),
+        brand: brand,
+        model:model,
+        shortDescription: shortDescription,
+        location:location,
+        printerStatus:printerStatus
+      });
+
+      const result = await newPrinter.save();
+
+      return formatedata(result);
+
+    } catch(err){
+      throw err;
+    }
+    
+  }
+
+  async updatePrinterStatus(id,status){
+    try{
+      const result = await printermodel.updateOne({_id:id},{$set:{
+        printerStatus:status
+      }})
+
+      return formatedata(result);
+
+    }catch(err){
+      throw err;
+    }
+  }
+
+  async deletePrinter(id){
+    try{
+      const result = await printermodel.deleteOne({_id:id});
+      return formatedata(result);
+    } catch(err){
+      throw err;
+    }
+  }
 
 }
 

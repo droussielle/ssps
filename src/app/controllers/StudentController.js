@@ -1,6 +1,7 @@
 const accountmodel = require("../models/Account");
 const studentmodel = require("../models/Student");
 const mongoose = require("mongoose");
+
 const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
 
 class StudentController {

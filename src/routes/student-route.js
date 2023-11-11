@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const userauth = require("../auth/check-auth");
 
 const Student = require("../app/controllers/StudentController");
 

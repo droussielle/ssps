@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const userauth = require("../auth/check-auth");
 
 const SPSO = require("../app/controllers/SPSOController");
 
@@ -40,6 +41,47 @@ router.post("/signup", async (req,res,next)=>{
     }
 });
 
+router.post("/printer",userauth,async(req,res,next)=>{
+    try{
+        const {brand,model,shortDescription,location,printerStatus}=req.body;
+        if(typeof(location) === 'undefined' || typeof(printerStatus) ==='undefined'){
+            return res.status(400).json({
+                message:'invalid reques data format: location and printerStatus field must be specified',
+            })
+        }  
+
+        const mydata = await SPSO.addPrinter({brand,model,shortDescription,location,printerStatus});
+
+        return res.json(mydata);
+
+    }   catch(err){
+        next(err);
+    }
+});
+
+
+router.patch("/printer/:id",userauth,async(req,res,next)=>{
+    try{    
+        const status = req.body.status;
+        const id = req.params.id;  
+        const mydata = await SPSO.updatePrinterStatus(id,status);
+        return res.json(mydata);
+
+    }catch(err){
+        next(err);
+    }
+
+});
+
+router.delete("/printer/:id",userauth,async(req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const mydata= await SPSO.deletePrinter(id);
+        return res.json(mydata);
+    } catch(err){
+        next(err);
+    }
+});
 
 
 

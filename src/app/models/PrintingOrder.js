@@ -9,5 +9,6 @@ const PrintingOrder = new Schema({
   beginTime: Date,
   endTime: Date,
   note: String,
+
 });
 module.exports = mongoose.model("PrintingOrder", PrintingOrder);
