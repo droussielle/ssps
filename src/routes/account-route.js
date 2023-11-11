@@ -4,12 +4,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const SPSO = require("../app/controllers/AccountController");
+const AccountController = require("../app/controllers/AccountController");
 
 router.post("/login", async (req,res,next)=>{
     try{
         const {email,password} = req.body;
-        const{data} = await SPSO.login({email,password});
+        const{data} = await AccountController.login({email,password});
         return res.json(data);
     }catch(err){
         next(err);
