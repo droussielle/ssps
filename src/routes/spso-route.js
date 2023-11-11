@@ -9,7 +9,7 @@ const SPSO = require("../app/controllers/SPSOController");
 //SIGNUP SERVICE CREATE NEW SPSO USER INCLUDING: NEW ACCOUNT INSTANCE & SPSO ID
 
 
-router.get("/default",(req,res,next)=>{
+router.get("/",(req,res,next)=>{
     return res.status(200).json({
         message:"This is spso route"
     })
@@ -18,6 +18,13 @@ router.get("/default",(req,res,next)=>{
 router.post("/signup", async (req,res,next)=>{
     try{
         const {email,password,name,profile_image,phone_number,spso_ID} = req.body;
+
+        if( typeof(email) === "undefined" || typeof(password) === "undefined" || typeof(name) === "undefined" || typeof(profile_image) === "undefined" || typeof(phone_number) === "undefined" || typeof(spso_ID) ==="undefined") {
+            return res.status(400).json({
+                message: 'invalid request data format'
+            })
+        }
+
         const mydata = await SPSO.signup({email,password,name,profile_image,phone_number,spso_ID});
         if (mydata === null){
             return res.json({

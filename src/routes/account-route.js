@@ -10,6 +10,7 @@ router.post("/login", async (req,res,next)=>{
     try{
         const {email,password} = req.body;
         const{data} = await AccountController.login({email,password});
+        // console.log(data);
         return res.json(data);
     }catch(err){
         next(err);

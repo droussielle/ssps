@@ -6,10 +6,35 @@ const router = express.Router();
 
 const Staff = require("../app/controllers/StaffController");
 
-router.post("/", async (req,res,next)=>{
-    try{
+//SIGNUP SERVICE CREATE NEW STAFF USER INCLUDING: NEW ACCOUNT INSTANCE & STAFF ID
 
-    }catch(err){
+
+router.get("/",(req,res,next)=>{
+    return res.status(200).json({
+        message:"This is staff route"
+    })
+})
+
+router.post("/signup", async (req,res,next)=>{
+    try{
+        const {email,password,name,profile_image,phone_number,staff_ID} = req.body;
+
+        if( typeof(email) === "undefined" || typeof(password) === "undefined" || typeof(name) === "undefined" || typeof(profile_image) === "undefined" || typeof(phone_number) === "undefined" || typeof(staff_ID) ==="undefined") {
+            return res.status(400).json({
+                message: 'invalid request data format'
+            })
+        }
+        const mydata = await Staff.signup({email,password,name,profile_image,phone_number,staff_ID});
+        if (mydata === null){
+            return res.json({
+                message: "invalid email"
+            });
+        }   else{
+            return res.status(200).json({
+                message:"Account created successfully"
+            });
+        }
+    }   catch (err){
         next(err);
     }
 });

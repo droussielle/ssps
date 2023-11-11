@@ -1,8 +1,11 @@
-const http = require('http');
-const app = require('.');
-// port = process.env.PORT || 3000;
-port = 3000;
+const express = require('express');
+const database = require('./config/db');
+const expressApp = require('./app');
 
-const server = http.createServer(app);
-
-server.listen(port);
+const startServer = async()=>{
+    const app = express();
+    await database.connect();
+    await expressApp(app);
+    app.listen(3000);
+}
+startServer();

@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const Student = new Schema({
-  studnet_ID: { type: String, minLength: 7, maxLength: 7 },
-  credit:{type: Number, required: true},
+  student_ID: { type: String, minLength: 7, maxLength: 7 ,required:true},
+  credit:{type: Number, required: true, default: 0},
   account:{type:mongoose.Schema.Types.ObjectId,ref:'Account',require:true}
 });
 module.exports = mongoose.model("Student", Student);
