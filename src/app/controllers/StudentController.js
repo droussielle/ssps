@@ -35,8 +35,8 @@ class StudentController {
         const [newAccountResult, newStudentResult] = await Promise.all([newStudent.save().catch(err=>{throw err}),newAccount.save().catch(err=>{throw err})]);
         
         const result = {
-          newAccountResult,
-          newStudentResult
+          message: "Account created successfully"
+
         }
 
         return result;

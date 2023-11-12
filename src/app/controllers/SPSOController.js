@@ -7,6 +7,19 @@ const mongoose = require("mongoose");
 const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
 
 class SPSOController {
+  async spsoAuthorize(user){
+    try{
+    const spso = await accountmodel.findOne({_id:user._id});
+    if(spso){
+      return spso.role ==='spso';
+    } else{
+      return false;
+    }
+
+    } catch (err){
+      throw err;
+    }
+  }
   //SIGNUP SERVICE 
   async signup (userinputs){
     const {email,password,name,profile_image,phone_number,spso_ID} = userinputs;
@@ -37,8 +50,8 @@ class SPSOController {
         const [newAccountResult, newSPSOResult] = await Promise.all([newAccount.save(), newSPSO.save()]);
         
         const result = {
-          newAccountResult,
-          newSPSOResult
+          message: "Account created successfully"
+
         }
 
         return result;

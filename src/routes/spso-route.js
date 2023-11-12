@@ -43,6 +43,13 @@ router.post("/signup", async (req,res,next)=>{
 
 router.get("/printer",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+
         const mydata = await SPSO.getAllPrinter();
         return res.json(mydata);
 
@@ -53,6 +60,13 @@ router.get("/printer",userauth,async(req,res,next)=>{
 
 router.get("/printer/:id",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+
         const id = req.params.id;
         const mydata = await SPSO.getPrinter(id);
         return res.json(mydata);
@@ -64,6 +78,12 @@ router.get("/printer/:id",userauth,async(req,res,next)=>{
 
 router.post("/printer",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const {brand,model,shortDescription,location,printerStatus}=req.body;
         if(typeof(location) === 'undefined' || typeof(printerStatus) ==='undefined'){
             return res.status(400).json({
@@ -82,7 +102,13 @@ router.post("/printer",userauth,async(req,res,next)=>{
 
 
 router.patch("/printer/:id",userauth,async(req,res,next)=>{
-    try{    
+    try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const status = req.body.status;
         const id = req.params.id;  
         const mydata = await SPSO.updatePrinterStatus(id,status);
@@ -96,6 +122,12 @@ router.patch("/printer/:id",userauth,async(req,res,next)=>{
 
 router.delete("/printer/:id",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const id = req.params.id;
         const mydata= await SPSO.deletePrinter(id);
         return res.json(mydata);
@@ -106,6 +138,12 @@ router.delete("/printer/:id",userauth,async(req,res,next)=>{
 
 router.get("/student",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const mydata = await SPSO.getAllStudent();
         return res.json(mydata);
     }   catch(err){
@@ -115,6 +153,12 @@ router.get("/student",userauth,async(req,res,next)=>{
 
 router.get("/student/:student_ID",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const student_ID= req.params.student_ID;
         const mydata = await SPSO.getStudent(student_ID);
         return res.json(mydata);
@@ -126,6 +170,12 @@ router.get("/student/:student_ID",userauth,async(req,res,next)=>{
 //NOT TESTEST YET
 router.post("/print-order/permitted-file-type",userauth,async (req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const permittedFileType = req.body.fileTypes;
         const mydata = await SPSO.setFileType(permittedFileType);
         return res.json(mydata);
@@ -136,6 +186,12 @@ router.post("/print-order/permitted-file-type",userauth,async (req,res,next)=>{
 
 router.get("/staff",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const mydata = await SPSO.getAllStaff();
         return res.json(mydata);
     }   catch(err){
@@ -145,6 +201,12 @@ router.get("/staff",userauth,async(req,res,next)=>{
 
 router.get("/staff/:staff_ID",userauth,async(req,res,next)=>{
     try{
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
         const staff_ID= req.params.staff_ID;
         const mydata = await SPSO.getStaff(staff_ID);
         return res.json(mydata);

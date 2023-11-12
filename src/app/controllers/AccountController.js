@@ -55,6 +55,24 @@ class AccountController {
 
   }
 
+  async increaseCredit(userinputs){ 
+    const {increment, user } = userinputs;
+    try{
+      const myuser = await accountmodel.findOne({_id:user._id});
+      const newBalance = myuser.credit + increment;
+
+      const result = await accountmodel.updateOne({_id:myuser._id},{$set:{
+        credit:newBalance
+      }});
+      
+      return formatedata(result);
+
+    } catch (err){
+      throw err;
+    }
+  }
+  
+
 
 }
 

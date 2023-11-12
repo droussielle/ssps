@@ -30,6 +30,17 @@ router.post("/change-password",userauth,async(req,res,next)=>{
     }
 });
 
+router.post("/buy-credit",userauth, async(req,res,next)=>{
+    try{
+        const {increment} = req.body;
+        const user = req.user;
+        const mydata = await AccountController.increaseCredit({increment,user});
+        return res.json(mydata);
+    }   catch(err){
+        next(err);
+    }
+})
+
 
 
 

@@ -35,8 +35,8 @@ class StaffController {
         const [newAccountResult, newStaffResult] = await Promise.all([newAccount.save(), newStaff.save()]);
         
         const result = {
-          newAccountResult,
-          newStaffResult
+          message: "Account created successfully"
+
         }
 
         return result;

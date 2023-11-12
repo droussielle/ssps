@@ -1,9 +1,13 @@
-const express = require("express");
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
+const userauth = require("../auth/check-auth");
 
 const PrinterController = require("../app/controllers/PrinterController");
-router.get("/", PrinterController.getPrinters, PrinterController.getPrinter);
-router.get("/getPrinter", PrinterController.getPrinter);
-router.post("/addPrinter", PrinterController.addPrinter);
-router.post("/statusPrinter", PrinterController.statusPrinter);
+
+
+
+
 module.exports = router;

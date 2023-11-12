@@ -8,6 +8,7 @@ const Account = new Schema({
   role:{type:String, required: true}, //{student,staff,spso}
   profile_image:{type:String},
   phone_number:{type:String,required:true},
+  credit:{type: Number, required: true, default: 0},
   salt:String
 });
 module.exports = mongoose.model("Account", Account);
