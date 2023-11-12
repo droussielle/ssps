@@ -6,6 +6,8 @@ const PrintOrder = new Schema({
   beginTime: Date,
   estimatedEndTime: Date,
   note: String,
+  status: {type: Boolean, required:true,default:false}, //true = done, false = undone
+  permittedFleType:{type:Array,default:["pdf","doc","docx"]},
   fileLocation: {type:String, required:true},
   printProperies :[ 
     {

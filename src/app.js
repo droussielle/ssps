@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
-const {account,student,staff,spso,printer,printingorder,printingorderdetail} = require('./routes');
+const {account,student,staff,spso,printer,printorder,} = require('./routes');
 
 
 module.exports = async (app)=>{
@@ -17,9 +17,7 @@ module.exports = async (app)=>{
     app.use('/staff',staff);
     app.use('/spso',spso);
     app.use('/printer',printer);
-    app.use('/printingorder',printingorder);
-    app.use('/printingorderdetail',printingorderdetail);
-
+    app.use('/printorder',printorder);
 
     app.use((req,res,next)=>{
         const error = new Error('Not found');
@@ -37,5 +35,3 @@ module.exports = async (app)=>{
         });
     });
 }
-
-// module.exports = app;

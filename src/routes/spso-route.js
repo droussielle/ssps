@@ -41,6 +41,27 @@ router.post("/signup", async (req,res,next)=>{
     }
 });
 
+router.get("/printer",userauth,async(req,res,next)=>{
+    try{
+        const mydata = await SPSO.getAllPrinter();
+        return res.json(mydata);
+
+    }   catch (err){
+        next(err);
+    }
+});
+
+router.get("/printer/:id",userauth,async(req,res,next)=>{
+    try{
+        const id = req.params.id;
+        const mydata = await SPSO.getPrinter(id);
+        return res.json(mydata);
+
+    }   catch (err){
+        next(err);
+    }
+});
+
 router.post("/printer",userauth,async(req,res,next)=>{
     try{
         const {brand,model,shortDescription,location,printerStatus}=req.body;
@@ -83,6 +104,24 @@ router.delete("/printer/:id",userauth,async(req,res,next)=>{
     }
 });
 
+router.get("/student",userauth,async(req,res,next)=>{
+    try{
+        const mydata = await SPSO.getAllStudent();
+        return res.json(mydata);
+    }   catch(err){
+        next(err);
+    }
+});
+
+router.get("/student/:student_ID",userauth,async(req,res,next)=>{
+    try{
+        const student_ID= req.params.student_ID;
+        const mydata = await SPSO.getStudent(student_ID);
+        return res.json(mydata);
+    }catch(err){
+        next(err);
+    }
+})
 
 
 module.exports = router;
