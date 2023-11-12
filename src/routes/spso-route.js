@@ -123,5 +123,35 @@ router.get("/student/:student_ID",userauth,async(req,res,next)=>{
     }
 })
 
+//NOT TESTEST YET
+router.post("/print-order/permitted-file-type",userauth,async (req,res,next)=>{
+    try{
+        const permittedFileType = req.body.fileTypes;
+        const mydata = await SPSO.setFileType(permittedFileType);
+        return res.json(mydata);
+    }catch (err){
+        next(err);
+    }
+});
+
+router.get("/staff",userauth,async(req,res,next)=>{
+    try{
+        const mydata = await SPSO.getAllStaff();
+        return res.json(mydata);
+    }   catch(err){
+        next(err);
+    }
+});
+
+router.get("/staff/:staff_ID",userauth,async(req,res,next)=>{
+    try{
+        const staff_ID= req.params.staff_ID;
+        const mydata = await SPSO.getStaff(staff_ID);
+        return res.json(mydata);
+    }catch(err){
+        next(err);
+    }
+});
+
 
 module.exports = router;

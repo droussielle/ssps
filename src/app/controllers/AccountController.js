@@ -26,6 +26,32 @@ class AccountController {
     } catch (err){
       throw err;
     }
+  }
+
+  async changePassword(userinputs){
+    const {oldPassword,newPassword,user} = userinputs;
+    console.log(user);
+    try{
+      const myuser = await accountmodel.findOne({email:user.email});
+      if(myuser){
+        const validPassword = await validatepassword(oldPassword,myuser.password,myuser.salt);
+        if (validPassword){
+          const newHashedPassword = await generatepassword(newPassword,myuser.salt);
+          const result = await accountmodel.updateOne({_id:myuser._id},{$set:{
+            password:newHashedPassword
+          }});
+          return formatedata(result);
+        } else{
+          return formatedata({
+            message:"Invalid request"
+          });
+        }
+
+      } return formatedata (myuser);
+
+    }catch(err){
+      throw err;
+    }
 
   }
 

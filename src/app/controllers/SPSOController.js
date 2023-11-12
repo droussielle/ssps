@@ -108,7 +108,7 @@ class SPSOController {
         const result = await printermodel.findById(id);
         return formatedata(result);
       }catch(err){
-
+        throw err;
       }
     }
 
@@ -126,9 +126,36 @@ class SPSOController {
         const result = await studentmodel.findOne({student_ID: student_ID});
         return formatedata(result);
       }catch(err){
-
+        throw err;
       }
     }
+    async getAllStaff(){
+      try{
+        const result = await staffmodel.find();
+        return formatedata(result);
+      } catch(err){
+        throw err;
+      }
+    }
+
+    async getStaff(staff_ID){
+      try{
+        const result = await staffmodel.findOne({staff_ID: staff_ID});
+        return formatedata(result);
+      }catch(err){
+        throw err;
+      }
+    }
+
+    async setFileType(permittedFileType){
+      try{
+        const result = await printermodel.updateMany({"$set":{"permittedFileType":permittedFileType}});
+        return formatedata(result);
+      } catch(err){
+        throw err;
+      }
+    }
+
 
 }
 
