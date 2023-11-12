@@ -169,6 +169,14 @@ class SPSOController {
       }
     }
 
+    async setDefaultCredit(amount){
+      try{
+        const result = await accountmodel.updateMany({$set:{credit:amount}})
+        return formatedata(result);
+      } catch(err){
+        throw err;
+      }
+    }
 
 }
 

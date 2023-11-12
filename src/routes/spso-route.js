@@ -215,5 +215,22 @@ router.get("/staff/:staff_ID",userauth,async(req,res,next)=>{
     }
 });
 
+router.post("/set-default-pages",userauth,async(req,res,next)=>{
+    try {
+        const isSPSO = await SPSO.spsoAuthorize(req.user);
+        if (!isSPSO){
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+        const amount = req.body.amount;
+        const mydata = await SPSO.setDefaultCredit(amount);
+        return res.json(mydata);
+
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;
