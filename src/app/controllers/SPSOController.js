@@ -1,6 +1,8 @@
 const accountmodel = require("../models/Account");
 const spsomodel = require("../models/SPSO");
-const printermodel = require("../models/Printer")
+const studentmodel = require("../models/Student");
+const printermodel = require("../models/Printer");
+const staffmodel = require("../models/Staff");
 const mongoose = require("mongoose");
 const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
 
@@ -91,6 +93,42 @@ class SPSOController {
       throw err;
     }
   }
+
+  async getAllPrinter(){
+    try{
+      const result = await printermodel.find();
+      return formatedata(result);
+    } catch(err){
+      throw err;
+    }
+  }
+
+    async getPrinter(id){
+      try{
+        const result = await printermodel.findById(id);
+        return formatedata(result);
+      }catch(err){
+
+      }
+    }
+
+    async getAllStudent(){
+      try{
+        const result = await studentmodel.find();
+        return formatedata(result);
+      } catch(err){
+        throw err;
+      }
+    }
+
+    async getStudent(student_ID){
+      try{
+        const result = await studentmodel.findOne({student_ID: student_ID});
+        return formatedata(result);
+      }catch(err){
+
+      }
+    }
 
 }
 

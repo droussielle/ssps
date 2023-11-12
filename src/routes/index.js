@@ -3,8 +3,10 @@ const StudentRouter = require("./student-route");
 const StaffRouter = require("./staff-route");
 const SPSORouter = require("./spso-route");
 const PrinterRouter = require("./printer-route");
-const PrintingOrderRouter = require("./printingorder-route");
-const PrintingOrderDetailRouter = require("./printingorderdetail-route");
+const PrintOrderRouter = require("./printorder-route");
+// const PrintingOrderRouter = require("./printingorder-route");
+// const PrintingOrderDetailRouter = require("./printingorderdetail-route");
+
 
 module.exports = {
     account : AccountRouter,
@@ -12,6 +14,5 @@ module.exports = {
     staff: StaffRouter,
     spso: SPSORouter,
     printer:PrinterRouter,
-    printingorder : PrintingOrderRouter,
-    printingorderdetail: PrintingOrderDetailRouter
+    printorder:PrintOrderRouter
 }
