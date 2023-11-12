@@ -9,19 +9,13 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
-    <link href="../dist/output.css" rel="stylesheet" />
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="./script.js"></script>
+    <link href="../../dist/output.css" rel="stylesheet" />
   </head>
 
   <body>
     <nav
       id="navigation-bar"
-      class="flex flex-row fixed left-0 top-0 sm:h-20 max-sm:h-16 w-screen text-center bg-page-background text-black dark:text-white dark:bg-page-background-dark justify-between z-50 sm:pl-8 sm:pr-12 max-sm:px-4"
+      class="flex flex-row fixed left-0 top-0 h-20 w-screen text-center bg-page-background pl-8 pr-12 justify-between z-50"
     >
       <div
         class="flex flex-row items-center space-x-3 transition-all duration-200 ease-out"
@@ -45,26 +39,23 @@
         </button>
         <div
           class="flex-none my-auto transition-transform -translate-x-12 max-lg:-translate-x-0"
+          id="ssps-logo"
         >
-          <img
-            id="ssps-logo"
-            class="transition-all my-auto sm:w-[120px] max-sm:w-[100px]"
-            src="../assets/ssps.png"
-          />
+          <img class="my-auto w-[120] h-10" src="../../assets/ssps.png" />
         </div>
       </div>
       <button
         id="user-card"
-        class="flex flex-row my-auto sm:basis-96 items-center gap-x-3 hover:bg-button-hover active:bg-button-active transition-all ease-out p-2 rounded-xl"
+        class="flex flex-row my-auto basis-96 items-center gap-x-3 hover:bg-button-hover active:bg-button-active transition-all ease-out p-2 rounded-xl"
       >
-        <div
-          class="transition-all flex-none w-[48px] h-[48px] rounded-full overflow-clip max-sm:scale-90"
-        >
-          <img id="user-avatar" class="w-full" src="" />
+        <div class="flex-none w-12">
+          <svg height="48" width="48">
+            <circle cx="24" cy="24" r="24" fill="#bfbfbf" />
+          </svg>
         </div>
-        <div class="transition-all grow flex-col text-left sm:space-y-1">
-          <div class="transition-all max-sm:hidden flex flex-row space-x-2">
-            <p id="user-name" class="font-bold">user.name</p>
+        <div class="grow flex-col text-left space-y-1">
+          <div class="flex flex-row space-x-2">
+            <p id="user-name" class="font-bold"></p>
             <div
               id="user-type"
               class="hidden rounded-lg bg-blue-primary text-white text-xs p-1"
@@ -72,16 +63,8 @@
               Admin
             </div>
           </div>
-          <p
-            id="user-remaining-pages"
-            class="transition-all max-sm:hidden text-sm"
-          >
-            n/n trang còn lại
-          </p>
-          <p class="transition-all sm:hidden text-sm">n/n</p>
-          <div
-            class="transition-all max-sm:hidden w-full bg-gray-200 rounded-full h-1"
-          >
+          <p id="user-remaining-pages" class="text-sm"></p>
+          <div class="w-full bg-gray-200 rounded-full h-1">
             <div
               class="bg-blue-primary h-1 rounded-full"
               style="width: 45%"
@@ -90,7 +73,6 @@
         </div>
         <div class="flex-none">
           <svg
-            class="fill-black dark:fill-white"
             xmlns="http://www.w3.org/2000/svg"
             height="24"
             viewBox="0 -960 960 960"
@@ -102,7 +84,7 @@
       </button>
       <div
         id="user-card-expanded"
-        class="opacity-0 invisible transition-all duration-[250ms] ease-m3-standard-decelerate flex flex-col w-[420px] xl:w-[480px] 2xl:w-[520px] px-6 space-y-5 shadow-3 absolute -top-8 right-12 bg-card-background dark:bg-card-background-dark my-auto items-center box-content scale-y-90 border-card-background hover:bg-card-backgroundrounded-lg"
+        class="opacity-0 invisible transition-all flex flex-col w-[420px] xl:w-[480px] 2xl:w-[520px] space-y-5 shadow-3 absolute top-0 right-12 bg-card-background my-auto items-center p-6 hover:bg-card-background dark:bg-card-background-dark rounded-3xl"
       >
         <button
           class="absolute transition-all top-5 right-5 cursor-pointer rounded-full hover:bg-[#d7e1e9] active:bg-[#b9cad8] p-2"
@@ -127,7 +109,7 @@
           </div>
           <div class="grow flex-col text-left space-y-1">
             <div class="flex flex-row space-x-2">
-              <p id="user-name" class="font-bold">user.name</p>
+              <p id="user-name" class="font-bold"></p>
               <div
                 id="user-type"
                 class="hidden rounded-lg bg-blue-primary text-white text-xs p-1"
@@ -135,7 +117,7 @@
                 Admin
               </div>
             </div>
-            <p id="user-remaining-pages" class="text-sm">n/n trang còn lại</p>
+            <p id="user-remaining-pages" class="text-sm"></p>
             <div class="w-full bg-gray-200 rounded-full h-1">
               <div
                 class="bg-blue-primary h-1 rounded-full"
@@ -187,12 +169,12 @@
     <div
       id="default-sidebar"
       aria-label="Sidebar"
-      class="transition-all duration-[350ms] ease-in-out flex-none fixed left-0 top-0 w-80 h-screen max-lg:pt-24 pt-20 px-10 space-y-3 bg-page-background dark:bg-page-background-dark text-black dark:text-white -translate-x-full lg:translate-x-0 xl:w-1/4 z-40"
+      class="transition-transform duration-[350ms] ease-in-out flex-none fixed left-0 top-0 w-80 h-screen max-lg:pt-24 pt-20 px-10 space-y-3 bg-page-background -translate-x-full lg:translate-x-0 xl:w-1/4 z-40"
     >
       <div class="space-y-5 pb-2">
         <button
           type="button"
-          class="transition ease-out px-8 py-3.5 shadow-1 text-base font-bold text-white inline-flex items rounded-lg text-center gap-x-3 bg-blue-primary hover:shadow-3 hover:bg-button-primary-hover active:bg-button-primary-active max-lg:hidden"
+          class="transition ease-out px-8 py-3.5 shadow-1 text-base font-bold text-white inline-flex items rounded-lg text-center gap-x-3 bg-blue-primary hover:shadow-3 hover:bg-button-primary-hover active:bg-button-primary-active"
         >
           <svg
             class="fill-white"
@@ -227,7 +209,7 @@
           <li>
             <a
               href="./history.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200 font-bold"
+              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200"
             >
               Lịch sử</a
             >
@@ -251,7 +233,7 @@
           <li>
             <a
               href="./help.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200"
+              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200 font-bold"
             >
               Trợ giúp</a
             >
@@ -283,6 +265,7 @@
           <button
             class="hover:bg-card-background dark:bg-card-background-dark p-2 rounded-xl transition-all ease-out active:bg-blue-selection"
             id="light-mode"
+            onclick="toggleInterface()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -298,9 +281,9 @@
           <button
             class="hover:bg-card-background dark:bg-card-background-dark p-2 rounded-xl transition-all ease-out active:bg-blue-selection hidden"
             id="dark-mode"
+            onclick="toggleInterface()"
           >
             <svg
-              class="fill-white"
               xmlns="http://www.w3.org/2000/svg"
               height="24"
               viewBox="0 -960 960 960"
@@ -315,60 +298,53 @@
       </div>
     </div>
     <div
-      class="flex flex-row sm:pt-20 max-sm:pt-16 min-h-screen max-sm:px-0 sm:max-lg:px-5 lg:ml-80 lg:pr-[5%] xl:ml-[25%] bg-page-background dark:bg-page-background-dark pb-8"
+      class="flex flex-row pt-20 min-h-screen max-lg:px-5 lg:ml-80 lg:pr-[5%] xl:ml-[25%] bg-page-background pb-8"
       id="content-area"
     >
-      <div
-        class="flex flex-col bg-white dark:bg-content-background-dark sm:p-10 max-sm:p-5 w-full rounded-[48px] space-y-6"
-      >
+      <div class="flex flex-col bg-white p-10 w-full rounded-[48px] space-y-6">
         <div
-          id="history"
+          id="queue"
           class="flex flex-col pt-8 pb-6 px-8 rounded-3xl text-left bg-card-background dark:bg-card-background-dark space-y-2"
         >
           <div class="flex flex-row w-full justify-between items-center pb-2">
-            <p class="font-bold text-xl">Lịch sử</p>
+            <p class="font-bold text-xl">Hàng đợi</p>
           </div>
           <div class="flex flex-row">
             <p class="text-sm font-bold text-gray-600 grow">Tiêu đề</p>
             <p class="text-sm font-bold text-gray-600 basis-24">Địa điểm</p>
-            <p class="text-sm font-bold text-gray-600 basis-28">Số trang</p>
-            <p class="text-sm font-bold text-gray-600 basis-24">Ngày</p>
+            <p class="text-sm font-bold text-gray-600 basis-28">Tình trạng</p>
+            <p class="text-sm font-bold text-gray-600 basis-24">Dự kiến</p>
+            <div class="basis-9"></div>
           </div>
           <hr class="border w-full" />
           <div class="flex flex-row py-1">
+            <p class="grow text-left truncate">Lab4_RelationalAlgebra.pdf</p>
+            <p class="basis-24 shrink-0">H1-203</p>
+            <p class="basis-28 shrink-0">Đang đợi lấy</p>
+            <p class="basis-24 shrink-0">Đã xong</p>
+            <a href="" class="basis-9 text-blue-primary"></a>
+          </div>
+          <div class="flex flex-row py-1">
             <p class="grow text-left truncate">
-              Chapter_5_V7.01_Accessible.pdf
+              06_Ch6 System Modeling_2023.pdf
             </p>
             <p class="basis-24 shrink-0">H1-203</p>
-            <p class="basis-28 shrink-0">23 trang</p>
-            <p class="basis-24 shrink-0">T2, 30/10</p>
+            <p class="basis-28 shrink-0">Đang in</p>
+            <p class="basis-24 shrink-0">2 phút</p>
+            <a href="" class="basis-9 text-blue-primary">Hủy</a>
           </div>
           <div class="flex flex-row py-1">
-            <p class="grow text-left truncate">
-              Chapter_6_V7.01_Accessible.pdf
-            </p>
-            <p class="basis-24 shrink-0">H2-201</p>
-            <p class="basis-28 shrink-0">27 trang</p>
-            <p class="basis-24 shrink-0">T7, 27/10</p>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow text-left truncate">
-              05-2022-ĐỀ CƯƠNG MỚI-TƯ TƯỞNG HỒ CHÍ MINH-SP1037.pdf
-            </p>
-            <p class="basis-24 shrink-0">H2-201</p>
-            <p class="basis-28 shrink-0">3 trang</p>
-            <p class="basis-24 shrink-0">T4, 25/10</p>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow text-left truncate">6_SQL.pdf</p>
-            <p class="basis-24 shrink-0">H3-402</p>
-            <p class="basis-28 shrink-0">45 trang</p>
-            <p class="basis-24 shrink-0">T4, 25/10</p>
+            <p class="grow text-left truncate">Lab4_RelationalAlgebra.pdf</p>
+            <p class="basis-24 shrink-0">H1-404</p>
+            <p class="basis-28 shrink-0">Đang chờ</p>
+            <p class="basis-24 shrink-0">6 phút</p>
+            <a href="" class="basis-9 text-blue-primary">Hủy</a>
           </div>
         </div>
       </div>
     </div>
   </body>
 
-  <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+  <script type="module" src="../scripts/script.js"></script>
+  <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
 </html>

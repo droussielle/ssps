@@ -1,27 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="../../assets/hcmut.png" />
+    <title>History - SSPS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
+    <link href="../../dist/output.css" rel="stylesheet" />
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="./script.js"></script>
-    <link href="../dist/output.css" rel="stylesheet" />
   </head>
 
   <body>
     <nav
       id="navigation-bar"
-      class="flex flex-row fixed left-0 top-0 sm:h-20 max-sm:h-16 w-screen text-center bg-page-background text-black dark:text-white dark:bg-page-background-dark justify-between z-50 sm:pl-8 sm:pr-12 max-sm:px-4"
+      class="fixed left-0 top-0 z-50 flex w-screen flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12"
     >
       <div
         class="flex flex-row items-center space-x-3 transition-all duration-200 ease-out"
@@ -30,7 +31,7 @@
           data-drawer-target="default-sidebar"
           data-drawer-toggle="default-sidebar"
           aria-controls="default-sidebar"
-          class="flex-none transition-transform -translate-x-0 lg:-translate-x-full lg:invisible"
+          class="flex-none -translate-x-0 transition-transform lg:invisible lg:-translate-x-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,46 +45,44 @@
           </svg>
         </button>
         <div
-          class="flex-none my-auto transition-transform -translate-x-12 max-lg:-translate-x-0"
+          class="my-auto flex-none -translate-x-12 transition-transform max-lg:-translate-x-0"
         >
           <img
             id="ssps-logo"
-            class="transition-all my-auto sm:w-[120px] max-sm:w-[100px]"
-            src="../assets/ssps.png"
+            class="my-auto transition-all max-sm:w-[100px] sm:w-[120px]"
+            src="../../assets/ssps.png"
           />
         </div>
       </div>
       <button
         id="user-card"
-        class="flex flex-row my-auto sm:basis-96 items-center gap-x-3 hover:bg-button-hover active:bg-button-active transition-all ease-out p-2 rounded-xl"
+        class="my-auto flex flex-row items-center gap-x-3 rounded-xl p-2 transition-all ease-out hover:bg-button-hover active:bg-button-active sm:basis-96"
       >
         <div
-          class="transition-all flex-none w-[48px] h-[48px] rounded-full overflow-clip max-sm:scale-90"
+          class="h-[48px] w-[48px] flex-none overflow-clip rounded-full transition-all max-sm:scale-90"
         >
           <img id="user-avatar" class="w-full" src="" />
         </div>
-        <div class="transition-all grow flex-col text-left sm:space-y-1">
-          <div class="transition-all max-sm:hidden flex flex-row space-x-2">
-            <p id="user-name" class="font-bold">user.name</p>
+        <div class="grow flex-col text-left transition-all sm:space-y-1">
+          <div class="flex flex-row space-x-2 transition-all max-sm:hidden">
+            <p id="user-name" class="font-bold"></p>
             <div
               id="user-type"
-              class="hidden rounded-lg bg-blue-primary text-white text-xs p-1"
+              class="hidden rounded-lg bg-blue-primary p-1 text-xs text-white"
             >
               Admin
             </div>
           </div>
           <p
             id="user-remaining-pages"
-            class="transition-all max-sm:hidden text-sm"
-          >
-            n/n trang còn lại
-          </p>
-          <p class="transition-all sm:hidden text-sm">n/n</p>
+            class="text-sm transition-all max-sm:hidden"
+          ></p>
+          <p class="text-sm transition-all sm:hidden">n/n</p>
           <div
-            class="transition-all max-sm:hidden w-full bg-gray-200 rounded-full h-1"
+            class="h-1 w-full rounded-full bg-gray-200 transition-all max-sm:hidden"
           >
             <div
-              class="bg-blue-primary h-1 rounded-full"
+              class="h-1 rounded-full bg-blue-primary"
               style="width: 45%"
             ></div>
           </div>
@@ -102,10 +101,10 @@
       </button>
       <div
         id="user-card-expanded"
-        class="opacity-0 invisible transition-all duration-[250ms] ease-m3-standard-decelerate flex flex-col w-[420px] xl:w-[480px] 2xl:w-[520px] px-6 space-y-5 shadow-3 absolute -top-8 right-12 bg-card-background dark:bg-card-background-dark my-auto items-center box-content scale-y-90 border-card-background hover:bg-card-background rounded-lg"
+        class="invisible absolute -top-8 right-12 my-auto box-content flex w-[420px] scale-y-90 flex-col items-center space-y-5 rounded-lg border-card-background bg-card-background px-6 opacity-0 shadow-3 transition-all duration-[250ms] ease-m3-standard-decelerate hover:bg-card-background dark:bg-card-background-dark xl:w-[480px] 2xl:w-[520px]"
       >
         <button
-          class="absolute transition-all top-5 right-5 cursor-pointer rounded-full hover:bg-[#d7e1e9] active:bg-[#b9cad8] p-2"
+          class="absolute right-5 top-5 cursor-pointer rounded-full p-2 transition-all hover:bg-[#d7e1e9] active:bg-[#b9cad8]"
           id="user-card-expanded-close"
         >
           <svg
@@ -119,37 +118,37 @@
             />
           </svg>
         </button>
-        <div class="flex flex-row w-full space-x-3">
+        <div class="flex w-full flex-row space-x-3">
           <div
-            class="transition-all flex-none w-[48px] h-[48px] rounded-full overflow-clip max-sm:scale-90"
+            class="h-[48px] w-[48px] flex-none overflow-clip rounded-full transition-all max-sm:scale-90"
           >
             <img id="user-avatar" class="w-full" src="" />
           </div>
-          <div class="grow flex-col text-left space-y-1">
+          <div class="grow flex-col space-y-1 text-left">
             <div class="flex flex-row space-x-2">
-              <p id="user-name" class="font-bold">user.name</p>
+              <p id="user-name" class="font-bold"></p>
               <div
                 id="user-type"
-                class="hidden rounded-lg bg-blue-primary text-white text-xs p-1"
+                class="hidden rounded-lg bg-blue-primary p-1 text-xs text-white"
               >
                 Admin
               </div>
             </div>
-            <p id="user-remaining-pages" class="text-sm">n/n trang còn lại</p>
-            <div class="w-full bg-gray-200 rounded-full h-1">
+            <p id="user-remaining-pages" class="text-sm"></p>
+            <div class="h-1 w-full rounded-full bg-gray-200">
               <div
-                class="bg-blue-primary h-1 rounded-full"
+                class="h-1 rounded-full bg-blue-primary"
                 style="width: 45%"
               ></div>
             </div>
           </div>
         </div>
-        <div class="flex flex-row w-full justify-between items-center px-2">
+        <div class="flex w-full flex-row items-center justify-between px-2">
           <p id="user-reset-date" class="">Đặt lại vào 01/10/2023</p>
           <button
             id="add-pages"
             type="button"
-            class="transition ease-out px-5 py-2.5 shadow-1 text-white inline-flex items rounded-full text-center gap-x-1 bg-blue-primary hover:shadow-3 hover:bg-button-primary-hover active:bg-button-primary-active"
+            class="items inline-flex gap-x-1 rounded-full bg-blue-primary px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active"
           >
             <svg
               class="fill-white"
@@ -165,19 +164,19 @@
             Nạp thêm
           </button>
         </div>
-        <hr class="border w-full" />
-        <div class="flex flex-row justify-between w-full px-2">
+        <hr class="w-full border" />
+        <div class="flex w-full flex-row justify-between px-2">
           <button
             id="edit-account"
             type="button"
-            class="transition ease-out px-6 py-2.5 shadow-1 text-black inline-flex rounded-full text-center gap-x-3 items hover:shadow-3 hover:bg-button-hover active:bg-button-active"
+            class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active"
           >
             Sửa tài khoản
           </button>
           <button
             id="logout"
             type="button"
-            class="transition ease-out px-6 py-2.5 shadow-1 text-white inline-flex items rounded-full text-center gap-x-3 bg-red-700 hover:shadow-3 hover:bg-red-600 active:bg-red-800"
+            class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800"
           >
             Đăng xuất
           </button>
@@ -187,12 +186,12 @@
     <div
       id="default-sidebar"
       aria-label="Sidebar"
-      class="transition-all duration-[350ms] ease-in-out flex-none fixed left-0 top-0 w-80 h-screen max-lg:pt-24 pt-20 px-10 space-y-3 bg-page-background dark:bg-page-background-dark text-black dark:text-white -translate-x-full lg:translate-x-0 xl:w-1/4 z-40"
+      class="fixed left-0 top-0 z-40 h-screen w-80 flex-none -translate-x-full space-y-3 bg-page-background px-10 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
     >
       <div class="space-y-5 pb-2">
         <button
           type="button"
-          class="transition ease-out px-8 py-3.5 shadow-1 text-base font-bold text-white inline-flex items rounded-lg text-center gap-x-3 bg-blue-primary hover:shadow-3 hover:bg-button-primary-hover active:bg-button-primary-active max-lg:hidden"
+          class="items inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
         >
           <svg
             class="fill-white"
@@ -211,7 +210,7 @@
           <li>
             <a
               href="./home.html"
-              class="flex hover:bg-button-hover dark:hover:bg-button-hover-dark active:bg-button-active dark:active:bg-button-active-dark p-3 rounded-3xl transition-all ease-out duration-200"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Trang chủ</a
             >
@@ -219,7 +218,7 @@
           <li>
             <a
               href="./queue.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200 font-bold"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Hàng đợi</a
             >
@@ -227,7 +226,7 @@
           <li>
             <a
               href="./history.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200"
+              class="flex rounded-3xl p-3 font-bold transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Lịch sử</a
             >
@@ -235,7 +234,7 @@
           <li>
             <a
               href="./manage.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Quản lí</a
             >
@@ -243,7 +242,7 @@
           <li>
             <a
               href="./report.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Báo cáo</a
             >
@@ -251,7 +250,7 @@
           <li>
             <a
               href="./help.html"
-              class="flex hover:bg-card-background dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark active:bg-button-active p-3 rounded-3xl transition-all ease-out duration-200"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Trợ giúp</a
             >
@@ -273,7 +272,7 @@
         <div>
           <select
             id="language"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
           >
             <option value="VI">Tiếng Việt</option>
             <option value="EN">English</option>
@@ -281,7 +280,7 @@
         </div>
         <div class="flex items-center">
           <button
-            class="hover:bg-card-background dark:bg-card-background-dark p-2 rounded-xl transition-all ease-out active:bg-blue-selection"
+            class="rounded-xl p-2 transition-all ease-out hover:bg-card-background active:bg-blue-selection dark:bg-card-background-dark"
             id="light-mode"
           >
             <svg
@@ -296,7 +295,7 @@
             </svg>
           </button>
           <button
-            class="hover:bg-card-background dark:bg-card-background-dark p-2 rounded-xl transition-all ease-out active:bg-blue-selection hidden"
+            class="hidden rounded-xl p-2 transition-all ease-out hover:bg-card-background active:bg-blue-selection dark:hover:bg-card-background-dark"
             id="dark-mode"
           >
             <svg
@@ -315,54 +314,61 @@
       </div>
     </div>
     <div
-      class="flex flex-row sm:pt-20 max-sm:pt-16 min-h-screen max-sm:px-0 sm:max-lg:px-5 lg:ml-80 lg:pr-[5%] xl:ml-[25%] bg-page-background dark:bg-page-background-dark pb-8"
+      class="flex min-h-screen flex-row bg-page-background pb-8 dark:bg-page-background-dark max-sm:px-0 max-sm:pt-16 sm:pt-20 sm:max-lg:px-5 lg:ml-80 lg:pr-[5%] xl:ml-[25%]"
       id="content-area"
     >
       <div
-        class="flex flex-col bg-white dark:bg-content-background-dark sm:p-10 max-sm:p-5 w-full rounded-[48px] space-y-6"
+        class="flex w-full flex-col space-y-6 rounded-[48px] bg-white dark:bg-content-background-dark max-sm:p-5 sm:p-10"
       >
         <div
-          id="queue"
-          class="flex flex-col pt-8 pb-6 px-8 rounded-3xl text-left bg-card-background dark:bg-card-background-dark space-y-2"
+          id="history"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
         >
-          <div class="flex flex-row w-full justify-between items-center pb-2">
-            <p class="font-bold text-xl">Hàng đợi</p>
+          <div class="flex w-full flex-row items-center justify-between pb-2">
+            <p class="text-xl font-bold">Lịch sử</p>
           </div>
           <div class="flex flex-row">
-            <p class="text-sm font-bold text-gray-600 grow">Tiêu đề</p>
-            <p class="text-sm font-bold text-gray-600 basis-24">Địa điểm</p>
-            <p class="text-sm font-bold text-gray-600 basis-28">Tình trạng</p>
-            <p class="text-sm font-bold text-gray-600 basis-24">Dự kiến</p>
-            <div class="basis-9"></div>
+            <p class="grow text-sm font-bold text-gray-600">Tiêu đề</p>
+            <p class="basis-24 text-sm font-bold text-gray-600">Địa điểm</p>
+            <p class="basis-28 text-sm font-bold text-gray-600">Số trang</p>
+            <p class="basis-24 text-sm font-bold text-gray-600">Ngày</p>
           </div>
-          <hr class="border w-full" />
+          <hr class="w-full border" />
           <div class="flex flex-row py-1">
-            <p class="grow text-left truncate">Lab4_RelationalAlgebra.pdf</p>
-            <p class="basis-24 shrink-0">H1-203</p>
-            <p class="basis-28 shrink-0">Đang đợi lấy</p>
-            <p class="basis-24 shrink-0">Đã xong</p>
-            <a href="" class="basis-9 text-blue-primary"></a>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow text-left truncate">
-              06_Ch6 System Modeling_2023.pdf
+            <p class="grow truncate text-left">
+              Chapter_5_V7.01_Accessible.pdf
             </p>
-            <p class="basis-24 shrink-0">H1-203</p>
-            <p class="basis-28 shrink-0">Đang in</p>
-            <p class="basis-24 shrink-0">2 phút</p>
-            <a href="" class="basis-9 text-blue-primary">Hủy</a>
+            <p class="shrink-0 basis-24">H1-203</p>
+            <p class="shrink-0 basis-28">23 trang</p>
+            <p class="shrink-0 basis-24">T2, 30/10</p>
           </div>
           <div class="flex flex-row py-1">
-            <p class="grow text-left truncate">Lab4_RelationalAlgebra.pdf</p>
-            <p class="basis-24 shrink-0">H1-404</p>
-            <p class="basis-28 shrink-0">Đang chờ</p>
-            <p class="basis-24 shrink-0">6 phút</p>
-            <a href="" class="basis-9 text-blue-primary">Hủy</a>
+            <p class="grow truncate text-left">
+              Chapter_6_V7.01_Accessible.pdf
+            </p>
+            <p class="shrink-0 basis-24">H2-201</p>
+            <p class="shrink-0 basis-28">27 trang</p>
+            <p class="shrink-0 basis-24">T7, 27/10</p>
+          </div>
+          <div class="flex flex-row py-1">
+            <p class="grow truncate text-left">
+              05-2022-ĐỀ CƯƠNG MỚI-TƯ TƯỞNG HỒ CHÍ MINH-SP1037.pdf
+            </p>
+            <p class="shrink-0 basis-24">H2-201</p>
+            <p class="shrink-0 basis-28">3 trang</p>
+            <p class="shrink-0 basis-24">T4, 25/10</p>
+          </div>
+          <div class="flex flex-row py-1">
+            <p class="grow truncate text-left">6_SQL.pdf</p>
+            <p class="shrink-0 basis-24">H3-402</p>
+            <p class="shrink-0 basis-28">45 trang</p>
+            <p class="shrink-0 basis-24">T4, 25/10</p>
           </div>
         </div>
       </div>
     </div>
   </body>
 
-  <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+  <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
+  <script type="module" src="../scripts/script.js"></script>
 </html>

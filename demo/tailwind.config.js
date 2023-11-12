@@ -23,7 +23,7 @@ module.exports = {
         'button-active-dark': '#BBD7EC',
         'page-background-dark': '#131316',
         'content-background-dark': '#39393C',
-        'card-background-dark': '#001453'
+        'card-background-dark': '#1752e5'
       },
       fontFamily: {
         'sans': ['Inter', defaultTheme.fontFamily.sans],
