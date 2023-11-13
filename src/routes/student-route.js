@@ -32,7 +32,7 @@ router.post("/signup", async (req,res,next)=>{
 
         if (mydata === null){
             return res.json({
-                message: "invalid email"
+                message: "invalid email or user ID"
             });
         } else{
             return res.status(200).json({

@@ -29,7 +29,7 @@ router.post("/signup", async (req,res,next)=>{
         const mydata = await SPSO.signup({email,password,name,profile_image,phone_number,spso_ID});
         if (mydata === null){
             return res.json({
-                message: "invalid email"
+                message: "invalid email or user ID"
             });
         }   else{
             return res.status(200).json({

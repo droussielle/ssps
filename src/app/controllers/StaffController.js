@@ -9,8 +9,9 @@ class StaffController {
   async signup (userinputs){
     const {email,password,name,profile_image,phone_number,staff_ID} = userinputs;
     const existUser = await accountmodel.findOne({email:email});
+    const existStaff_ID = await staffmodel.findOne({staff_ID: staff_ID});
 
-    if(existUser){
+    if(existUser || existStaff_ID){
       return null;
     } else{
       try{

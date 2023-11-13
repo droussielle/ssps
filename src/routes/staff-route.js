@@ -28,7 +28,7 @@ router.post("/signup", async (req,res,next)=>{
         const mydata = await Staff.signup({email,password,name,profile_image,phone_number,staff_ID});
         if (mydata === null){
             return res.json({
-                message: "invalid email"
+                message: "invalid email or user ID"
             });
         }   else{
             return res.status(200).json({

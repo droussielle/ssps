@@ -9,8 +9,9 @@ class StudentController {
   async signup (userinputs){
     const {email,password,name,profile_image,phone_number,student_ID} = userinputs;
     const existUser = await accountmodel.findOne({email:email});
+    const existStudent_ID = await studentmodel.findOne({student_ID: student_ID});
 
-    if(existUser){
+    if(existUser || existStudent_ID){
       return null;
     } else{
       try{

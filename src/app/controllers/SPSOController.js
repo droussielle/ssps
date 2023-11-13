@@ -24,8 +24,9 @@ class SPSOController {
   async signup (userinputs){
     const {email,password,name,profile_image,phone_number,spso_ID} = userinputs;
     const existUser = await accountmodel.findOne({email:email});
+    const existSPSO_ID = await spsomodel.findOne({spso_ID: spso_ID});
 
-    if(existUser){
+    if(existUser || existSPSO_ID){
       return null;
     } else{
       try{
