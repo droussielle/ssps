@@ -1,11 +1,15 @@
-const accountmodel = require("../models/Account");
-const spsomodel = require("../models/SPSO");
-const printermodel = require("../models/Printer");
-const mongoose = require("mongoose");
-const {  generatepassword, formatedata, generatesignature, validatepassword,generatesalt } = require('../../auth/side');
+const accountmodel = require('../models/Account');
+const spsomodel = require('../models/SPSO');
+const printermodel = require('../models/Printer');
+const mongoose = require('mongoose');
+const {
+  generatepassword,
+  formatedata,
+  generatesignature,
+  validatepassword,
+  generatesalt,
+} = require('../../auth/side');
 
-class PrintOrderController {
-
-}
+class PrintOrderController {}
 
 module.exports = new PrintOrderController();
