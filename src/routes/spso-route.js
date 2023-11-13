@@ -29,7 +29,9 @@ router.post('/signup', async (req, res, next) => {
       typeof spso_ID === 'undefined'
     ) {
       return res.status(400).json({
-        message: 'invalid request data format',
+        error: {
+          message: 'Invalid request data format',
+        },
       });
     }
 
@@ -42,14 +44,20 @@ router.post('/signup', async (req, res, next) => {
       spso_ID,
     });
     if (mydata === null) {
-      return res.json({
-        message: 'invalid email or user ID',
+      return res.status(400).json({
+        error: {
+          message: 'Invalid email or user ID',
+        },
       });
-    } else {
-      return res.status(200).json({
-        message: 'Account created successfully',
+    } else if (mydata.error) {
+      return res.status(400).json({
+        error: {
+          message: 'Request failed',
+        },
       });
     }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -63,7 +71,6 @@ router.get('/printer', userauth, async (req, res, next) => {
         message: 'Unauthorized',
       });
     }
-
     const mydata = await SPSO.getAllPrinter();
     return res.json(mydata);
   } catch (err) {
@@ -79,10 +86,14 @@ router.get('/printer/:id', userauth, async (req, res, next) => {
         message: 'Unauthorized',
       });
     }
-
     const id = req.params.id;
     const mydata = await SPSO.getPrinter(id);
-    return res.json(mydata);
+
+    if (mydata.data.error) {
+      return res.status(404).json(mydata.data);
+    }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }

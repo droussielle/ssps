@@ -47,6 +47,10 @@ class StaffController {
 
         const result = {
           message: 'Account created successfully',
+          email: newAccountResult.email,
+          name: newAccountResult.name,
+          role: newAccountResult.role,
+          staff_ID: newStaffResult.staff_ID,
         };
 
         return result;

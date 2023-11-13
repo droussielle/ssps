@@ -41,14 +41,20 @@ router.post('/signup', async (req, res, next) => {
       staff_ID,
     });
     if (mydata === null) {
-      return res.json({
-        message: 'invalid email or user ID',
+      return res.status(400).json({
+        error: {
+          message: 'Invalid email or user ID',
+        },
       });
-    } else {
-      return res.status(200).json({
-        message: 'Account created successfully',
+    } else if (mydata.error) {
+      return res.status(400).json({
+        error: {
+          message: 'Request failed',
+        },
       });
     }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }

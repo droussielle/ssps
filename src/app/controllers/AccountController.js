@@ -35,7 +35,11 @@ class AccountController {
           });
         }
       }
-      return formatedata(null);
+      return formatedata({
+        error: {
+          message: 'Login failed',
+        },
+      });
     } catch (err) {
       throw err;
     }
@@ -43,7 +47,6 @@ class AccountController {
 
   async changePassword(userinputs) {
     const { oldPassword, newPassword, user } = userinputs;
-    console.log(user);
     try {
       const myuser = await accountmodel.findOne({ email: user.email });
       if (myuser) {
@@ -66,13 +69,13 @@ class AccountController {
             },
           );
           return formatedata(result);
-        } else {
-          return formatedata({
-            message: 'Invalid request',
-          });
         }
       }
-      return formatedata(myuser);
+      return formatedata({
+        error: {
+          message: 'Request failed',
+        },
+      });
     } catch (err) {
       throw err;
     }
@@ -83,17 +86,22 @@ class AccountController {
     try {
       const myuser = await accountmodel.findOne({ _id: user._id });
       const newBalance = myuser.credit + increment;
-
-      const result = await accountmodel.updateOne(
-        { _id: myuser._id },
-        {
-          $set: {
-            credit: newBalance,
+      if (myuser) {
+        const result = await accountmodel.updateOne(
+          { _id: myuser._id },
+          {
+            $set: {
+              credit: newBalance,
+            },
           },
+        );
+        return formatedata(result);
+      }
+      return formatedata({
+        error: {
+          message: 'Request failed',
         },
-      );
-
-      return formatedata(result);
+      });
     } catch (err) {
       throw err;
     }

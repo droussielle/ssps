@@ -41,18 +41,21 @@ router.post('/signup', async (req, res, next) => {
       phone_number,
       student_ID,
     });
-
     if (mydata === null) {
-      return res.json({
+      return res.status(400).json({
         error: {
-          message: 'invalid email or user ID',
+          message: 'Invalid email or user ID',
         },
       });
-    } else {
-      return res.status(200).json({
-        message: mydata,
+    } else if (mydata.error) {
+      return res.status(400).json({
+        error: {
+          message: 'Request failed',
+        },
       });
     }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }

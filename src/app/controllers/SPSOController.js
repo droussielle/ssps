@@ -61,6 +61,10 @@ class SPSOController {
 
         const result = {
           message: 'Account created successfully',
+          email: newAccountResult.email,
+          name: newAccountResult.name,
+          role: newAccountResult.role,
+          spso_ID: newSPSOResult.spso_ID,
         };
 
         return result;
@@ -129,7 +133,14 @@ class SPSOController {
   async getPrinter(id) {
     try {
       const result = await printermodel.findById(id);
-      return formatedata(result);
+      if (result) {
+        return formatedata(result);
+      }
+      return formatedata({
+        error: {
+          message: 'Printer not found',
+        },
+      });
     } catch (err) {
       throw err;
     }
