@@ -97,7 +97,7 @@ class SPSOController {
 
   async updatePrinterStatus(id, status) {
     try {
-      const result = await printermodel.updateOne(
+      const result = await printermodel.findOneAndUpdate(
         { _id: id },
         {
           $set: {
@@ -106,7 +106,16 @@ class SPSOController {
         },
       );
 
-      return formatedata(result);
+      if (result) {
+        return formatedata({
+          message: 'Status updated',
+        });
+      }
+      return formatedata({
+        error: {
+          message: 'Request failed',
+        },
+      });
     } catch (err) {
       throw err;
     }
@@ -114,8 +123,18 @@ class SPSOController {
 
   async deletePrinter(id) {
     try {
-      const result = await printermodel.deleteOne({ _id: id });
-      return formatedata(result);
+      const result = await printermodel.findOneAndDelete({ _id: id });
+      if (result) {
+        return formatedata({
+          message: 'Printer deleted',
+        });
+      }
+
+      return formatedata({
+        error: {
+          message: 'Request failed',
+        },
+      });
     } catch (err) {
       throw err;
     }
@@ -158,7 +177,15 @@ class SPSOController {
   async getStudent(student_ID) {
     try {
       const result = await studentmodel.findOne({ student_ID: student_ID });
-      return formatedata(result);
+      if (result) {
+        return formatedata(result);
+      }
+
+      return formatedata({
+        error: {
+          message: 'Student not found',
+        },
+      });
     } catch (err) {
       throw err;
     }
@@ -175,7 +202,14 @@ class SPSOController {
   async getStaff(staff_ID) {
     try {
       const result = await staffmodel.findOne({ staff_ID: staff_ID });
-      return formatedata(result);
+      if (result) {
+        return formatedata(result);
+      }
+      return formatedata({
+        error: {
+          message: 'Staff not found',
+        },
+      });
     } catch (err) {
       throw err;
     }

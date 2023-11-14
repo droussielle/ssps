@@ -68,11 +68,13 @@ router.get('/printer', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const mydata = await SPSO.getAllPrinter();
-    return res.json(mydata);
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -83,7 +85,9 @@ router.get('/printer/:id', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const id = req.params.id;
@@ -104,7 +108,9 @@ router.post('/printer', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const { brand, model, shortDescription, location, printerStatus } =
@@ -114,8 +120,10 @@ router.post('/printer', userauth, async (req, res, next) => {
       typeof printerStatus === 'undefined'
     ) {
       return res.status(400).json({
-        message:
-          'invalid reques data format: location and printerStatus field must be specified',
+        error: {
+          message:
+            'invalid reques data format: location and printerStatus field must be specified',
+        },
       });
     }
 
@@ -127,7 +135,10 @@ router.post('/printer', userauth, async (req, res, next) => {
       printerStatus,
     });
 
-    return res.json(mydata);
+    if (mydata.error) {
+      return res.status(400).json(mydata.error);
+    }
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -138,13 +149,28 @@ router.patch('/printer/:id', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const status = req.body.status;
     const id = req.params.id;
+    if (status !== 'false' && status !== 'true') {
+      return res.status(400).json({
+        error: {
+          message: 'Request failed',
+        },
+      });
+    }
+
     const mydata = await SPSO.updatePrinterStatus(id, status);
-    return res.json(mydata);
+
+    if (mydata.data.error) {
+      return res.status(400).json(mydata.data);
+    }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -155,12 +181,17 @@ router.delete('/printer/:id', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const id = req.params.id;
     const mydata = await SPSO.deletePrinter(id);
-    return res.json(mydata);
+    if (mydata.data.error) {
+      return res.status(400).json(mydata.data);
+    }
+    return res.status(200).json(mydata.data);
   } catch (err) {
     next(err);
   }
@@ -171,11 +202,14 @@ router.get('/student', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const mydata = await SPSO.getAllStudent();
-    return res.json(mydata);
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -186,12 +220,19 @@ router.get('/student/:student_ID', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const student_ID = req.params.student_ID;
     const mydata = await SPSO.getStudent(student_ID);
-    return res.json(mydata);
+
+    if (mydata.data.error) {
+      return res.status(400).json(mydata.data);
+    }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -206,7 +247,9 @@ router.post(
       const isSPSO = await SPSO.spsoAuthorize(req.user);
       if (!isSPSO) {
         return res.status(401).json({
-          message: 'Unauthorized',
+          error: {
+            message: 'Unauthorized',
+          },
         });
       }
       const permittedFileType = req.body.fileTypes;
@@ -223,7 +266,9 @@ router.get('/staff', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const mydata = await SPSO.getAllStaff();
@@ -238,12 +283,19 @@ router.get('/staff/:staff_ID', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const staff_ID = req.params.staff_ID;
     const mydata = await SPSO.getStaff(staff_ID);
-    return res.json(mydata);
+
+    if (mydata.data.error) {
+      return res.status(400).json(mydata.data);
+    }
+
+    return res.status(200).json(mydata);
   } catch (err) {
     next(err);
   }
@@ -254,7 +306,9 @@ router.post('/set-default-pages', userauth, async (req, res, next) => {
     const isSPSO = await SPSO.spsoAuthorize(req.user);
     if (!isSPSO) {
       return res.status(401).json({
-        message: 'Unauthorized',
+        error: {
+          message: 'Unauthorized',
+        },
       });
     }
     const amount = req.body.amount;

@@ -29,7 +29,6 @@ module.exports.generatesignature = async (payload) => {
 module.exports.validatesignature = async (req) => {
   try {
     const signature = req.get('Authorization'); //get value from header
-    console.log(signature);
     const payload = await jwt.verify(
       signature.split(' ')[1],
       process.env.JWT_code,
