@@ -9,6 +9,7 @@ const PrintOrder = new Schema({
   status: { type: Boolean, required: true, default: false }, //true = done, false = undone
   permittedFileType: { type: Array, default: ['pdf', 'doc', 'docx'] },
   fileLocation: { type: String, required: true },
+  fileName: { type: String, required: true },
   printProperies: [
     {
       paperSize: { type: String, default: 'a4' },
