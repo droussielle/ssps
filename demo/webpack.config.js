@@ -7,11 +7,14 @@ const isProduction = process.env.NODE_ENV == 'production';
 const stylesHandler = 'style-loader';
 
 const config = {
-  devServer: {
-    static: './dist',
+  entry: {
+    index: './src/scripts/index.js',
+    home: './src/scripts/home.js',
+    login: './src/scripts/login.js',
+    manage: './src/scripts/manage.js',
   },
-  entry: './src/scripts/index.js',
   output: {
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [

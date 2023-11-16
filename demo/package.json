@@ -1,7 +1,11 @@
 {
   "name": "ssps-client",
   "version": "0.1.0",
+  "description": "",
   "private": true,
+  "scripts": {
+    "build": "webpack && tailwindcss -i ./src/input.css -o ./dist/output.css --minify"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",

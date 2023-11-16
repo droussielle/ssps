@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import 'flowbite';
 import $ from 'jquery';
-import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
+import { fileUpload } from './home.js';
 
 /* load user info on page load */
 $(() => {
@@ -63,41 +63,6 @@ function darkMode() {
   localStorage.setItem('darkMode', 'true');
 }
 
-// function fetchData() {
-//   setTimeout(2000);
-// }
-
-// function loadQueue() {
-//   $(window)
-//     .delay(2000)
-//     .then(() => {
-//       $('#queue-content').html('');
-//     });
-//   // const data = [
-//   //   {
-//   //     fileName: 'Lab4_RelationalAlgebra.pdf',
-//   //     location: 'H1-203',
-//   //     status: 'Đang đợi lấy',
-//   //     remainingTime: '0',
-//   //   },
-//   //   {
-//   //     fileName: 'Lab4_RelationalAlgebra.pdf',
-//   //     location: 'H1-203',
-//   //     status: 'Đang đợi lấy',
-//   //     remainingTime: '0',
-//   //   },
-//   //   {
-//   //     fileName: 'Lab4_RelationalAlgebra.pdf',
-//   //     location: 'H1-203',
-//   //     status: 'Đang đợi lấy',
-//   //     remainingTime: '0',
-//   //   },
-//   // ];
-//   // data.forEach(() => {
-//   //   let item = '<div>';
-//   // });
-// }
-
 /* Open detailed user card */
 $('#user-card').on('click', function () {
   $('#user-card-expanded')
@@ -108,28 +73,6 @@ $('#user-card').on('click', function () {
       'duration-[250ms] ease-m3-standard-decelerate translate-y-10 opacity-100 rounded-3xl pb-6 pt-2',
     );
 });
-
-function formatBytes(bytes, decimals = 2) {
-  if (!+bytes) return '0 Bytes';
-
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = [
-    'Bytes',
-    'KiB',
-    'MiB',
-    'GiB',
-    'TiB',
-    'PiB',
-    'EiB',
-    'ZiB',
-    'YiB',
-  ];
-
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
-}
 
 /* Close detailed user card */
 $('#user-card-expanded-close').on('click', function () {
@@ -142,77 +85,34 @@ $('#user-card-expanded-close').on('click', function () {
     );
 });
 
+/* enable dark mode */
 $('#light-mode').on('click', function () {
   darkMode();
 });
 
+/* enable light mode */
 $('#dark-mode').on('click', function () {
   lightMode();
 });
 
+/* buy more pages */
 $('#add-pages').on('click', function () {
   window.location.href = './buy.html';
 });
 
+/* log out of the service */
 $('#logout').on('click', function () {
   // logOut();
   localStorage.removeItem('userInfo');
   window.location.href = './login.html';
 });
 
-$('#expand-print-options').on('click', () => {
-  if ($('#print-options').hasClass('invisible')) {
-    $('#print-options')
-      .removeClass('invisible max-h-0 opacity-0')
-      .addClass('max-h-[1000px] opacity-100');
-    $('#expand-print-options-arrow').removeClass('rotate-180');
-    $('#expand-print-options-arrow').addClass('rotate-0');
-  } else {
-    $('#print-options')
-      .addClass('invisible max-h-0 opacity-0')
-      .removeClass('max-h-[1000px] opacity-100');
-    $('#expand-print-options-arrow').removeClass('rotate-0');
-    $('#expand-print-options-arrow').addClass('rotate-180');
-  }
-});
-
-/* handling file upload */
+/* handle upload button event */
 $('#uploadButton').on('click', () => {
   $('#fileInput').trigger('click');
 });
+
 $('#fileInput').on('change', async function () {
-  if (window.location.href.indexOf('home') === -1) {
-    window.location.href = './home.html';
-  }
-  $('#print-options').trigger('reset');
-  $('#drop-zone').addClass('hidden');
-  $('#uploaded').removeClass('hidden').addClass('flex');
-  // await new Promise((r) => setTimeout(r, 2000));
-  // eslint-disable-next-line
-  const file = this.files[0]; /* now you can work with the file list */
-  const fileURL = URL.createObjectURL(file);
-  // console.log(file.name, file.size);
-
-  /* add file properties */
-
-  const fname = file.name;
-  const re = /(\.pdf|\.pdf)$/i;
-  if (!re.exec(fname)) {
-    // alert('File extension not supported!');
-    throw new Error('unsupportedFileType');
-  }
-  let filePages;
-  pdfjsLib.getDocument(fileURL).promise.then((document) => {
-    filePages = document.numPages;
-    console.log(filePages);
-    $('#upload-document-properties').html(
-      '<p>' +
-        file.name +
-        '</p><p>' +
-        file.size +
-        ' • ' +
-        filePages +
-        ' trang</p>',
-    );
-  });
+  /* eslint-disable no-invalid-this */
+  fileUpload(this.files[0]);
 });
