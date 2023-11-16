@@ -7,22 +7,9 @@ function User(name, imageURL, remainingPages, resetDate, userType = 'User') {
   this.userType = userType;
 }
 
-// $('[name=submitButton]').on('submit', function (e) {
-//   // e.preventDefault();
-//   console.log('hehe');
-//   const user = new User(
-//     'Lê Nguyên Chương',
-//     '../../assets/avatar.png',
-//     '25',
-//     '01-01-2024',
-//     'User',
-//   );
-//   localStorage.setItem('userInfo', JSON.stringify(user));
-//   // window.location.href = './home.html';
-// });
-
-// eslint-disable-next-line no-unused-vars
-function userLogin(username, password) {
+$('[name=submitButton]').on('click', function (e) {
+  e.preventDefault();
+  console.log('hehe');
   const user = new User(
     'Lê Nguyên Chương',
     '../../assets/avatar.png',
@@ -31,4 +18,16 @@ function userLogin(username, password) {
     'User',
   );
   localStorage.setItem('userInfo', JSON.stringify(user));
+  if (authorize) {
+    window.location.href = './home.html';
+  } else {
+    console.log('bruh');
+  }
+});
+
+// eslint-disable-next-line no-unused-vars
+function authorize(username, password) {
+  username;
+  password;
+  return true;
 }

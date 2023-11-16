@@ -189,23 +189,27 @@
       class="fixed left-0 top-0 z-40 h-screen w-80 flex-none -translate-x-full space-y-3 bg-page-background px-10 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
     >
       <div class="space-y-5 pb-2">
-        <button
-          type="button"
-          class="items inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
-        >
-          <svg
-            class="fill-white"
-            xmlns="http://www.w3.org/2000/svg"
-            height="24"
-            viewBox="0 -960 960 960"
-            width="24"
+        <form action="/api" method="post" enctype="multipart/form-data">
+          <input id="fileInput" name="file" type="file" class="hidden" />
+          <button
+            type="button"
+            class="items inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
+            onclick="$('#fileInput').click()"
           >
-            <path
-              d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
-            />
-          </svg>
-          Tải lên
-        </button>
+            <svg
+              class="fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
+              />
+            </svg>
+            Tải lên
+          </button>
+        </form>
         <ul class="text-xl">
           <li>
             <a

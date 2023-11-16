@@ -12,11 +12,6 @@
       rel="stylesheet"
     />
     <link href="../../dist/output.css" rel="stylesheet" />
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
@@ -195,23 +190,27 @@
       class="fixed left-0 top-0 z-40 h-screen w-80 flex-none -translate-x-full space-y-3 bg-page-background px-10 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
     >
       <div class="space-y-5 pb-2">
-        <button
-          type="button"
-          class="items inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
-        >
-          <svg
-            class="fill-white"
-            xmlns="http://www.w3.org/2000/svg"
-            height="24"
-            viewBox="0 -960 960 960"
-            width="24"
+        <form action="/api" method="post" enctype="multipart/form-data">
+          <input id="fileInput" name="file" type="file" class="hidden" />
+          <button
+            type="button"
+            class="items inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
+            id="uploadButton"
           >
-            <path
-              d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
-            />
-          </svg>
-          Tải lên
-        </button>
+            <svg
+              class="fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
+              />
+            </svg>
+            Tải lên
+          </button>
+        </form>
         <ul class="text-xl">
           <li>
             <a
@@ -278,7 +277,7 @@
         <div>
           <select
             id="language"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            class="block w-full rounded-lg border-0 bg-gray-200 p-2.5 text-sm text-gray-900 bg-blend-normal focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
           >
             <option value="VI">Tiếng Việt</option>
             <option value="EN">English</option>
@@ -320,15 +319,15 @@
       </div>
     </div>
     <div
-      class="flex min-h-screen flex-row bg-page-background pb-8 dark:bg-page-background-dark max-sm:px-0 max-sm:pt-16 sm:pt-20 sm:max-lg:px-5 lg:ml-80 lg:pr-[5%] xl:ml-[25%]"
+      class="flex min-h-screen flex-row bg-page-background pb-8 dark:bg-page-background-dark dark:text-dark-surface max-sm:px-0 max-sm:pt-16 sm:pt-20 sm:max-lg:px-5 lg:ml-80 lg:pr-[5%] xl:ml-[25%]"
       id="content-area"
     >
       <div
-        class="flex w-full flex-col space-y-6 rounded-[48px] bg-white dark:bg-content-background-dark max-sm:p-5 sm:p-10"
+        class="flex w-full flex-col space-y-8 rounded-[48px] bg-white dark:bg-content-background-dark max-sm:p-5 sm:p-10"
       >
         <div
           id="drop-zone"
-          class="flex rounded-3xl border-dashed border-gray-300 text-center max-sm:flex-row max-sm:border-8 max-sm:px-4 max-sm:py-1 sm:flex-col sm:border-[10px] sm:px-10 sm:py-12"
+          class="flex rounded-3xl border-dashed border-gray-300 text-center opacity-100 max-sm:flex-row max-sm:border-8 max-sm:px-4 max-sm:py-1 sm:flex-col sm:border-[10px] sm:px-10 sm:py-12"
         >
           <svg
             class="self-center max-sm:scale-75"
@@ -346,6 +345,227 @@
           <p class="self-center sm:hidden">Bấm vào đây hoặc dùng nút Tải lên</p>
         </div>
         <div
+          id="uploaded"
+          class="hidden flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left transition-transform dark:bg-card-background-dark"
+        >
+          <div class="flex flex-row items-center space-x-5">
+            <p class="text-2xl font-bold">PDF</p>
+            <div class="flex flex-col" id="upload-document-properties">
+              <!-- <p>Lab4_RelationalAlgebra.pdf</p>
+              <p>370 KB • 15 trang</p> -->
+              <div
+                class="mb-2 h-5 w-60 animate-pulse rounded-full bg-slate-300"
+              ></div>
+              <div
+                class="h-4 w-36 animate-pulse rounded-full bg-slate-300"
+              ></div>
+            </div>
+          </div>
+          <form class="flex flex-col space-y-3" id="printer-select">
+            <p>Chọn địa điểm</p>
+            <!-- <div class="flex flex-row justify-between" id="printer-item">
+              <div class="flex flex-row items-center space-x-2">
+                <input
+                  id="printer-item-1"
+                  type="radio"
+                  name="printer-select"
+                  value="H1-203"
+                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                  checked
+                />
+                <label for="printer-item-1">H1-203</label>
+              </div>
+              <div class="flex flex-row items-center space-x-2">
+                <p>3 phút</p>
+                <div class="h-2 w-8 rounded-full bg-red-500"></div>
+              </div>
+            </div>
+            <div class="flex flex-row justify-between" id="printer-item">
+              <div class="flex flex-row items-center space-x-2">
+                <input
+                  id="printer-item-2"
+                  type="radio"
+                  name="printer-select"
+                  value="H1-203"
+                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                  checked
+                />
+                <label for="printer-item-2">H1-203</label>
+              </div>
+              <div class="flex flex-row items-center space-x-2">
+                <p>3 phút</p>
+                <div class="h-2 w-8 rounded-full bg-red-500"></div>
+              </div>
+            </div>
+            <div class="flex flex-row justify-between" id="printer-item">
+              <div class="flex flex-row items-center space-x-2">
+                <input
+                  id="printer-item-3"
+                  type="radio"
+                  name="printer-select"
+                  value="H1-203"
+                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                  checked
+                />
+                <label for="printer-item-3">H1-203</label>
+              </div>
+              <div class="flex flex-row items-center space-x-2">
+                <p>3 phút</p>
+                <div class="h-2 w-8 rounded-full bg-red-500"></div>
+              </div>
+            </div> -->
+            <div class="flex flex-row justify-between py-1" id="printer-item">
+              <div
+                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-slate-300"
+              ></div>
+              <div
+                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-slate-300"
+              ></div>
+            </div>
+            <div class="flex flex-row justify-between py-1" id="printer-item">
+              <div
+                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-slate-300"
+              ></div>
+              <div
+                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-slate-300"
+              ></div>
+            </div>
+            <div class="flex flex-row justify-between py-1" id="printer-item">
+              <div
+                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-slate-300"
+              ></div>
+              <div
+                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-slate-300"
+              ></div>
+            </div>
+          </form>
+          <div
+            class="flex flex-col rounded-xl p-3 shadow-1 transition hover:shadow-3"
+          >
+            <div class="flex cursor-pointer flex-col" id="expand-print-options">
+              <div class="flex flex-row items-center justify-between">
+                <p>Tùy chọn in</p>
+                <button
+                  class="rotate-180 items-center transition-transform"
+                  id="expand-print-options-arrow"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                  >
+                    <path
+                      d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <form
+              class="invisible grid max-h-0 grid-cols-1 items-center space-y-2 rounded-xl bg-card-background align-middle opacity-0 transition-all duration-300 ease-in-out dark:bg-card-background-dark sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-3"
+              id="print-options"
+            >
+              <hr class="col-span-full mt-2" />
+              <label for="print-options-orientation" class="my-2 block text-sm">
+                Hướng</label
+              >
+              <select
+                id="print-options-orientation"
+                class="block w-full rounded-lg border-0 bg-slate-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-card-background-dark"
+              >
+                <option selected value="portrait">Dọc</option>
+                <option value="landscape">Ngang</option>
+              </select>
+              <label for="print-options-copies" class="mb-2 block text-sm">
+                Bản sao</label
+              >
+              <select
+                id="print-options-copies"
+                class="block w-full rounded-lg border-0 bg-slate-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-card-background-dark"
+              >
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <label for="print-options-size" class="mb-2 block text-sm">
+                Kích cỡ giấy</label
+              >
+              <select
+                id="print-options-size"
+                class="block w-full rounded-lg border-0 bg-slate-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-card-background-dark"
+              >
+                <option value="A3">A3</option>
+                <option selected value="A4">A4</option>
+                <option value="A5">A5</option>
+                <option value="A6">A6</option>
+              </select>
+              <label for="print-options-color" class="mb-2 block text-sm">
+                Màu</label
+              >
+              <select
+                id="print-options-color"
+                class="block w-full rounded-lg border-0 bg-slate-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-card-background-dark"
+              >
+                <option selected value="bw">Trắng đen</option>
+                <option value="color">Màu</option>
+              </select>
+              <label
+                for="print-options-select-pages"
+                class="mb-2 block text-sm"
+              >
+                Chọn trang</label
+              >
+              <select
+                id="print-options-select-pages"
+                class="block w-full rounded-lg border-0 bg-slate-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-card-background-dark"
+              >
+                <option selected value="all">Tất cả</option>
+                <option value="custom">1-10</option>
+                <option value="custom">...</option>
+              </select>
+              <label
+                for="print-options-pages-per-side"
+                class="mb-2 block text-sm"
+              >
+                Số tờ mỗi mặt</label
+              >
+              <select
+                id="print-options-pages-per-side"
+                class="block w-full rounded-lg border-0 bg-slate-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-card-background-dark"
+              >
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+              </select>
+            </form>
+          </div>
+          <div class="flex w-full flex-row items-center justify-between pb-2">
+            <button
+              type="button"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:shadow-3 active:bg-gray-200"
+              id="cancel-print"
+            >
+              Hủy
+            </button>
+            <button
+              type="button"
+              class="items inline-flex gap-x-1 rounded-full bg-blue-primary px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
+              id="print"
+            >
+              Tiến hành in
+            </button>
+          </div>
+        </div>
+        <div
           id="queue"
           class="flex flex-col space-y-2 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
         >
@@ -359,36 +579,91 @@
               Xem tất cả
             </a>
           </div>
-          <div class="flex flex-row">
-            <p class="grow text-sm font-bold text-gray-600">Tiêu đề</p>
-            <p class="basis-24 text-sm font-bold text-gray-600">Địa điểm</p>
-            <p class="basis-28 text-sm font-bold text-gray-600">Tình trạng</p>
-            <p class="basis-24 text-sm font-bold text-gray-600">Dự kiến</p>
-            <div class="basis-9"></div>
+          <div class="flex w-full flex-row space-x-2">
+            <p class="h-6 w-full text-sm font-bold text-gray-600">Tiêu đề</p>
+            <p
+              class="h-6 shrink-0 basis-24 text-sm font-bold text-gray-600 xl:basis-28 2xl:basis-32"
+            >
+              Địa điểm
+            </p>
+            <p
+              class="h-6 shrink-0 basis-28 text-sm font-bold text-gray-600 xl:basis-32 2xl:basis-36"
+            >
+              Tình trạng
+            </p>
+            <p
+              class="h-6 shrink-0 basis-24 text-sm font-bold text-gray-600 xl:basis-28 2xl:basis-32"
+            >
+              Dự kiến
+            </p>
+            <div
+              class="h-6 shrink-0 basis-14 text-sm font-bold text-gray-600 xl:basis-16 2xl:basis-20"
+            ></div>
           </div>
           <hr class="w-full border" />
-          <div class="flex flex-row py-1">
-            <p class="grow truncate text-left">Lab4_RelationalAlgebra.pdf</p>
-            <p class="shrink-0 basis-24">H1-203</p>
-            <p class="shrink-0 basis-28">Đang đợi lấy</p>
-            <p class="shrink-0 basis-24">Đã xong</p>
-            <a href="" class="basis-9 text-blue-primary"></a>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow truncate text-left">
-              06_Ch6 System Modeling_2023.pdf
-            </p>
-            <p class="shrink-0 basis-24">H1-203</p>
-            <p class="shrink-0 basis-28">Đang in</p>
-            <p class="shrink-0 basis-24">2 phút</p>
-            <a href="" class="basis-9 text-blue-primary">Hủy</a>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow truncate text-left">Lab4_RelationalAlgebra.pdf</p>
-            <p class="shrink-0 basis-24">H1-404</p>
-            <p class="shrink-0 basis-28">Đang chờ</p>
-            <p class="shrink-0 basis-24">6 phút</p>
-            <a href="" class="basis-9 text-blue-primary">Hủy</a>
+          <div class="flex flex-col space-y-2" id="queue-content">
+            <!-- <div class="flex flex-row space-x-2 py-1">
+              <p class="grow truncate text-left">Lab4_RelationalAlgebra.pdf</p>
+              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
+              <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">
+                Đang đợi lấy
+              </p>
+              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">Đã xong</p>
+              <a
+                href=""
+                class="basis-14 text-blue-primary xl:basis-16 2xl:basis-20"
+                >Hủy</a
+              >
+            </div> -->
+
+            <div class="flex w-full animate-pulse flex-row space-x-2 py-1">
+              <p class="h-6 w-full rounded-full bg-slate-300"></p>
+              <p
+                class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+              ></p>
+              <p
+                class="h-6 shrink-0 basis-28 rounded-full bg-slate-300 xl:basis-32 2xl:basis-36"
+              ></p>
+              <p
+                class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+              ></p>
+              <a
+                href=""
+                class="h-6 shrink-0 basis-14 rounded-full bg-slate-300 xl:basis-16 2xl:basis-20"
+              ></a>
+            </div>
+            <div class="flex w-full animate-pulse flex-row space-x-2 py-1">
+              <p class="h-6 w-full rounded-full bg-slate-300"></p>
+              <p
+                class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+              ></p>
+              <p
+                class="h-6 shrink-0 basis-28 rounded-full bg-slate-300 xl:basis-32 2xl:basis-36"
+              ></p>
+              <p
+                class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+              ></p>
+              <a
+                href=""
+                class="h-6 shrink-0 basis-14 rounded-full bg-slate-300 xl:basis-16 2xl:basis-20"
+              ></a>
+            </div>
+            <div class="flex w-full animate-pulse flex-row space-x-2 py-1">
+              <p class="h-6 w-full rounded-full bg-slate-300"></p>
+              <p
+                class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+              ></p>
+              <p
+                class="h-6 shrink-0 basis-28 rounded-full bg-slate-300 xl:basis-32 2xl:basis-36"
+              ></p>
+              <p
+                class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+              ></p>
+              <a
+                href=""
+                class="h-6 shrink-0 basis-14 rounded-full bg-slate-300 xl:basis-16 2xl:basis-20"
+              ></a>
+            </div>
           </div>
         </div>
         <div
@@ -407,41 +682,67 @@
           </div>
           <div class="flex flex-row">
             <p class="grow text-sm font-bold text-gray-600">Tiêu đề</p>
-            <p class="basis-24 text-sm font-bold text-gray-600">Địa điểm</p>
-            <p class="basis-28 text-sm font-bold text-gray-600">Số trang</p>
-            <p class="basis-24 text-sm font-bold text-gray-600">Ngày</p>
+            <p
+              class="basis-24 text-left text-sm font-bold text-gray-600 xl:basis-28 2xl:basis-32"
+            >
+              Địa điểm
+            </p>
+            <p
+              class="basis-28 text-left text-sm font-bold text-gray-600 xl:basis-32 2xl:basis-36"
+            >
+              Số trang
+            </p>
+            <p
+              class="basis-24 text-left text-sm font-bold text-gray-600 xl:basis-28 2xl:basis-32"
+            >
+              Ngày
+            </p>
           </div>
           <hr class="w-full border" />
-          <div class="flex flex-row py-1">
+          <div class="flex w-full animate-pulse flex-row space-x-2 py-1">
+            <p class="h-6 w-full rounded-full bg-slate-300"></p>
+            <p
+              class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+            ></p>
+            <p
+              class="h-6 shrink-0 basis-28 rounded-full bg-slate-300 xl:basis-32 2xl:basis-36"
+            ></p>
+            <p
+              class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+            ></p>
+          </div>
+          <div class="flex w-full animate-pulse flex-row space-x-2 py-1">
+            <p class="h-6 w-full rounded-full bg-slate-300"></p>
+            <p
+              class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+            ></p>
+            <p
+              class="h-6 shrink-0 basis-28 rounded-full bg-slate-300 xl:basis-32 2xl:basis-36"
+            ></p>
+            <p
+              class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+            ></p>
+          </div>
+          <div class="flex w-full animate-pulse flex-row space-x-2 py-1">
+            <p class="h-6 w-full rounded-full bg-slate-300"></p>
+            <p
+              class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+            ></p>
+            <p
+              class="h-6 shrink-0 basis-28 rounded-full bg-slate-300 xl:basis-32 2xl:basis-36"
+            ></p>
+            <p
+              class="h-6 shrink-0 basis-24 rounded-full bg-slate-300 xl:basis-28 2xl:basis-32"
+            ></p>
+          </div>
+          <!-- <div class="flex flex-row space-x-2 py-1">
             <p class="grow truncate text-left">
               Chapter_5_V7.01_Accessible.pdf
             </p>
-            <p class="shrink-0 basis-24">H1-203</p>
-            <p class="shrink-0 basis-28">23 trang</p>
-            <p class="shrink-0 basis-24">T2, 30/10</p>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow truncate text-left">
-              Chapter_6_V7.01_Accessible.pdf
-            </p>
-            <p class="shrink-0 basis-24">H2-201</p>
-            <p class="shrink-0 basis-28">27 trang</p>
-            <p class="shrink-0 basis-24">T7, 27/10</p>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow truncate text-left">
-              05-2022-ĐỀ CƯƠNG MỚI-TƯ TƯỞNG HỒ CHÍ MINH-SP1037.pdf
-            </p>
-            <p class="shrink-0 basis-24">H2-201</p>
-            <p class="shrink-0 basis-28">3 trang</p>
-            <p class="shrink-0 basis-24">T4, 25/10</p>
-          </div>
-          <div class="flex flex-row py-1">
-            <p class="grow truncate text-left">6_SQL.pdf</p>
-            <p class="shrink-0 basis-24">H3-402</p>
-            <p class="shrink-0 basis-28">45 trang</p>
-            <p class="shrink-0 basis-24">T4, 25/10</p>
-          </div>
+            <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
+            <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">23 trang</p>
+            <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">T2, 30/10</p>
+          </div> -->
         </div>
       </div>
       <button
@@ -462,9 +763,9 @@
         Tải lên
       </button>
     </div>
+    <script src="../../dist/main.js"></script>
+    <!-- <script src="../scripts/index.js"></script> -->
   </body>
-
-  <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
-  <script type="module" src="../scripts/script.js"></script>
-  <script type="module" src="../scripts/login.js"></script>
+  <!-- 
+  <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script> -->
 </html>
