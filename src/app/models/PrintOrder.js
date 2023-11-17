@@ -17,6 +17,7 @@ const PrintOrder = new Schema({
       sided: { type: Boolean, default: true }, //true = double sided ; false = single sided
       copies: { type: Number, default: 1 },
       pagesPerSheet: { type: Number, default: 1 },
+      orientation:{type: Boolean, default: false} //false = vertical ; true = horizontal
     },
   ],
 });
