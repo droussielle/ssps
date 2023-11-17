@@ -12,13 +12,13 @@ $(() => {
   const user = JSON.parse(localStorage.getItem('userInfo'));
   $('[id=user-name]')
     .text(user.name)
-    .removeClass('h-4 w-[75%] animate-pulse rounded-full bg-slate-300 ');
+    .removeClass('h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700');
   $('[id=user-avatar]')
     .html('<img class="h-full" src="' + user.avatar + '" />')
-    .removeClass('animate-pulse bg-slate-300');
+    .removeClass('animate-pulse bg-gray-300');
   $('[id=user-remaining-pages]')
     .text(user.remainingPages + '/' + user.remainingPages + ' trang còn lại')
-    .removeClass('h-3 w-[60%] animate-pulse rounded-full bg-slate-200');
+    .removeClass('h-3 w-[60%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700');
   $('[id=user-remaining-pages-mobile]')
     .text(user.remainingPages + '/' + user.remainingPages)
     .removeClass('animate-pulse');
