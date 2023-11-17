@@ -47,10 +47,82 @@ $('#stop-print').on('click', function () {
     );
   $('#pause-print').addClass('invisible');
 });
-$(document).ready(function () {
-  loadPrinterQueue();
+// status: -1:Chưa in, 0:Đang in  1: Chưa lấy 2: Đã lấy
+PrinterQueue = [{
+  'id': "2110501",
+  'title': "Chapter_6_V7.01_Accessible.pdf",
+  'page': 85,
+  'status': 0
+}, {
+  'id': "2110501",
+  'title': "Chapter_6_V7.01_Accessible.pdf",
+  'page': 85,
+  'status': 0
+}, {
+  'id': "2110501",
+  'title': "Chapter_6_V7.01_Accessible.pdf",
+  'page': 85,
+  'status': 0
+}]
+let str = ''
+str += `<div class="flex w-full flex-row items-center justify-between pb-2">
+  <p class="text-xl font-bold">Hàng đợi máy in</p>
+  <button
+    type="button"
+    class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active"
+  >
+    Xem tất cả
+  </button>
+</div>
+<div class="flex flex-col space-y-2">
+  <div class="flex flex-row">
+    <p class="basis-24 text-sm font-bold text-gray-600">MSSV</p>
+    <p class="grow text-sm font-bold text-gray-600">Tiêu đề</p>
+    <p class="basis-24 text-sm font-bold text-gray-600">Số trang</p>
+    <p class="basis-28 text-sm font-bold text-gray-600">Tình trạng</p>
+    <div class="basis-9"></div>
+  </div>
+  <hr class="w-full border" />
+  `
+PrinterQueue.forEach((el, index) => {
+  str += `<div class="flex flex-row py-1">
+    <p class="basis-24">`+ el['id'] + `</p>
+    <p class="grow">`+ el['title'] + `</p>
+    <p class="basis-24">`+ el['page'] + `</p>
+    `
+  if (el['status'] == -1) {
+    str += `<p class="basis-28">Chưa in</p>`
+  }
+  if (el['status'] == 0) {
+    str += `<p class="basis-28">Đang in</p>`
+  }
+  if (el['status'] == 1) {
+    str += `<p class="basis-28">Chưa lấy</p>`
+  }
+  if (el['status'] == 2) {
+    str += `<p class="basis-28">Đã lấy</p>`
+  }
+  str += `
+    <div class="basis-9">Xem</div>
+  </div>`
 });
-function loadPrinterQueue() {
-  let str = ''
-  str+=``
-}
+str += `
+</div>
+<div class="flex w-full flex-row items-center justify-end space-x-3 pb-1"
+          >
+            <button
+              id="pause-print"
+              type="button"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active"
+            >
+              Tạm dừng in
+            </button>
+            <button
+              id="stop-print"
+              type="button"
+              class="items inline-flex gap-x-1 rounded-full bg-red-700 px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800"
+            >
+              Dừng in
+            </button> 
+          </div>`
+$('#printer-queue').html(str);
