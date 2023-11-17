@@ -108,7 +108,7 @@ $('#logout').on('click', function () {
 });
 
 /* handle upload button event */
-$('#uploadButton').on('click', () => {
+$('[id=uploadButton]').on('click', () => {
   $('#fileInput').trigger('click');
 });
 

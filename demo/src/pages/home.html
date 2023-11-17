@@ -12,6 +12,10 @@
       rel="stylesheet"
     />
     <link href="../../dist/output.css" rel="stylesheet" />
+    <script defer src="../../dist/index.bundle.js"></script>
+    <script defer src="../../dist/home.bundle.js"></script>
+    <!-- <script defer src="../../dist/vendors-node_modules_pdfjs-dist_build_pdf_worker_mjs.bundle.js"></script> -->
+    <script defer src="../../dist/vendors.bundle.js"></script>
   </head>
 
   <body>
@@ -103,7 +107,7 @@
       </button>
       <div
         id="user-card-expanded"
-        class="invisible absolute -top-8 right-12 my-auto box-content flex w-[420px] scale-y-90 flex-col items-center space-y-5 rounded-lg border-card-background bg-card-background px-6 opacity-0 shadow-3 transition-all duration-[250ms] ease-m3-standard-decelerate hover:bg-card-background dark:bg-card-background-dark xl:w-[480px] 2xl:w-[520px]"
+        class="invisible absolute -top-8 right-12 my-auto box-content flex w-[420px] scale-y-90 flex-col items-center space-y-5 rounded-lg border-card-background bg-card-background px-6 opacity-0 shadow-3 transition-all duration-[250ms] ease-m3-standard-decelerate hover:bg-card-background dark:bg-card-background-dark max-sm:right-2 max-sm:w-10/12 xl:w-[480px] 2xl:w-[520px]"
       >
         <button
           class="absolute right-5 top-5 cursor-pointer rounded-full p-2 transition-all hover:bg-[#d7e1e9] active:bg-[#b9cad8]"
@@ -144,7 +148,9 @@
             </div>
           </div>
         </div>
-        <div class="flex w-full flex-row items-center justify-between px-2">
+        <div
+          class="grid w-full grid-cols-2 items-center justify-between px-2 max-[400px]:grid-cols-1"
+        >
           <p id="user-reset-date" class="">Đặt lại vào 01/10/2023</p>
           <button
             id="add-pages"
@@ -194,7 +200,7 @@
           <input id="fileInput" name="file" type="file" class="hidden" />
           <button
             type="button"
-            class="items inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
+            class="items inline-flex gap-x-3 rounded-xl bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-lg:hidden"
             id="uploadButton"
           >
             <svg
@@ -747,7 +753,8 @@
       </div>
       <button
         type="button"
-        class="items fixed bottom-5 right-5 inline-flex gap-x-3 rounded-lg bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active lg:hidden"
+        class="items fixed bottom-5 right-5 inline-flex gap-x-3 rounded-xl bg-blue-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active max-sm:rounded-2xl max-sm:px-4 max-sm:py-4 lg:hidden"
+        id="uploadButton"
       >
         <svg
           class="fill-white"
@@ -760,12 +767,11 @@
             d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
           />
         </svg>
-        Tải lên
+        <p class="max-sm:hidden">Tải lên</p>
       </button>
     </div>
-    <script src="../../dist/main.js"></script>
+    <!-- <script src="../../dist/main.bundle.js"></script> -->
+    <!-- <script src="../../dist/index.bundle.js"></script> -->
     <!-- <script src="../scripts/index.js"></script> -->
   </body>
-  <!-- 
-  <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script> -->
 </html>

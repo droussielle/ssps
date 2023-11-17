@@ -1,4 +1,6 @@
 /* eslint-disable require-jsdoc */
+import $ from 'jquery';
+
 function User(name, imageURL, remainingPages, resetDate, userType = 'User') {
   this.name = name;
   this.avatar = imageURL;

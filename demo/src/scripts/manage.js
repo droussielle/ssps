@@ -1,4 +1,6 @@
 /* eslint-disable require-jsdoc */
+import $ from 'jquery';
+
 function Printer(name) {
   this.name = name;
   this.status = 'Active';
@@ -17,10 +19,10 @@ $('#add-printer').on('click', function () {
       printer1.mode +
       '</p></div><div class="flex flex-row justify-between"><p>Thời gian hoạt động</p><p>' +
       printer1.uptimeSince +
-      '</p></div>'
+      '</p></div>',
   );
   $('#manage-printer-actions').html(
-    '<button type="button" class="transition ease-out px-6 py-2.5 shadow-1 text-black inline-flex rounded-full text-center gap-x-3 items hover:shadow-3 hover:bg-button-hover active:bg-button-active" >Báo lỗi</button><button type="button" class="transition ease-out px-6 py-2.5 shadow-1 text-black inline-flex rounded-full text-center gap-x-3 items hover:shadow-3 hover:bg-button-hover active:bg-button-active">Xem nhật kí hoạt động</button><button type="button" class="transition ease-out px-5 py-2.5 shadow-1 text-white inline-flex items rounded-full text-center gap-x-1 bg-red-700 hover:shadow-3 hover:bg-red-600 active:bg-red-800">Vô hiệu hóa</button>'
+    '<button type="button" class="transition ease-out px-6 py-2.5 shadow-1 text-black inline-flex rounded-full text-center gap-x-3 items hover:shadow-3 hover:bg-button-hover active:bg-button-active" >Báo lỗi</button><button type="button" class="transition ease-out px-6 py-2.5 shadow-1 text-black inline-flex rounded-full text-center gap-x-3 items hover:shadow-3 hover:bg-button-hover active:bg-button-active">Xem nhật kí hoạt động</button><button type="button" class="transition ease-out px-5 py-2.5 shadow-1 text-white inline-flex items rounded-full text-center gap-x-1 bg-red-700 hover:shadow-3 hover:bg-red-600 active:bg-red-800">Vô hiệu hóa</button>',
   );
 });
 
@@ -41,7 +43,7 @@ $('#stop-print').on('click', function () {
     .text('Bắt đầu in')
     .attr(
       'class',
-      'transition ease-out px-5 py-2.5 shadow-1 text-white inline-flex items rounded-full text-center gap-x-1 bg-blue-primary hover:shadow-3 hover:bg-button-primary-hover active:bg-button-primary-active'
+      'transition ease-out px-5 py-2.5 shadow-1 text-white inline-flex items rounded-full text-center gap-x-1 bg-blue-primary hover:shadow-3 hover:bg-button-primary-hover active:bg-button-primary-active',
     );
   $('#pause-print').addClass('invisible');
 });
