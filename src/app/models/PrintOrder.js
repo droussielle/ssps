@@ -7,18 +7,15 @@ const PrintOrder = new Schema({
   estimatedEndTime: Date,
   note: String,
   status: { type: Boolean, required: true, default: false }, //true = done, false = undone
-  permittedFileType: { type: Array, default: ['pdf', 'doc', 'docx'] },
   fileLocation: { type: String, required: true },
   fileName: { type: String, required: true },
-  printProperies: [
-    {
-      paperSize: { type: String, default: 'a4' },
-      numberOfPages: { type: Number, required: true },
-      sided: { type: Boolean, default: true }, //true = double sided ; false = single sided
-      copies: { type: Number, default: 1 },
-      pagesPerSheet: { type: Number, default: 1 },
-      orientation:{type: Boolean, default: false} //false = vertical ; true = horizontal
-    },
-  ],
+  printProperies: {
+    paperSize: { type: String, default: 'a4' },
+    numberOfPages: { type: Number, required: true },
+    sided: { type: Boolean, default: true }, //true = double sided ; false = single sided
+    copies: { type: Number, default: 1 },
+    pagesPerSheet: { type: Number, default: 1 },
+    orientation: { type: Boolean, default: false }, //false = vertical ; true = horizontal
+  },
 });
 module.exports = mongoose.model('PrintOrder', PrintOrder);

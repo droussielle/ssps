@@ -8,5 +8,6 @@ const Printer = new Schema({
   shortDescription: String,
   location: { type: String, required: true },
   printerStatus: { type: Boolean, required: true, default: false }, //true = available ; false = unavailable
+  permittedFileType: { type: Array, default: ['pdf', 'doc', 'docx'] },
 });
 module.exports = mongoose.model('Printer', Printer);

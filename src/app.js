@@ -20,10 +20,10 @@ module.exports = async (app) => {
   // app.use(cors());
   app.use(
     cors({
-      origin: "http://localhost:5500",
-      methods: "GET,POST,PUT,DELETE",
+      origin: 'http://localhost:5500',
+      methods: 'GET,POST,PUT,DELETE',
       credentials: true,
-    })
+    }),
   );
 
   app.use('/account', account);
@@ -32,17 +32,17 @@ module.exports = async (app) => {
   app.use('/spso', spso);
   app.use('/printer', printer);
   app.use('/printorder', printorder);
-  
-//   app.use((req,res,next)=>{
-//     res.header('Access-Control-Allow-Origin','*');//give access to specific client, in this case is any client "*"
-//     res.header('Access-Control-Allow-Headers',
-//                 'Origin, X-Requested-With,Content-Type, Accept, Authorization');//give access to specific header
-//     if(req.method === 'OPTIONS'){ //set allowed methods
-//         res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET');
-//         return res.status(200).json('Okay');
-//     }
-//     next();
-// });
+
+  //   app.use((req,res,next)=>{
+  //     res.header('Access-Control-Allow-Origin','*');//give access to specific client, in this case is any client "*"
+  //     res.header('Access-Control-Allow-Headers',
+  //                 'Origin, X-Requested-With,Content-Type, Accept, Authorization');//give access to specific header
+  //     if(req.method === 'OPTIONS'){ //set allowed methods
+  //         res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET');
+  //         return res.status(200).json('Okay');
+  //     }
+  //     next();
+  // });
 
   app.use((req, res, next) => {
     const error = new Error('Not found');
