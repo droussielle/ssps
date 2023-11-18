@@ -14,7 +14,12 @@
     <link href="../../dist/output.css" rel="stylesheet" />
     <script defer src="../../dist/index.bundle.js"></script>
     <script defer src="../../dist/home.bundle.js"></script>
-    <!-- <script defer src="../../dist/vendors-node_modules_pdfjs-dist_build_pdf_worker_mjs.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/login.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/manage.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/buy.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/history.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/queue.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/report.bundle.js"></script> --> 
     <script defer src="../../dist/vendors.bundle.js"></script>
   </head>
 
@@ -108,13 +113,14 @@
       </button>
       <div
         id="user-card-expanded"
-        class="invisible absolute -top-8 right-12 my-auto box-content flex w-[420px] scale-y-90 flex-col items-center space-y-5 rounded-lg border-card-background bg-card-background px-6 opacity-0 shadow-3 transition-all duration-[250ms] ease-m3-standard-decelerate hover:bg-card-background dark:bg-content-background-dark max-sm:right-2 max-sm:w-10/12 xl:w-[480px] 2xl:w-[520px]"
+        class="invisible absolute -top-8 right-12 my-auto box-content flex w-[420px] scale-y-90 flex-col items-center space-y-5 rounded-lg border-card-background bg-card-background px-6 opacity-0 shadow-3 transition-all duration-[250ms] ease-m3-standard-decelerate hover:bg-card-background dark:bg-card-background-dark max-sm:right-2 max-sm:w-10/12 xl:w-[480px] 2xl:w-[520px]"
       >
         <button
-          class="absolute right-5 top-5 cursor-pointer rounded-full p-2 transition-all hover:bg-[#d7e1e9] active:bg-[#b9cad8]"
+          class="absolute right-5 top-5 cursor-pointer rounded-full p-2 transition-all hover:bg-[#d7e1e9] active:bg-[#b9cad8] dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
           id="user-card-expanded-close"
         >
           <svg
+            class="dark:fill-dark-surface"
             xmlns="http://www.w3.org/2000/svg"
             height="24"
             viewBox="0 -960 960 960"
@@ -172,12 +178,12 @@
             Nạp thêm
           </button>
         </div>
-        <hr class="w-full border" />
+        <hr class="w-full border dark:bg-dark-surface" />
         <div class="flex w-full flex-row justify-between px-2">
           <button
             id="edit-account"
             type="button"
-            class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface"
+            class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark dark:bg-button-dark"
           >
             Sửa tài khoản
           </button>
@@ -571,7 +577,7 @@
             <a
               href="./queue.html"
               type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark dark:bg-button-dark"
             >
               Xem tất cả
             </a>
@@ -721,7 +727,7 @@
             <a
               href="./history.html"
               type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark dark:bg-button-dark"
             >
               Xem tất cả
             </a>

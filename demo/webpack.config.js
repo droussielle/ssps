@@ -11,6 +11,10 @@ module.exports = {
     home: { import: './src/scripts/home.js', dependOn: 'vendors' },
     login: { import: './src/scripts/login.js', dependOn: 'vendors' },
     manage: { import: './src/scripts/manage.js', dependOn: 'vendors' },
+    buy: { import: './src/scripts/buy.js', dependOn: 'vendors' },
+    history: { import: './src/scripts/history.js', dependOn: 'vendors' },
+    queue: { import: './src/scripts/queue.js', dependOn: 'vendors' },
+    report: { import: './src/scripts/report.js', dependOn: 'vendors' },
     vendors: ['jquery', 'flowbite', 'pdfjs-dist'],
   },
   plugins: [

@@ -16,6 +16,7 @@ module.exports = {
         'button-primary-active': '#032478',
         'button-hover': '#DEEDF7',
         'button-active': '#BBD7EC',
+        'button-dark': '#000000',
         'button-primary-dark': '#0545E6',
         'button-primary-hover-dark': '#1959FA',
         'button-primary-active-dark': '#0338BF',
