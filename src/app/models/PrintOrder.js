@@ -9,7 +9,7 @@ const PrintOrder = new Schema({
   status: { type: Boolean, required: true, default: false }, //true = done, false = undone
   fileLocation: { type: String, required: true },
   fileName: { type: String, required: true },
-  printProperies: {
+  printProperties: {
     paperSize: { type: String, default: 'a4' },
     numberOfPages: { type: Number, required: true },
     sided: { type: Boolean, default: true }, //true = double sided ; false = single sided
