@@ -7,7 +7,7 @@ const PrintOrder = new Schema({
   estimatedEndTime: Date,
   note: String,
   status: { type: Boolean, required: true, default: false }, //true = done, false = undone
-  fileLocation: { type: String, required: true },
+  fileLocation: { type: String, default: null },
   fileName: { type: String, required: true },
   printProperties: {
     paperSize: { type: String, default: 'a4' },

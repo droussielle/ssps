@@ -2,6 +2,7 @@ const accountmodel = require('../models/Account');
 const spsomodel = require('../models/SPSO');
 const printermodel = require('../models/Printer');
 const printordermodel = require('../models/PrintOrder');
+const multer = require('multer');
 const mongoose = require('mongoose');
 const {
   generatepassword,
@@ -23,6 +24,7 @@ class PrintOrderController {
       estimatedEndTime,
       status,
     } = userinputs;
+    // console.log(fileType[1]);
     try {
       const _id = new mongoose.Types.ObjectId();
       const newOrder = new printordermodel({
@@ -35,11 +37,45 @@ class PrintOrderController {
         beginTime: beginTime,
         estimatedEndTime: estimatedEndTime,
         status: status,
-        fileLocation: '/upload' + _id,
       });
       const result = await newOrder.save();
 
-      return formatedata(result);
+      return formatedata({
+        message: 'New order created: ',
+        orderID: _id,
+        result: result,
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async uploader(_id) {
+    try {
+      const printorder = await printordermodel.findById(_id);
+      const fileType = printorder.fileName.split('.');
+
+      if (printorder === null) {
+        return formatedata({
+          error: {
+            message: 'Print order not found',
+          },
+        });
+      }
+
+      const result = await printordermodel.findByIdAndUpdate(
+        { _id: _id },
+        {
+          $set: {
+            fileLocation: '/uploads/' + _id + '.' + fileType[1],
+          },
+        },
+      );
+
+      return formatedata({
+        message: 'Upload complete',
+        result: result,
+      });
     } catch (err) {
       throw err;
     }

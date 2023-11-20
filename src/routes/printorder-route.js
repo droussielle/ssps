@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const userauth = require('../auth/check-auth');
-const uploader = require('../auth/print-function');
+const multer = require('multer');
 
 const PrintOrderController = require('../app/controllers/PrintOrderController');
 
@@ -42,12 +42,55 @@ router.post('/', userauth, async (req, res, next) => {
   }
 });
 
-// router.post('/upload',uploader,async(req,res,next)=>{
-//   try{
+router.post('/upload/:_printorderid', async (req, res, next) => {
+  try {
+    // console.log("hello world");
+    const _id = req.params._printorderid;
+    const fileType = 'pdf';
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, './uploads');
+      },
+      filename: function (req, file, cb) {
+        cb(null, _id + '.' + fileType);
+      },
+    });
 
-//   } catch(err){
-//     next(err);
-//   }
-// })
+    const fileFilter = (req, file, cb) => {
+      if (file.mimetype === 'application/pdf') {
+        cb(null, true);
+      } else {
+        cb(null, false);
+      }
+    };
+
+    const upload = multer({
+      storage: storage,
+      limits: {
+        fileSize: 1024 * 1024 * 20, // files  smaller than 20MB are accepted
+        fileFilter: fileFilter,
+      },
+    });
+
+    upload.single('printFile')(req, res, function (err) {
+      if (err) {
+        return res.status(400).json({
+          error: {
+            message: err,
+          },
+        });
+      }
+    });
+
+    const data = await PrintOrderController.uploader(_id);
+
+    if (data.error) {
+      return res.status(400).json(data.error);
+    }
+    return res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
