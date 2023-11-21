@@ -3,6 +3,7 @@ const spsomodel = require('../models/SPSO');
 const studentmodel = require('../models/Student');
 const printermodel = require('../models/Printer');
 const staffmodel = require('../models/Staff');
+const queuemodel = require('../models/Queue');
 const mongoose = require('mongoose');
 const {
   generatepassword,
@@ -87,9 +88,19 @@ class SPSOController {
         printerStatus: printerStatus,
       });
 
-      const result = await newPrinter.save();
+      const newQueue = new queuemodel({
+        _id: new mongoose.Types.ObjectId(),
+        printer: newPrinter._id,
+      });
 
-      return formatedata(result);
+      const newQueueResult = await newQueue.save();
+
+      const newPrinterResult = await newPrinter.save();
+
+      return formatedata({
+        newPrinter: newPrinterResult,
+        newQueue: newQueueResult,
+      });
     } catch (err) {
       throw err;
     }

@@ -7,6 +7,7 @@ const userauth = require('../auth/check-auth');
 const multer = require('multer');
 
 const PrintOrderController = require('../app/controllers/PrintOrderController');
+const QueueController = require('../app/controllers/QueueController');
 
 router.post('/', userauth, async (req, res, next) => {
   try {
@@ -34,9 +35,20 @@ router.post('/', userauth, async (req, res, next) => {
     });
 
     if (data.error) {
-      return res.status(400).json(data.error);
+      return res.status(400).json(data);
     }
-    return res.status(200).json(data);
+
+    const printOrder = data.data.orderID;
+    const queueData = await QueueController.pushorder({ printer, printOrder });
+
+    if (queueData.data.error) {
+      return res.status(400).json(queueData.data);
+    }
+
+    return res.status(200).json({
+      newOrderData: data,
+      queueData: queueData,
+    });
   } catch (err) {
     next(err);
   }
