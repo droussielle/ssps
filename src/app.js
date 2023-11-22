@@ -10,6 +10,7 @@ const {
   spso,
   printer,
   printorder,
+  queue,
 } = require('./routes');
 
 module.exports = async (app) => {
@@ -32,6 +33,7 @@ module.exports = async (app) => {
   app.use('/spso', spso);
   app.use('/printer', printer);
   app.use('/printorder', printorder);
+  app.use('/queue', queue);
 
   //   app.use((req,res,next)=>{
   //     res.header('Access-Control-Allow-Origin','*');//give access to specific client, in this case is any client "*"

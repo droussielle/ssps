@@ -16,22 +16,8 @@ class QueueController {
     const { printer, printOrder } = userinputs;
 
     try {
-      // const myqueue = await queuemodel.find({printer:printer});
-      // if (myqueue){
-      //     const result = await myqueue.updateOne({},{$push:{printOrders:{$each:[printOrderID]}}});
-      //     return formatedata({
-      //         message:'Print order pushed to queue',
-      //         printer: printer,
-      //         printOrderID:printOrderID,
-      //         result:result
-      //     });
-      // }
-
-      // const result = await queuemodel.findOneAndUpdate({printer:printer},{$push:{printOrders:printOrder}});
       const myqueue = await queuemodel.find({ printer: printer });
       const order = await printordermodel.findById(printOrder);
-      // console.log(myqueue);
-      // console.log(order);
 
       if (order && myqueue) {
         myqueue[0].printOrders.push(order);
@@ -47,6 +33,63 @@ class QueueController {
         }
       }
 
+      return formatedata({
+        error: {
+          message: 'Request failed',
+        },
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getnext(printer_id) {
+    try {
+      const queue = await queuemodel.find({ printer: printer_id });
+      if (queue) {
+        // const result = await printordermodel.findById(queue[0].printOrders[0]);
+        const result = await printordermodel.findById(queue[0].printOrders[0]);
+
+        if (result) {
+          return formatedata({
+            message: 'Order found',
+            result: result,
+          });
+        }
+
+        return formatedata({
+          message: 'Queue Empty',
+        });
+      }
+      return formatedata({
+        error: {
+          message: 'Request failed',
+        },
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getall(printer_id) {
+    try {
+      const queue = await queuemodel.findOne({ printer: printer_id }).populate({
+        path: 'printOrders',
+      });
+      if (queue) {
+        const result = await printordermodel.findById(queue.printOrders);
+
+        if (result) {
+          return formatedata({
+            message: 'Order found',
+            queue: queue.printOrders,
+          });
+        }
+
+        return formatedata({
+          message: 'Queue Empty',
+        });
+      }
       return formatedata({
         error: {
           message: 'Request failed',
