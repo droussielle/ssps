@@ -8,19 +8,20 @@ const multer = require('multer');
 
 const PrintOrderController = require('../app/controllers/PrintOrderController');
 const QueueController = require('../app/controllers/QueueController');
+const AccountController = require('../app/controllers/AccountController');
 
 router.post('/', userauth, async (req, res, next) => {
   try {
     // console.log(req.user);
-    const user = req.user._id;
+    let user = req.user._id;
     const { printer, note, fileName, printProperties } = req.body;
     const beginTime = new Date();
 
-    //NOT FINISHED YET
-    const estimatedEndTime = new Date(
-      Number(beginTime) +
-        1000 * printProperties.numberOfPages * printProperties.copies,
-    );
+    /*
+    EACH PAGE TAKES 1000MS = 1 SECOND TO PRINT
+    */
+    const timeToFinish =
+      1000 * printProperties.numberOfPages * printProperties.copies;
     const status = false;
     // const fileLocation = 'somewhereovertherainbow';
     const data = await PrintOrderController.createprintorder({
@@ -30,13 +31,20 @@ router.post('/', userauth, async (req, res, next) => {
       fileName,
       printProperties,
       beginTime,
-      estimatedEndTime,
+      timeToFinish,
       status,
     });
 
-    if (data.error) {
-      return res.status(400).json(data);
+    if (data.data.error) {
+      return res.status(400).json(data.data);
     }
+    const increment = Number(data.data.total_a4_pages_used) * -1;
+    user = req.user;
+
+    const creditData = await AccountController.increaseCredit({
+      increment,
+      user,
+    });
 
     const printOrder = data.data.orderID;
     const queueData = await QueueController.pushorder({ printer, printOrder });
@@ -48,6 +56,7 @@ router.post('/', userauth, async (req, res, next) => {
     return res.status(200).json({
       newOrderData: data,
       queueData: queueData,
+      credit_changes: creditData,
     });
   } catch (err) {
     next(err);

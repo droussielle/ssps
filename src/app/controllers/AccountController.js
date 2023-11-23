@@ -85,7 +85,10 @@ class AccountController {
     const { increment, user } = userinputs;
     try {
       const myuser = await accountmodel.findOne({ _id: user._id });
-      const newBalance = myuser.credit + increment;
+      const newBalance = Number(myuser.credit) + Number(increment);
+      // console.log(Number(myuser.credit) );
+      // console.log(Number(increment) );
+
       if (myuser) {
         const result = await accountmodel.updateOne(
           { _id: myuser._id },
@@ -95,7 +98,9 @@ class AccountController {
             },
           },
         );
-        return formatedata(result);
+        return formatedata({
+          message: result.modifiedCount,
+        });
       }
       return formatedata({
         error: {

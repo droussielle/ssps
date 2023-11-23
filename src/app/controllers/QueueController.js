@@ -28,7 +28,6 @@ class QueueController {
             message: 'Print order pushed to queue',
             printer: printer,
             printOrder: printOrder,
-            result: result,
           });
         }
       }
@@ -43,17 +42,35 @@ class QueueController {
     }
   }
 
-  async getnext(printer_id) {
+  async fetchnext(printer_id) {
     try {
       const queue = await queuemodel.find({ printer: printer_id });
       if (queue) {
-        // const result = await printordermodel.findById(queue[0].printOrders[0]);
-        const result = await printordermodel.findById(queue[0].printOrders[0]);
+        const order = await printordermodel.findById(queue[0].printOrders[0]);
+        if (order) {
+          queue[0].printOrders.shift();
 
-        if (result) {
+          order.status = true;
+
+          const orderStats = await order.save();
+          const result = await queue[0].save();
+
           return formatedata({
             message: 'Order found',
-            result: result,
+            order: {
+              user: orderStats.user,
+              printer: orderStats.printer,
+              estimatedEndTime: orderStats.estimatedEndTime,
+              actualEndTime: new Date(),
+              total_a4_pages_used: Math.ceil(
+                (orderStats.printProperties.numberOfPages *
+                  orderStats.printProperties.copies) /
+                  (orderStats.printProperties.sided ? 2 : 1),
+              ),
+              status: orderStats.status,
+              note: orderStats.note,
+            },
+            current_queue: result.printOrders,
           });
         }
 

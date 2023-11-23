@@ -5,6 +5,7 @@ const PrintOrder = new Schema({
   printer: { type: Schema.Types.ObjectId, required: true, ref: 'Printer' },
   beginTime: Date,
   estimatedEndTime: Date,
+  timeToFinish: Number,
   note: String,
   status: { type: Boolean, required: true, default: false }, //true = done, false = undone
   fileLocation: { type: String, default: null },

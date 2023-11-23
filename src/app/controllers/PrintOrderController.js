@@ -12,6 +12,7 @@ const {
   validatepassword,
   generatesalt,
 } = require('../../auth/side');
+const { ConnectionClosedEvent } = require('mongodb');
 
 class PrintOrderController {
   async createprintorder(userinputs) {
@@ -22,11 +23,48 @@ class PrintOrderController {
       fileName,
       printProperties,
       beginTime,
-      estimatedEndTime,
+      timeToFinish,
       status,
     } = userinputs;
-    // console.log(fileType[1]);
     try {
+      //VERIFY IF USER HAS ENOUGH CREDIT TO PRINT FILE
+      const myuser = await accountmodel.findById(user);
+      let tmp;
+
+      if (printProperties.sided === 'true') {
+        tmp = 2;
+      } else tmp = 1;
+
+      const total_a4_pages_used = Math.ceil(
+        (printProperties.numberOfPages * printProperties.copies) / tmp,
+      );
+
+      if (Number(myuser.credit) < Number(total_a4_pages_used)) {
+        return formatedata({
+          error: {
+            message:
+              'User does not have enough credit to perform this operation',
+            user_current_credit: myuser.credit,
+            required: total_a4_pages_used,
+          },
+        });
+      }
+
+      const currentqueue = await queuemodel
+        .findOne({ printer: printer })
+        .populate({
+          path: 'printOrders',
+        });
+
+      const totalTime = currentqueue.printOrders.reduce(
+        (acc, cur) => acc + cur.timeToFinish,
+        0,
+      );
+
+      const estimatedEndTime = new Date(
+        Number(beginTime) + timeToFinish + totalTime,
+      );
+
       const _id = new mongoose.Types.ObjectId();
       const newOrder = new printordermodel({
         _id: _id,
@@ -37,6 +75,7 @@ class PrintOrderController {
         printProperties: printProperties,
         beginTime: beginTime,
         estimatedEndTime: estimatedEndTime,
+        timeToFinish: timeToFinish,
         status: status,
       });
       const result = await newOrder.save();
@@ -46,6 +85,7 @@ class PrintOrderController {
         // orderID: _id.toString(),
         orderID: _id,
         result: result,
+        total_a4_pages_used: total_a4_pages_used,
       });
     } catch (err) {
       throw err;

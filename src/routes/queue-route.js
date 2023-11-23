@@ -7,6 +7,7 @@ const userauth = require('../auth/check-auth');
 
 const PrintOrderController = require('../app/controllers/PrintOrderController');
 const QueueController = require('../app/controllers/QueueController');
+const AccountController = require('../app/controllers/AccountController');
 
 router.get('/', async (req, res, next) => {
   return res.status(200).json({
@@ -14,14 +15,27 @@ router.get('/', async (req, res, next) => {
   });
 });
 
-router.get('/next', async (req, res, next) => {
+router.post('/next', async (req, res, next) => {
   try {
     const { printer_id } = req.body;
-    const { data } = await QueueController.getnext(printer_id);
+    const { data } = await QueueController.fetchnext(printer_id);
     if (data.error) {
       return res.status(400).json(data);
     }
-    return res.status(200).json(data);
+
+    // if (data.order){
+    //   const increment = data.order.total_a4_pages_used * -1 ;
+    //   const user = data.order.user;
+    //   // const userdata = await AccountController.increaseCredit({increment,user});
+    //   return res.status(200).json({
+    //     next_order: data,
+    //     user_credit_left: userdata.credit
+    //   });
+    // }
+
+    return res.status(200).json({
+      message: data,
+    });
   } catch (err) {
     next(err);
   }
