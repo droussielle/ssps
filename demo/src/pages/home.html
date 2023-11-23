@@ -19,7 +19,7 @@
     <!-- <script defer src="../../dist/buy.bundle.js"></script> -->
     <!-- <script defer src="../../dist/history.bundle.js"></script> -->
     <!-- <script defer src="../../dist/queue.bundle.js"></script> -->
-    <!-- <script defer src="../../dist/report.bundle.js"></script> --> 
+    <!-- <script defer src="../../dist/report.bundle.js"></script> -->
     <script defer src="../../dist/vendors.bundle.js"></script>
   </head>
 
@@ -61,7 +61,7 @@
       </div>
       <button
         id="user-card"
-        class="my-auto flex flex-row items-center gap-x-3 rounded-xl p-2 transition-all ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark sm:basis-96"
+        class="my-auto flex flex-row items-center gap-x-3 rounded-xl p-2 transition-all ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark max-sm:p-0 sm:basis-96"
       >
         <div
           id="user-avatar"
@@ -75,7 +75,7 @@
             ></p>
             <div
               id="user-type"
-              class="bg-button-primary hidden rounded-lg p-1 text-xs text-white"
+              class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
             >
               Admin
             </div>
@@ -94,7 +94,7 @@
             class="hidden h-1 w-full rounded-full bg-gray-200 transition-all max-sm:hidden"
           >
             <div
-              class="h-1 rounded-full bg-blue-primary"
+              class="bg-blue-primary h-1 rounded-full"
               style="width: 45%"
             ></div>
           </div>
@@ -134,22 +134,25 @@
         <div class="flex w-full flex-row space-x-3">
           <div
             id="user-avatar"
-            class="h-[48px] w-[48px] flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-90"
+            class="aspect-square min-h-full flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-75"
           ></div>
           <div class="grow flex-col space-y-1 text-left">
             <div class="flex flex-row space-x-2">
               <p id="user-name" class="font-bold"></p>
               <div
                 id="user-type"
-                class="bg-button-primary hidden rounded-lg p-1 text-xs text-white"
+                class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
               >
                 Admin
               </div>
             </div>
             <p id="user-remaining-pages" class="text-sm"></p>
-            <div class="h-1 w-full rounded-full bg-gray-200">
+            <div
+              class="h-1 w-full rounded-full bg-gray-200 dark:bg-gray-500"
+              id="user-remaining-pages-bar"
+            >
               <div
-                class="h-1 rounded-full bg-blue-primary"
+                class="bg-blue-primary h-1 rounded-full"
                 style="width: 45%"
               ></div>
             </div>
@@ -162,7 +165,7 @@
           <button
             id="add-pages"
             type="button"
-            class="items bg-button-primary dark:bg-button-primary-dark inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
+            class="items inline-flex gap-x-1 rounded-full bg-button-primary px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
           >
             <svg
               class="fill-white dark:fill-dark-surface"
@@ -178,19 +181,19 @@
             Nạp thêm
           </button>
         </div>
-        <hr class="w-full border dark:bg-dark-surface" />
+        <hr class="w-full border dark:border-gray-500" />
         <div class="flex w-full flex-row justify-between px-2">
           <button
             id="edit-account"
             type="button"
-            class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark dark:bg-button-dark"
+            class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
           >
             Sửa tài khoản
           </button>
           <button
             id="logout"
             type="button"
-            class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800"
+            class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700 dark:active:bg-red-600"
           >
             Đăng xuất
           </button>
@@ -200,14 +203,14 @@
     <div
       id="default-sidebar"
       aria-label="Sidebar"
-      class="fixed left-0 top-0 z-40 flex h-screen w-80 -translate-x-full flex-col justify-between space-y-3 bg-page-background px-10 pb-6 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
+      class="fixed left-0 top-0 z-40 flex h-screen w-80 -translate-x-full flex-col justify-between space-y-3 overflow-auto bg-page-background px-10 pb-6 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
     >
       <div class="space-y-5 pb-2">
         <form action="/api" method="post" enctype="multipart/form-data">
           <input id="fileInput" name="file" type="file" class="hidden" />
           <button
             type="button"
-            class="items bg-button-primary dark:bg-button-primary-dark inline-flex gap-x-3 rounded-xl px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-lg:hidden"
+            class="items inline-flex gap-x-3 rounded-xl bg-button-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-lg:hidden"
             id="uploadButton"
           >
             <svg
@@ -228,7 +231,7 @@
           <li>
             <a
               href="./home.html"
-              class="flex rounded-3xl p-3 font-bold transition-all duration-200 ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="flex rounded-3xl bg-card-background p-3 font-bold transition-all duration-200 ease-out hover:bg-button-hover active:bg-button-active dark:bg-button-hover-dark dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Trang chủ</a
             >
@@ -338,7 +341,7 @@
       id="content-area"
     >
       <div
-        class="flex w-full flex-col space-y-8 rounded-[48px] bg-white dark:bg-content-background-dark max-sm:p-5 sm:p-10"
+        class="flex w-full flex-col space-y-8 bg-white dark:bg-content-background-dark max-sm:p-5 sm:rounded-[48px] sm:p-10"
       >
         <div
           id="drop-zone"
@@ -363,7 +366,7 @@
         </div>
         <div
           id="uploaded"
-          class="hidden flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left transition-transform dark:bg-card-background-dark"
+          class="hidden flex-col space-y-5 rounded-3xl bg-card-background p-6 sm:p-8 text-left transition-transform dark:bg-card-background-dark"
         >
           <div class="flex flex-row items-center space-x-5">
             <p class="text-2xl font-bold">PDF</p>
@@ -471,6 +474,7 @@
                     height="24"
                     viewBox="0 -960 960 960"
                     width="24"
+                    class="dark:fill-dark-surface"
                   >
                     <path
                       d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"
@@ -551,17 +555,17 @@
               </select>
             </form>
           </div>
-          <div class="flex w-full flex-row items-center justify-between pb-2">
+          <div class="flex w-full flex-row items-center justify-between">
             <button
               type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:shadow-3 active:bg-gray-200"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
               id="cancel-print"
             >
               Hủy
             </button>
             <button
               type="button"
-              class="items bg-button-primary inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
+              class="items inline-flex gap-x-1 rounded-full bg-button-primary px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
               id="print"
             >
               Tiến hành in
@@ -570,19 +574,19 @@
         </div>
         <div
           id="queue"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 sm:p-8 text-left dark:bg-card-background-dark"
         >
           <div class="flex w-full flex-row items-center justify-between pb-2">
             <p class="text-xl font-bold">Hàng đợi</p>
             <a
               href="./queue.html"
               type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark dark:bg-button-dark"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Xem tất cả
             </a>
           </div>
-          <div class="flex w-full flex-row space-x-2 max-md:hidden">
+          <div class="hidden w-full flex-row space-x-2 md:flex">
             <p
               class="h-6 w-full text-sm font-bold text-gray-600 dark:text-gray-300"
             >
@@ -624,208 +628,160 @@
             </div> -->
 
             <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
               <p
-                class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
+                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
               ></p>
               <a
                 href=""
-                class="h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
+                class="my-auto h-6 w-14 shrink-0 justify-end rounded-full bg-gray-300 dark:bg-gray-500 md:order-5 xl:w-16 2xl:w-20"
               ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-            >
-              <p
-                class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <a
-                href=""
-                queue
-                class="h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-            >
-              <p
-                class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <a
-                href=""
-                class="h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
-            >
-              <div class="flex h-min w-full flex-col space-y-1">
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
                 <p
-                  class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
                 ></p>
                 <p
-                  class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 max-md:hidden md:h-6 xl:w-28 2xl:w-32"
                 ></p>
               </div>
-              <a
-                href=""
-                class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
             </div>
             <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
+              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <div class="flex h-min w-full flex-col space-y-1">
-                <p
-                  class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
-                ></p>
-                <p
-                  class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-                ></p>
-              </div>
+              <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
+                Lab4_RelationalAlgebra.pdf
+              </p>
               <a
                 href=""
-                class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
+                class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
+                >Hủy</a
+              >
+              <div
+                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+              >
+                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
+                  H1-203
+                </p>
+                <div class="md:hidden">•</div>
+                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
+                  Đang in
+                </p>
+                <p
+                  class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
+                >
+                  3 phút
+                </p>
+              </div>
+            </div>
+            <div
+              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
+                Lab4_RelationalAlgebra.pdf
+              </p>
+              <a
+                href=""
+                class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
+                >Hủy</a
+              >
+              <div
+                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+              >
+                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
+                  H1-203
+                </p>
+                <div class="md:hidden">•</div>
+                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
+                  Đang in
+                </p>
+                <p
+                  class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
+                >
+                  3 phút
+                </p>
+              </div>
             </div>
           </div>
         </div>
         <div
           id="history"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 sm:p-8 text-left dark:bg-card-background-dark"
         >
           <div class="flex w-full flex-row items-center justify-between pb-2">
             <p class="text-xl font-bold">Lịch sử</p>
             <a
               href="./history.html"
               type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark dark:bg-button-dark"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Xem tất cả
             </a>
           </div>
-          <div class="flex flex-row max-md:hidden">
+          <div class="flex flex-row space-x-2 max-md:hidden">
             <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
               Tiêu đề
             </p>
             <p
-              class="basis-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-28 2xl:basis-32"
+              class="w-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28 2xl:w-32"
             >
               Địa điểm
             </p>
             <p
-              class="basis-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-32 2xl:basis-36"
+              class="w-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32 2xl:w-36"
             >
               Số trang
             </p>
             <p
-              class="basis-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-28 2xl:basis-32"
+              class="w-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28 2xl:w-32"
             >
               Ngày
             </p>
           </div>
           <hr class="w-full border" />
           <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
+            class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
           >
-            <p class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"></p>
             <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
+              class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
             ></p>
             <p
-              class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
+              class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:w-28 2xl:w-32 md:order-3"
             ></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-          >
-            <p class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-          >
-            <p class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
-          >
-            <div class="flex h-min w-full flex-col space-y-1">
+            <div class="flex w-full flex-row space-x-2 md:max-w-max">
               <p
-                class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
+                class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
               ></p>
               <p
-                class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
+                class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
               ></p>
             </div>
-            <a
-              href=""
-              class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-            ></a>
           </div>
           <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
+            class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
           >
-            <div class="flex h-min w-full flex-col space-y-1">
-              <p
-                class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
+            <p class="w-7/12 min-w-0 truncate rounded-full md:w-full">
+              Lab4_RelationalAlgebra.pdf
+            </p>
+            <p
+              class="w-24 shrink-0 truncate rounded-full max-md:text-right md:order-3 xl:w-28 2xl:w-32"
+            >
+              T3, 28/11
+            </p>
+            <div
+              class="flex w-full flex-row space-x-2 truncate max-md:text-sm md:max-w-max"
+            >
+              <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
+                H1-203
+              </p>
+              <div class="md:hidden">•</div>
+              <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
+                12 trang
+              </p>
             </div>
-            <a
-              href=""
-              class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-            ></a>
           </div>
           <!-- <div class="flex flex-row space-x-2 py-1">
             <p class="grow truncate text-left">
@@ -839,7 +795,7 @@
       </div>
       <button
         type="button"
-        class="items bg-button-primary dark:bg-button-primary-dark fixed bottom-5 right-5 inline-flex gap-x-3 rounded-xl px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:text-dark-surface dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-sm:rounded-2xl max-sm:px-4 max-sm:py-4 lg:hidden"
+        class="items fixed bottom-5 right-5 inline-flex gap-x-3 rounded-xl bg-button-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:text-dark-surface dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-sm:rounded-2xl max-sm:px-4 max-sm:py-4 lg:hidden"
         id="uploadButton"
       >
         <svg

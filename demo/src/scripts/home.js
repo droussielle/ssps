@@ -2,7 +2,6 @@
 import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 import $ from 'jquery';
 
-
 export function fileUpload(file) {
   if (window.location.href.indexOf('home') === -1) {
     window.location.href = './home.html';
@@ -37,6 +36,7 @@ export function fileUpload(file) {
         ' trang</p>',
     );
   });
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 }
 
 function formatBytes(bytes, decimals = 2) {

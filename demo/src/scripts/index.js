@@ -14,7 +14,7 @@ $(() => {
     .text(user.name)
     .removeClass('h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700');
   $('[id=user-avatar]')
-    .html('<img class="h-full" src="' + user.avatar + '" />')
+    .html('<img class="h-full aspect-square" src="' + user.avatar + '" />')
     .removeClass('animate-pulse bg-gray-300');
   $('[id=user-remaining-pages]')
     .text(user.remainingPages + '/' + user.remainingPages + ' trang còn lại')

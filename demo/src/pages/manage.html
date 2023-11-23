@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="../../assets/hcmut.png" />
-    <title>Manage - SSPS</title>
+    <title>Home - SSPS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -61,7 +61,7 @@
       </div>
       <button
         id="user-card"
-        class="my-auto flex flex-row items-center gap-x-3 rounded-xl p-2 transition-all ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark sm:basis-96"
+        class="my-auto flex flex-row items-center gap-x-3 rounded-xl p-2 transition-all ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark max-sm:p-0 sm:basis-96"
       >
         <div
           id="user-avatar"
@@ -75,7 +75,7 @@
             ></p>
             <div
               id="user-type"
-              class="bg-button-primary hidden rounded-lg p-1 text-xs text-white"
+              class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
             >
               Admin
             </div>
@@ -94,7 +94,7 @@
             class="hidden h-1 w-full rounded-full bg-gray-200 transition-all max-sm:hidden"
           >
             <div
-              class="h-1 rounded-full bg-blue-primary"
+              class="bg-blue-primary h-1 rounded-full"
               style="width: 45%"
             ></div>
           </div>
@@ -134,22 +134,25 @@
         <div class="flex w-full flex-row space-x-3">
           <div
             id="user-avatar"
-            class="h-[48px] w-[48px] flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-90"
+            class="aspect-square min-h-full flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-75"
           ></div>
           <div class="grow flex-col space-y-1 text-left">
             <div class="flex flex-row space-x-2">
               <p id="user-name" class="font-bold"></p>
               <div
                 id="user-type"
-                class="bg-button-primary hidden rounded-lg p-1 text-xs text-white"
+                class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
               >
                 Admin
               </div>
             </div>
             <p id="user-remaining-pages" class="text-sm"></p>
-            <div class="h-1 w-full rounded-full bg-gray-200">
+            <div
+              class="h-1 w-full rounded-full bg-gray-200 dark:bg-gray-500"
+              id="user-remaining-pages-bar"
+            >
               <div
-                class="h-1 rounded-full bg-blue-primary"
+                class="bg-blue-primary h-1 rounded-full"
                 style="width: 45%"
               ></div>
             </div>
@@ -162,7 +165,7 @@
           <button
             id="add-pages"
             type="button"
-            class="items bg-button-primary dark:bg-button-primary-dark inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
+            class="items inline-flex gap-x-1 rounded-full bg-button-primary px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
           >
             <svg
               class="fill-white dark:fill-dark-surface"
@@ -178,19 +181,19 @@
             Nạp thêm
           </button>
         </div>
-        <hr class="w-full border dark:bg-dark-surface" />
+        <hr class="w-full border dark:border-gray-500" />
         <div class="flex w-full flex-row justify-between px-2">
           <button
             id="edit-account"
             type="button"
-            class="items dark:bg-button-dark inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+            class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
           >
             Sửa tài khoản
           </button>
           <button
             id="logout"
             type="button"
-            class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800"
+            class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700 dark:active:bg-red-600"
           >
             Đăng xuất
           </button>
@@ -200,14 +203,14 @@
     <div
       id="default-sidebar"
       aria-label="Sidebar"
-      class="fixed left-0 top-0 z-40 flex h-screen w-80 -translate-x-full flex-col justify-between space-y-3 bg-page-background px-10 pb-6 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
+      class="fixed left-0 top-0 z-40 flex h-screen w-80 -translate-x-full flex-col justify-between space-y-3 overflow-auto bg-page-background px-10 pb-6 pt-20 text-black transition-transform duration-[350ms] ease-in-out dark:bg-page-background-dark dark:text-white max-lg:pt-24 lg:translate-x-0 xl:w-1/4"
     >
       <div class="space-y-5 pb-2">
         <form action="/api" method="post" enctype="multipart/form-data">
           <input id="fileInput" name="file" type="file" class="hidden" />
           <button
             type="button"
-            class="items bg-button-primary dark:bg-button-primary-dark inline-flex gap-x-3 rounded-xl px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-lg:hidden"
+            class="items inline-flex gap-x-3 rounded-xl bg-button-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-lg:hidden"
             id="uploadButton"
           >
             <svg
@@ -252,7 +255,7 @@
           <li>
             <a
               href="./manage.html"
-              class="flex rounded-3xl p-3 font-bold transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="flex rounded-3xl bg-card-background p-3 font-bold transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:bg-button-hover-dark dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Quản lí</a
             >
@@ -338,523 +341,162 @@
       id="content-area"
     >
       <div
-        class="flex w-full flex-col space-y-8 rounded-[48px] bg-white dark:bg-content-background-dark max-sm:p-5 sm:p-10"
+        class="flex w-full flex-col space-y-6 bg-white dark:bg-content-background-dark max-sm:p-5 sm:rounded-[48px] sm:p-10"
       >
         <div
-          id="drop-zone"
-          class="flex rounded-3xl border-dashed border-gray-300 text-center opacity-100 max-sm:flex-row max-sm:border-8 max-sm:px-4 max-sm:py-1 sm:flex-col sm:border-[10px] sm:px-10 sm:py-12"
+          id="manage-printer"
+          class="flex flex-col space-y-5 rounded-3xl bg-card-background p-6 text-left transition-all dark:bg-card-background-dark sm:p-8"
         >
-          <svg
-            class="self-center dark:fill-dark-surface max-sm:scale-75"
-            xmlns="http://www.w3.org/2000/svg"
-            height="96"
-            viewBox="0 -960 960 960"
-            width="96"
-          >
-            <path
-              d="M260-160q-91 0-155.5-63T40-377q0-78 47-139t123-78q25-92 100-149t170-57q117 0 198.5 81.5T760-520q69 8 114.5 59.5T920-340q0 75-52.5 127.5T740-160H520q-33 0-56.5-23.5T440-240v-206l-64 62-56-56 160-160 160 160-56 56-64-62v206h220q42 0 71-29t29-71q0-42-29-71t-71-29h-60v-80q0-83-58.5-141.5T480-720q-83 0-141.5 58.5T280-520h-20q-58 0-99 41t-41 99q0 58 41 99t99 41h100v80H260Zm220-280Z"
-            />
-          </svg>
-          <p class="text-2xl font-bold max-sm:hidden">Thả vào đây để tải lên</p>
-          <p class="max-sm:hidden">hoặc bấm nút Tải lên</p>
-          <p class="w-full self-center text-center font-bold sm:hidden">
-            Bấm vào đây để tải lên...
-          </p>
-        </div>
-        <div
-          id="uploaded"
-          class="hidden flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left transition-transform dark:bg-card-background-dark"
-        >
-          <div class="flex flex-row items-center space-x-5">
-            <p class="text-2xl font-bold">PDF</p>
-            <div class="flex flex-col" id="upload-document-properties">
-              <!-- <p>Lab4_RelationalAlgebra.pdf</p>
-              <p>370 KB • 15 trang</p> -->
-              <div
-                class="mb-2 h-5 w-60 animate-pulse rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="h-4 w-36 animate-pulse rounded-full bg-gray-300"
-              ></div>
-            </div>
-          </div>
-          <form class="flex flex-col space-y-3" id="printer-select">
-            <p>Chọn địa điểm</p>
-            <!-- <div class="flex flex-row justify-between" id="printer-item">
-              <div class="flex flex-row items-center space-x-2">
-                <input
-                  id="printer-item-1"
-                  type="radio"
-                  name="printer-select"
-                  value="H1-203"
-                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  checked
-                />
-                <label for="printer-item-1">H1-203</label>
-              </div>
-              <div class="flex flex-row items-center space-x-2">
-                <p>3 phút</p>
-                <div class="h-2 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div>
-            <div class="flex flex-row justify-between" id="printer-item">
-              <div class="flex flex-row items-center space-x-2">
-                <input
-                  id="printer-item-2"
-                  type="radio"
-                  name="printer-select"
-                  value="H1-203"
-                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  checked
-                />
-                <label for="printer-item-2">H1-203</label>
-              </div>
-              <div class="flex flex-row items-center space-x-2">
-                <p>3 phút</p>
-                <div class="h-2 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div>
-            <div class="flex flex-row justify-between" id="printer-item">
-              <div class="flex flex-row items-center space-x-2">
-                <input
-                  id="printer-item-3"
-                  type="radio"
-                  name="printer-select"
-                  value="H1-203"
-                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  checked
-                />
-                <label for="printer-item-3">H1-203</label>
-              </div>
-              <div class="flex flex-row items-center space-x-2">
-                <p>3 phút</p>
-                <div class="h-2 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div> -->
-            <div class="flex flex-row justify-between py-1" id="printer-item">
-              <div
-                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-            </div>
-            <div class="flex flex-row justify-between py-1" id="printer-item">
-              <div
-                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-            </div>
-            <div class="flex flex-row justify-between py-1" id="printer-item">
-              <div
-                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-            </div>
-          </form>
+          <p id="printer-name" class="text-xl font-bold">Máy in</p>
           <div
-            class="flex flex-col rounded-xl p-3 shadow-1 transition hover:shadow-3"
+            id="manage-printer-body"
+            class="flex flex-col space-y-2 transition-all"
           >
-            <div class="flex cursor-pointer flex-col" id="expand-print-options">
-              <div class="flex flex-row items-center justify-between">
-                <p>Tùy chọn in</p>
-                <button
-                  class="rotate-180 items-center transition-transform"
-                  id="expand-print-options-arrow"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 -960 960 960"
-                    width="24"
-                  >
-                    <path
-                      d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <form
-              class="invisible grid max-h-0 grid-cols-1 items-center space-y-2 rounded-xl bg-card-background align-middle opacity-0 transition-all duration-300 ease-in-out dark:bg-card-background-dark sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-3"
-              id="print-options"
-            >
-              <hr class="col-span-full mt-2" />
-              <label for="print-options-orientation" class="my-2 block text-sm">
-                Hướng</label
-              >
-              <select
-                id="print-options-orientation"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="portrait">Dọc</option>
-                <option value="landscape">Ngang</option>
-              </select>
-              <label for="print-options-copies" class="mb-2 block text-sm">
-                Bản sao</label
-              >
-              <select
-                id="print-options-copies"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <label for="print-options-size" class="mb-2 block text-sm">
-                Kích cỡ giấy</label
-              >
-              <select
-                id="print-options-size"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option value="A3">A3</option>
-                <option selected value="A4">A4</option>
-                <option value="A5">A5</option>
-                <option value="A6">A6</option>
-              </select>
-              <label for="print-options-color" class="mb-2 block text-sm">
-                Màu</label
-              >
-              <select
-                id="print-options-color"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="bw">Trắng đen</option>
-                <option value="color">Màu</option>
-              </select>
-              <label
-                for="print-options-pages-per-side"
-                class="mb-2 block text-sm"
-              >
-                Số tờ mỗi mặt</label
-              >
-              <select
-                id="print-options-pages-per-side"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="1">1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-              </select>
-            </form>
+            <p>Chưa có máy in được thêm vào.</p>
           </div>
-          <div class="flex w-full flex-row items-center justify-between pb-2">
-            <button
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:shadow-3 active:bg-gray-200"
-              id="cancel-print"
-            >
-              Hủy
-            </button>
-            <button
-              type="button"
-              class="items bg-button-primary inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
-              id="print"
-            >
-              Tiến hành in
-            </button>
-          </div>
-        </div>
-        <div
-          id="queue"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
-        >
-          <div class="flex w-full flex-row items-center justify-between pb-2">
-            <p class="text-xl font-bold">Hàng đợi</p>
-            <a
-              href="./queue.html"
-              type="button"
-              class="items dark:bg-button-dark inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-            >
-              Xem tất cả
-            </a>
-          </div>
-          <div class="flex w-full flex-row space-x-2 max-md:hidden">
-            <p
-              class="h-6 w-full text-sm font-bold text-gray-600 dark:text-gray-300"
-            >
-              Tiêu đề
-            </p>
-            <p
-              class="h-6 shrink-0 basis-24 text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-28 2xl:basis-32"
-            >
-              Địa điểm
-            </p>
-            <p
-              class="h-6 shrink-0 basis-28 text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-32 2xl:basis-36"
-            >
-              Tình trạng
-            </p>
-            <p
-              class="h-6 shrink-0 basis-24 text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-28 2xl:basis-32"
-            >
-              Dự kiến
-            </p>
-            <div
-              class="h-6 shrink-0 basis-14 text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-16 2xl:basis-20"
-            ></div>
-          </div>
-          <hr class="w-full border" />
-          <div class="flex flex-col space-y-2" id="queue-content">
-            <!-- <div class="flex flex-row space-x-2 py-1">
-              <p class="grow truncate text-left">Lab4_RelationalAlgebra.pdf</p>
-              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
-              <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">
-                Đang đợi lấy
-              </p>
-              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">Đã xong</p>
-              <a
-                href=""
-                class="basis-14 text-blue-primary xl:basis-16 2xl:basis-20"
-                >Hủy</a
-              >
-            </div> -->
 
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
+          <div
+            id="manage-printer-actions"
+            class="flex w-full flex-wrap items-center justify-end gap-y-3 space-x-3"
+          >
+            <button
+              id="add-printer"
+              type="button"
+              class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
             >
-              <p
-                class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <a
-                href=""
-                class="h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-            >
-              <p
-                class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <a
-                href=""
-                queue
-                class="h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-            >
-              <p
-                class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-              ></p>
-              <p
-                class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
-              <a
-                href=""
-                class="h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
-            >
-              <div class="flex h-min w-full flex-col space-y-1">
-                <p
-                  class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
-                ></p>
-                <p
-                  class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-                ></p>
-              </div>
-              <a
-                href=""
-                class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
-            <div
-              class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
-            >
-              <div class="flex h-min w-full flex-col space-y-1">
-                <p
-                  class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
-                ></p>
-                <p
-                  class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-                ></p>
-              </div>
-              <a
-                href=""
-                class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-              ></a>
-            </div>
+              Thêm máy in
+            </button>
           </div>
         </div>
         <div
-          id="history"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
+          id="printer-queue"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
         >
           <div class="flex w-full flex-row items-center justify-between pb-2">
-            <p class="text-xl font-bold">Lịch sử</p>
-            <a
-              href="./history.html"
+            <p class="text-xl font-bold">Hàng đợi máy in</p>
+            <button
               type="button"
-              class="items dark:bg-button-dark inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Xem tất cả
-            </a>
+            </button>
           </div>
-          <div class="flex flex-row max-md:hidden">
+          <div class="flex flex-row space-x-2 max-md:hidden">
+            <p
+              class="w-20 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28"
+            >
+              MSSV
+            </p>
             <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
               Tiêu đề
             </p>
             <p
-              class="basis-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-28 2xl:basis-32"
-            >
-              Địa điểm
-            </p>
-            <p
-              class="basis-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-32 2xl:basis-36"
+              class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
             >
               Số trang
             </p>
             <p
-              class="basis-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:basis-28 2xl:basis-32"
+              class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
             >
-              Ngày
+              Tình trạng
             </p>
+            <div class="w-9 shrink-0"></div>
           </div>
           <hr class="w-full border" />
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-          >
-            <p class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-          >
-            <p class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 max-md:hidden"
-          >
-            <p class="h-6 w-full rounded-full bg-gray-300 dark:bg-gray-500"></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-28 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-32 2xl:basis-36"
-            ></p>
-            <p
-              class="h-6 shrink-0 basis-24 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-            ></p>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
-          >
-            <div class="flex h-min w-full flex-col space-y-1">
-              <p
-                class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
+          <div class="flex flex-col space-y-2">
+            <div
+              class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
+                2112945
+              </p>
+              <p class="w-8/12 truncate max-md:order-1 md:w-full">
+                Chapter_6_V7.01_Accessible.pdf
+              </p>
+              <div class="div flex flex-row space-x-2 max-md:order-3">
+                <p class="w-fit shrink-0 md:w-28 xl:w-32">85 trang</p>
+                <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
+                <p class="w-fit shrink-0 md:w-28 xl:w-32">Đang in</p>
+              </div>
+
+              <div class="w-9 shrink-0 max-md:hidden">Xem</div>
             </div>
-            <a
-              href=""
-              class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-            ></a>
-          </div>
-          <div
-            class="flex w-full animate-pulse flex-row space-x-2 py-1 md:hidden"
-          >
-            <div class="flex h-min w-full flex-col space-y-1">
-              <p
-                class="h-6 w-9/12 rounded-full bg-gray-300 dark:bg-gray-500"
-              ></p>
-              <p
-                class="h-5 w-6/12 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-28 2xl:basis-32"
-              ></p>
+            <div
+              class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
+                2112945
+              </p>
+              <p class="w-8/12 truncate max-md:order-1 md:w-full">
+                Chapter_6_V7.01_Accessible.pdf
+              </p>
+              <div class="div flex flex-row space-x-2 max-md:order-3">
+                <p class="w-fit shrink-0 md:w-28 xl:w-32">85 trang</p>
+                <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
+                <p class="w-fit shrink-0 md:w-28 xl:w-32">Đang in</p>
+              </div>
+
+              <div class="w-9 shrink-0 max-md:hidden">Xem</div>
             </div>
-            <a
-              href=""
-              class="my-auto h-6 shrink-0 basis-14 rounded-full bg-gray-300 dark:bg-gray-500 xl:basis-16 2xl:basis-20"
-            ></a>
           </div>
-          <!-- <div class="flex flex-row space-x-2 py-1">
-            <p class="grow truncate text-left">
-              Chapter_5_V7.01_Accessible.pdf
+          <div class="flex w-full flex-row items-center justify-end space-x-3">
+            <button
+              id="pause-print"
+              type="button"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+            >
+              Tạm dừng in
+            </button>
+            <button
+              id="stop-print"
+              type="button"
+              class="items dark:active:bg-red-6000 inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700"
+            >
+              Dừng in
+            </button>
+          </div>
+        </div>
+        <div
+          id="admin-panel"
+          class="flex flex-col space-y-5 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
+        >
+          <p class="text-xl font-bold">Quản trị hệ thống</p>
+          <div class="flex flex-col space-y-2">
+            <p class="text-sm font-bold text-gray-600 dark:text-gray-300">
+              Chi tiết
             </p>
-            <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
-            <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">23 trang</p>
-            <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">T2, 30/10</p>
-          </div> -->
+            <hr class="w-full border" />
+            <div class="grid grid-cols-1 gap-y-2 sm:grid-cols-2">
+              <p>Các loại tệp được phép</p>
+              <p id="allowed-file-types">pdf</p>
+              <p>Kích thước tệp tối đa</p>
+              <p id="maximum-file-type">5MB</p>
+              <p>Số tờ in mặc định</p>
+              <p id="default-credit">200</p>
+              <p>Ngày đặt lại số tờ</p>
+              <p id="credit-reset-date">Ngày 1 hàng tháng</p>
+              <p>Giá tiền 1 tờ</p>
+              <p id="price-per-page">200₫</p>
+            </div>
+          </div>
+          <div
+            class="flex w-full flex-row items-center justify-between space-x-3"
+          >
+            <button
+              type="button"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+            >
+              Chỉnh sửa
+            </button>
+            <button
+              type="button"
+              class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700 dark:active:bg-red-600"
+            >
+              Đặt về mặc định
+            </button>
+          </div>
         </div>
       </div>
-      <button
-        type="button"
-        class="items bg-button-primary dark:bg-button-primary-dark fixed bottom-5 right-5 inline-flex gap-x-3 rounded-xl px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:text-dark-surface dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-sm:rounded-2xl max-sm:px-4 max-sm:py-4 lg:hidden"
-        id="uploadButton"
-      >
-        <svg
-          class="fill-white dark:fill-dark-surface"
-          xmlns="http://www.w3.org/2000/svg"
-          height="24"
-          viewBox="0 -960 960 960"
-          width="24"
-        >
-          <path
-            d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
-          />
-        </svg>
-        <p class="max-sm:hidden">Tải lên</p>
-      </button>
     </div>
     <!-- <script src="../../dist/main.bundle.js"></script> -->
     <!-- <script src="../../dist/index.bundle.js"></script> -->
