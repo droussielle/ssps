@@ -122,6 +122,41 @@ class PrintOrderController {
       throw err;
     }
   }
+
+  async getprintorders(user_id) {
+    try {
+      const result = await printordermodel.find({ user: user_id });
+      return formatedata(result);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getoneprintorder(_id) {
+    try {
+      const result = await printordermodel.findById(_id);
+      if (result) {
+        return formatedata(result);
+      } else {
+        return formatedata({
+          error: {
+            message: 'Order not found',
+          },
+        });
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getallprintorders() {
+    try {
+      const result = await printordermodel.find();
+      return formatedata(result);
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = new PrintOrderController();

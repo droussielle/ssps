@@ -6,6 +6,7 @@ const router = express.Router();
 const userauth = require('../auth/check-auth');
 
 const SPSO = require('../app/controllers/SPSOController');
+const PrintOrderController = require('../app/controllers/PrintOrderController');
 
 //SIGNUP SERVICE CREATE NEW SPSO USER INCLUDING: NEW ACCOUNT INSTANCE & SPSO ID
 
@@ -314,6 +315,33 @@ router.post('/set-default-pages', userauth, async (req, res, next) => {
     const amount = req.body.amount;
     const mydata = await SPSO.setDefaultCredit(amount);
     return res.json(mydata);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/all-orders', async (req, res, next) => {
+  try {
+    const data = await PrintOrderController.getallprintorders();
+
+    if (data.data.error) {
+      return res.status(400).json(data.data);
+    } else {
+      return res.status(200).json(data.data);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/printorders/:user_id', async (req, res, next) => {
+  try {
+    const user_id = req.params.user_id;
+    const data = await PrintOrderController.getprintorders(user_id);
+
+    if (data.data.error) {
+      return res.status(400).json(data.data);
+    } else return res.status(200).json(data.data);
   } catch (err) {
     next(err);
   }
