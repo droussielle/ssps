@@ -64,16 +64,8 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.get('/printer', userauth, async (req, res, next) => {
+router.get('/printer', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
     const mydata = await SPSO.getAllPrinter();
     return res.status(200).json(mydata);
   } catch (err) {
