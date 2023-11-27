@@ -103,7 +103,7 @@ $('#add-pages').on('click', function () {
 /* log out of the service */
 $('#logout').on('click', function () {
   // logOut();
-  localStorage.removeItem('userInfo');
+  localStorage.clear();
   window.location.href = './login.html';
 });
 

@@ -1,6 +1,6 @@
 // nothing in here yet
 /* eslint-disable require-jsdoc */
-$(document).ready(function () {
+$(() => {
   // login()
   // setTimeout(() => {
   //   deletePrinter();
