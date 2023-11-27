@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
-var data = [
+import $ from 'jquery';
+const data = [
   {
     'title': 'Chapter_5_V7.01_Accessible.pdf',
     'location': 'H1-203',
@@ -21,11 +22,7 @@ var data = [
     'page': 45,
     'date': "T4, 25/10"
   }];
-$(document).ready(function () {
-  loadData();
-});
-
-function loadData() {
+setTimeout(function () {
   let str = `<div class="flex w-full flex-row items-center justify-between pb-2">
     <p class="text-xl font-bold">Lịch sử</p>
   </div>
@@ -47,4 +44,4 @@ function loadData() {
       </div>`;
   })
   $('#history').html(str);
-}
+}, 2000);
