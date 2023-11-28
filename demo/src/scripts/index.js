@@ -7,7 +7,7 @@ import { fileUpload } from './home.js';
 $(() => {
   if (!localStorage.getItem('userInfo')) {
     window.location.href = './login.html';
-    throw new Error('userLogin');
+    throw new Error('Not logged in!');
   }
   const user = JSON.parse(localStorage.getItem('userInfo'));
   $('[id=user-name]')

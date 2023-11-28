@@ -20,7 +20,7 @@ export function fileUpload(file) {
   const re = /(\.pdf|\.pdf)$/i;
   if (!re.exec(fname)) {
     // alert('File extension not supported!');
-    throw new Error('unsupportedFileType');
+    throw new Error('File type not supported! Please consult the help articles for more information.');
   }
   let filePages;
   pdfjsLib.getDocument(fileURL).promise.then((document) => {
@@ -108,6 +108,7 @@ $('#expand-print-options').on('click', () => {
     $('#expand-print-options-arrow').addClass('rotate-180');
   }
 });
+
 setTimeout(function () {
   const Queue = [{
     'title': "Lab4_RelationalAlgebra.pdf",

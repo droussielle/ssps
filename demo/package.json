@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack && tailwindcss -i ./src/input.css -o ./dist/output.css --minify"
+    "build": "webpack && tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "watch": "webpack --watch & tailwindcss -i ./src/input.css -o ./dist/output.css --minify --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",

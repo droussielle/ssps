@@ -366,7 +366,7 @@
         </div>
         <div
           id="uploaded"
-          class="hidden flex-col space-y-5 rounded-3xl bg-card-background p-6 sm:p-8 text-left transition-transform dark:bg-card-background-dark"
+          class="hidden flex-col space-y-5 rounded-3xl bg-card-background p-6 text-left transition-transform dark:bg-card-background-dark sm:p-8"
         >
           <div class="flex flex-row items-center space-x-5">
             <p class="text-2xl font-bold">PDF</p>
@@ -574,7 +574,7 @@
         </div>
         <div
           id="queue"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 sm:p-8 text-left dark:bg-card-background-dark"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
         >
           <div class="flex w-full flex-row items-center justify-between pb-2">
             <p class="text-xl font-bold">Hàng đợi</p>
@@ -613,20 +613,6 @@
           </div>
           <hr class="w-full border" />
           <div class="flex flex-col space-y-2" id="queue-content">
-            <!-- <div class="flex flex-row space-x-2 py-1">
-              <p class="grow truncate text-left">Lab4_RelationalAlgebra.pdf</p>
-              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
-              <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">
-                Đang đợi lấy
-              </p>
-              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">Đã xong</p>
-              <a
-                href=""
-                class="basis-14 text-blue-primary xl:basis-16 2xl:basis-20"
-                >Hủy</a
-              >
-            </div> -->
-
             <div
               class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
@@ -649,7 +635,7 @@
                 ></p>
               </div>
             </div>
-            <div
+            <!-- <div
               class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
               <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
@@ -704,12 +690,12 @@
                   3 phút
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div
           id="history"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 sm:p-8 text-left dark:bg-card-background-dark"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
         >
           <div class="flex w-full flex-row items-center justify-between pb-2">
             <p class="text-xl font-bold">Lịch sử</p>
@@ -742,55 +728,49 @@
             </p>
           </div>
           <hr class="w-full border" />
-          <div
-            class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-          >
-            <p
-              class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
-            ></p>
-            <p
-              class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 xl:w-28 2xl:w-32 md:order-3"
-            ></p>
-            <div class="flex w-full flex-row space-x-2 md:max-w-max">
-              <p
-                class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
-              ></p>
-              <p
-                class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
-              ></p>
-            </div>
-          </div>
-          <div
-            class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-          >
-            <p class="w-7/12 min-w-0 truncate rounded-full md:w-full">
-              Lab4_RelationalAlgebra.pdf
-            </p>
-            <p
-              class="w-24 shrink-0 truncate rounded-full max-md:text-right md:order-3 xl:w-28 2xl:w-32"
-            >
-              T3, 28/11
-            </p>
+          <div class="flex flex-col space-y-2" id="history-content">
             <div
-              class="flex w-full flex-row space-x-2 truncate max-md:text-sm md:max-w-max"
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-                H1-203
-              </p>
-              <div class="md:hidden">•</div>
-              <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-                12 trang
-              </p>
+              <p
+                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
+              <p
+                class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
+              ></p>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+              </div>
             </div>
+            <!-- <div
+              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p class="w-7/12 min-w-0 truncate rounded-full md:w-full">
+                Lab4_RelationalAlgebra.pdf
+              </p>
+              <p
+                class="w-24 shrink-0 truncate rounded-full max-md:text-right md:order-3 xl:w-28 2xl:w-32"
+              >
+                T3, 28/11
+              </p>
+              <div
+                class="flex w-full flex-row space-x-2 truncate max-md:text-sm md:max-w-max"
+              >
+                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
+                  H1-203
+                </p>
+                <div class="md:hidden">•</div>
+                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
+                  12 trang
+                </p>
+              </div>
+            </div> -->
           </div>
-          <!-- <div class="flex flex-row space-x-2 py-1">
-            <p class="grow truncate text-left">
-              Chapter_5_V7.01_Accessible.pdf
-            </p>
-            <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
-            <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">23 trang</p>
-            <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">T2, 30/10</p>
-          </div> -->
         </div>
       </div>
       <button
