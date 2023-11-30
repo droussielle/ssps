@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link href="../../dist/output.css" rel="stylesheet" />
+    <script defer src="../../dist/src_scripts_home_js.bundle.js"></script>
     <script defer src="../../dist/index.bundle.js"></script>
     <script defer src="../../dist/home.bundle.js"></script>
     <!-- <script defer src="../../dist/login.bundle.js"></script> -->
@@ -365,214 +366,6 @@
           </p>
         </div>
         <div
-          id="uploaded"
-          class="hidden flex-col space-y-5 rounded-3xl bg-card-background p-6 text-left transition-transform dark:bg-card-background-dark sm:p-8"
-        >
-          <div class="flex flex-row items-center space-x-5">
-            <p class="text-2xl font-bold">PDF</p>
-            <div class="flex flex-col" id="upload-document-properties">
-              <!-- <p>Lab4_RelationalAlgebra.pdf</p>
-              <p>370 KB • 15 trang</p> -->
-              <div
-                class="mb-2 h-5 w-60 animate-pulse rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="h-4 w-36 animate-pulse rounded-full bg-gray-300"
-              ></div>
-            </div>
-          </div>
-          <form class="flex flex-col space-y-3" id="printer-select">
-            <p>Chọn địa điểm</p>
-            <!-- <div class="flex flex-row justify-between" id="printer-item">
-              <div class="flex flex-row items-center space-x-2">
-                <input
-                  id="printer-item-1"
-                  type="radio"
-                  name="printer-select"
-                  value="H1-203"
-                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  checked
-                />
-                <label for="printer-item-1">H1-203</label>
-              </div>
-              <div class="flex flex-row items-center space-x-2">
-                <p>3 phút</p>
-                <div class="h-2 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div>
-            <div class="flex flex-row justify-between" id="printer-item">
-              <div class="flex flex-row items-center space-x-2">
-                <input
-                  id="printer-item-2"
-                  type="radio"
-                  name="printer-select"
-                  value="H1-203"
-                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  checked
-                />
-                <label for="printer-item-2">H1-203</label>
-              </div>
-              <div class="flex flex-row items-center space-x-2">
-                <p>3 phút</p>
-                <div class="h-2 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div>
-            <div class="flex flex-row justify-between" id="printer-item">
-              <div class="flex flex-row items-center space-x-2">
-                <input
-                  id="printer-item-3"
-                  type="radio"
-                  name="printer-select"
-                  value="H1-203"
-                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                  checked
-                />
-                <label for="printer-item-3">H1-203</label>
-              </div>
-              <div class="flex flex-row items-center space-x-2">
-                <p>3 phút</p>
-                <div class="h-2 w-8 rounded-full bg-red-500"></div>
-              </div>
-            </div> -->
-            <div class="flex flex-row justify-between py-1" id="printer-item">
-              <div
-                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-            </div>
-            <div class="flex flex-row justify-between py-1" id="printer-item">
-              <div
-                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-            </div>
-            <div class="flex flex-row justify-between py-1" id="printer-item">
-              <div
-                class="flex h-4 w-64 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-              <div
-                class="flex h-4 w-20 animate-pulse flex-row items-center space-x-2 rounded-full bg-gray-300"
-              ></div>
-            </div>
-          </form>
-          <div
-            class="flex flex-col rounded-xl p-3 shadow-1 transition hover:shadow-3"
-          >
-            <div class="flex cursor-pointer flex-col" id="expand-print-options">
-              <div class="flex flex-row items-center justify-between">
-                <p>Tùy chọn in</p>
-                <button
-                  class="rotate-180 items-center transition-transform"
-                  id="expand-print-options-arrow"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 -960 960 960"
-                    width="24"
-                    class="dark:fill-dark-surface"
-                  >
-                    <path
-                      d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <form
-              class="invisible grid max-h-0 grid-cols-1 items-center space-y-2 rounded-xl bg-card-background align-middle opacity-0 transition-all duration-300 ease-in-out dark:bg-card-background-dark sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-3"
-              id="print-options"
-            >
-              <hr class="col-span-full mt-2" />
-              <label for="print-options-orientation" class="my-2 block text-sm">
-                Hướng</label
-              >
-              <select
-                id="print-options-orientation"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="portrait">Dọc</option>
-                <option value="landscape">Ngang</option>
-              </select>
-              <label for="print-options-copies" class="mb-2 block text-sm">
-                Bản sao</label
-              >
-              <select
-                id="print-options-copies"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <label for="print-options-size" class="mb-2 block text-sm">
-                Kích cỡ giấy</label
-              >
-              <select
-                id="print-options-size"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option value="A3">A3</option>
-                <option selected value="A4">A4</option>
-                <option value="A5">A5</option>
-                <option value="A6">A6</option>
-              </select>
-              <label for="print-options-color" class="mb-2 block text-sm">
-                Màu</label
-              >
-              <select
-                id="print-options-color"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="bw">Trắng đen</option>
-                <option value="color">Màu</option>
-              </select>
-              <label
-                for="print-options-pages-per-side"
-                class="mb-2 block text-sm"
-              >
-                Số tờ mỗi mặt</label
-              >
-              <select
-                id="print-options-pages-per-side"
-                class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-              >
-                <option selected value="1">1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-              </select>
-            </form>
-          </div>
-          <div class="flex w-full flex-row items-center justify-between">
-            <button
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-              id="cancel-print"
-            >
-              Hủy
-            </button>
-            <button
-              type="button"
-              class="items inline-flex gap-x-1 rounded-full bg-button-primary px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
-              id="print"
-            >
-              Tiến hành in
-            </button>
-          </div>
-        </div>
-        <div
           id="queue"
           class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
         >
@@ -635,62 +428,50 @@
                 ></p>
               </div>
             </div>
-            <!-- <div
-              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            <div
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
-                Lab4_RelationalAlgebra.pdf
-              </p>
+              <p
+                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
               <a
                 href=""
-                class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
-                >Hủy</a
-              >
-              <div
-                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-              >
-                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-                  H1-203
-                </p>
-                <div class="md:hidden">•</div>
-                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-                  Đang in
-                </p>
+                class="my-auto h-6 w-14 shrink-0 justify-end rounded-full bg-gray-300 dark:bg-gray-500 md:order-5 xl:w-16 2xl:w-20"
+              ></a>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
                 <p
-                  class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
-                >
-                  3 phút
-                </p>
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 max-md:hidden md:h-6 xl:w-28 2xl:w-32"
+                ></p>
               </div>
             </div>
             <div
-              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
-                Lab4_RelationalAlgebra.pdf
-              </p>
+              <p
+                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
               <a
                 href=""
-                class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
-                >Hủy</a
-              >
-              <div
-                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-              >
-                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-                  H1-203
-                </p>
-                <div class="md:hidden">•</div>
-                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-                  Đang in
-                </p>
+                class="my-auto h-6 w-14 shrink-0 justify-end rounded-full bg-gray-300 dark:bg-gray-500 md:order-5 xl:w-16 2xl:w-20"
+              ></a>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
                 <p
-                  class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
-                >
-                  3 phút
-                </p>
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 max-md:hidden md:h-6 xl:w-28 2xl:w-32"
+                ></p>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
         <div
@@ -733,7 +514,7 @@
               class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
               <p
-                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+                class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
               ></p>
               <p
                 class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
@@ -747,29 +528,25 @@
                 ></p>
               </div>
             </div>
-            <!-- <div
+            <div
               class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <p class="w-7/12 min-w-0 truncate rounded-full md:w-full">
+              <p class="w-2/3 min-w-0 truncate md:w-full">
                 Lab4_RelationalAlgebra.pdf
               </p>
               <p
-                class="w-24 shrink-0 truncate rounded-full max-md:text-right md:order-3 xl:w-28 2xl:w-32"
+                class="w-24 shrink-0 truncate max-md:text-right md:order-3 xl:w-28 2xl:w-32"
               >
                 T3, 28/11
               </p>
               <div
-                class="flex w-full flex-row space-x-2 truncate max-md:text-sm md:max-w-max"
+                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
               >
-                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-                  H1-203
-                </p>
+                <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">H1-203</p>
                 <div class="md:hidden">•</div>
-                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-                  12 trang
-                </p>
+                <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">12 trang</p>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

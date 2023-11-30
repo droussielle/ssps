@@ -12,13 +12,17 @@ $(() => {
   const user = JSON.parse(localStorage.getItem('userInfo'));
   $('[id=user-name]')
     .text(user.name)
-    .removeClass('h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700');
+    .removeClass(
+      'h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
+    );
   $('[id=user-avatar]')
     .html('<img class="h-full aspect-square" src="' + user.avatar + '" />')
     .removeClass('animate-pulse bg-gray-300');
   $('[id=user-remaining-pages]')
     .text(user.remainingPages + '/' + user.remainingPages + ' trang còn lại')
-    .removeClass('h-3 w-[60%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700');
+    .removeClass(
+      'h-3 w-[60%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
+    );
   $('[id=user-remaining-pages-mobile]')
     .text(user.remainingPages + '/' + user.remainingPages)
     .removeClass('animate-pulse');
@@ -100,13 +104,6 @@ $('#add-pages').on('click', function () {
   window.location.href = './buy.html';
 });
 
-/* log out of the service */
-$('#logout').on('click', function () {
-  // logOut();
-  localStorage.clear();
-  window.location.href = './login.html';
-});
-
 /* handle upload button event */
 $('[id=uploadButton]').on('click', () => {
   $('#fileInput').trigger('click');
@@ -115,4 +112,11 @@ $('[id=uploadButton]').on('click', () => {
 $('#fileInput').on('change', async function () {
   /* eslint-disable no-invalid-this */
   fileUpload(this.files[0]);
+});
+
+/* log out of the service */
+$('#logout').on('click', function () {
+  // logOut();
+  localStorage.clear();
+  window.location.href = './login.html';
 });

@@ -21,6 +21,13 @@ class User {
   }
 }
 
+$(() => {
+  if (localStorage.getItem('userInfo')) {
+    window.location.href = './home.html';
+    return;
+  }
+});
+
 $('[name=submitButton]').on('click', function (e) {
   e.preventDefault();
   // console.log('hehe');
@@ -45,7 +52,8 @@ $('[name=submitButton]').on('click', function (e) {
     </div>
     `;
     $('#fm1').prepend(errorDiv);
-    throw new Error('userInputRequired');
+    // throw new Error('');
+    return;
   }
   const body = {
     email: username,
@@ -77,6 +85,9 @@ $('[name=submitButton]').on('click', function (e) {
     </div>
     `;
       $('#fm1').prepend(errorDiv);
-      throw new Error('authorizeFailed');
+      // throw new Error(
+      //   'Failed to authorize login information. Wrong username or password?',
+      // );
+      return;
     });
 });
