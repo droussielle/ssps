@@ -75,14 +75,7 @@ router.get('/printer', async (req, res, next) => {
 
 router.get('/printer/:id', userauth, async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const id = req.params.id;
     const mydata = await SPSO.getPrinter(id);
 
