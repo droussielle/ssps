@@ -495,7 +495,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"printer_id\":\"655efd6ef7dbd15c0c79e7a8\"\r\n}",
+					"raw": "{\r\n    \"printer_id\":\"6560174d32c3b94c3911986f\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -523,7 +523,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"printer_id\":\"655efd6ef7dbd15c0c79e7a8\"\r\n}",
+					"raw": "{\r\n    \"printer_id\":\"6560174d32c3b94c3911986f\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -590,12 +590,12 @@
 						{
 							"key": "printFile",
 							"type": "file",
-							"src": "/C:/Users/takho/Desktop/OneDrive - hcmut.edu.vn/Study/2021_MT_KHM.pdf"
+							"src": "/C:/Users/takho/Downloads/report-mẫu.pdf"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:3000/printorder/upload/655dd0e8b1a4045235fe1013",
+					"raw": "localhost:3000/printorder/upload/65605142b7c29a6c8eb456a3",
 					"host": [
 						"localhost"
 					],
@@ -603,7 +603,7 @@
 					"path": [
 						"printorder",
 						"upload",
-						"655dd0e8b1a4045235fe1013"
+						"65605142b7c29a6c8eb456a3"
 					]
 				}
 			},
@@ -616,7 +616,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnRAaGNtdXQuZWR1LnZuIiwiX2lkIjoiNjU1ZjEyNjEwNTZhNjNiNjBiYWZhODk3IiwiaWF0IjoxNzAwNzk2NDAwLCJleHAiOjE3MDE0MDEyMDB9.ZHRGWv1JQOGo2-6YV7Mle5BmIZ_KeaEC0DO1QVgHu2E",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnRAaGNtdXQuZWR1LnZuIiwiX2lkIjoiNjU1ZjEyNjEwNTZhNjNiNjBiYWZhODk3IiwiaWF0IjoxNzAxMjIxNzg0LCJleHAiOjE3MDE4MjY1ODR9.SyDfh5S1J4uCom1D8Owc685OetTMHJ09Q3kwL6zCAI4",
 						"type": "text"
 					}
 				],
@@ -676,6 +676,31 @@
 						"spso",
 						"printer",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get self's info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnRAaGNtdXQuZWR1LnZuIiwiX2lkIjoiNjU2OTdmYWExZTRiZTQ1NDU3YTI0M2ViIiwiaWF0IjoxNzAxNDEyNzgzLCJleHAiOjE3MDIwMTc1ODN9.WnTFewMHxy8H8qBtZf_nRPJMC7Rrhyic3pSoyFovq_I",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/account/self",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"account",
+						"self"
 					]
 				}
 			},
