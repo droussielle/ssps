@@ -1,4 +1,6 @@
 const accountmodel = require('../models/Account');
+const mongoose = require('mongoose');
+
 const {
   generatepassword,
   formatedata,
@@ -6,6 +8,7 @@ const {
   validatepassword,
   generatesalt,
 } = require('../../auth/side');
+const { account } = require('../../routes');
 
 class AccountController {
   //LOGIN SERVICE
@@ -111,6 +114,23 @@ class AccountController {
       throw err;
     }
   }
+
+  async getself(user_id){
+    try{
+      // const user = accountmodel.find
+      const result = await accountmodel.findOne({_id:user_id});
+      if (result){
+        return formatedata(result);
+      } else return formatedata({
+        error:{
+          message:'User not found'
+        }
+      });
+    } catch (err){
+      throw err;
+    }
+  }
+
 }
 
 module.exports = new AccountController();
