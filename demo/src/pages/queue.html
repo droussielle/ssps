@@ -19,7 +19,7 @@
     <!-- <script defer src="../../dist/manage.bundle.js"></script> -->
     <!-- <script defer src="../../dist/buy.bundle.js"></script> -->
     <!-- <script defer src="../../dist/history.bundle.js"></script> -->
-    <script defer src="../../dist/queue.bundle.js"></script>
+    <!-- <script defer src="../../dist/queue.bundle.js"></script> -->
     <!-- <script defer src="../../dist/report.bundle.js"></script> -->
     <script defer src="../../dist/vendors.bundle.js"></script>
   </head>
@@ -378,20 +378,6 @@
           </div>
           <hr class="w-full border" />
           <div class="flex flex-col space-y-2" id="queue-content">
-            <!-- <div class="flex flex-row space-x-2 py-1">
-              <p class="grow truncate text-left">Lab4_RelationalAlgebra.pdf</p>
-              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">H1-203</p>
-              <p class="shrink-0 basis-28 xl:basis-32 2xl:basis-36">
-                Đang đợi lấy
-              </p>
-              <p class="shrink-0 basis-24 xl:basis-28 2xl:basis-32">Đã xong</p>
-              <a
-                href=""
-                class="basis-14 text-blue-primary xl:basis-16 2xl:basis-20"
-                >Hủy</a
-              >
-            </div> -->
-
             <div
               class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
@@ -415,59 +401,47 @@
               </div>
             </div>
             <div
-              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
-                Lab4_RelationalAlgebra.pdf
-              </p>
+              <p
+                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
               <a
                 href=""
-                class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
-                >Hủy</a
-              >
-              <div
-                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-              >
-                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-                  H1-203
-                </p>
-                <div class="md:hidden">•</div>
-                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-                  Đang in
-                </p>
+                class="my-auto h-6 w-14 shrink-0 justify-end rounded-full bg-gray-300 dark:bg-gray-500 md:order-5 xl:w-16 2xl:w-20"
+              ></a>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
                 <p
-                  class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
-                >
-                  3 phút
-                </p>
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 max-md:hidden md:h-6 xl:w-28 2xl:w-32"
+                ></p>
               </div>
             </div>
             <div
-              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
-              <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
-                Lab4_RelationalAlgebra.pdf
-              </p>
+              <p
+                class="h-6 w-3/4 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
               <a
                 href=""
-                class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
-                >Hủy</a
-              >
-              <div
-                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-              >
-                <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-                  H1-203
-                </p>
-                <div class="md:hidden">•</div>
-                <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-                  Đang in
-                </p>
+                class="my-auto h-6 w-14 shrink-0 justify-end rounded-full bg-gray-300 dark:bg-gray-500 md:order-5 xl:w-16 2xl:w-20"
+              ></a>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
                 <p
-                  class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
-                >
-                  3 phút
-                </p>
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 max-md:hidden md:h-6 xl:w-28 2xl:w-32"
+                ></p>
               </div>
             </div>
           </div>

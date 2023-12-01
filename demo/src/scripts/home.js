@@ -1,25 +1,44 @@
 /* eslint-disable require-jsdoc */
 import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
-import $, { queue } from 'jquery';
+import $ from 'jquery';
 // import printJS from 'print-js';
 
 let dropZone;
-
-const authToken =
-  'Bearer ' + JSON.parse(localStorage.getItem('userInfo')).token;
-// console.log(authToken);
-
-$.ajaxSetup({
-  headers: {
-    Authorization: authToken,
-  },
-});
 
 export function fileUpload(file) {
   if (window.location.href.indexOf('home') === -1) {
     window.location.href = './home.html';
   }
   dropZone = $('#drop-zone').clone();
+  // let printers = [];
+  $.get('http://localhost:3000/spso/printer/')
+    .done(function (data) {
+      console.log(data);
+      if (data.data.length == 0) {
+        $('#print').attr(
+          'class',
+          'items inline-flex gap-x-1 rounded-full bg-[#4d69b2] px-5 py-2.5 text-center text-white shadow-1 transition ease-out dark:bg-button-primary-dark cursor-not-allowed',
+        );
+        const errorDiv = `
+        <div class="px-3 py-2 bg-red-200 mix-blend-multiply rounded-full flex flex-row space-x-5 items-center">
+          <svg class="self-center" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+            <path fill="#B3261E" d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
+          </svg>
+          <p>Không tìm thấy máy in nào!</p>
+        </div>
+        `;
+        $('#drop-zone').append(errorDiv);
+      }
+    })
+    .fail(function (xhr, status, error) {
+      // console.log(xhr);
+      const errorCode = xhr.status;
+      const errorMessage = xhr.responseJSON.error.message;
+      window.location.href =
+        './error.html?num=' + errorCode + '&msg=' + errorMessage;
+      $('#error-code').html(errorCode);
+      $('#error-description').html(errorMessage);
+    });
   const uploaded = `
   <div
     id="drop-zone"
@@ -38,6 +57,8 @@ export function fileUpload(file) {
     </div>
     <form class="flex flex-col space-y-3" id="printer-select">
       <p>Chọn địa điểm</p>
+      <div class="flex flex-col space-x-2" id="printer-list">
+      </div>
     </form>
     <div
       class="flex flex-col rounded-xl p-3 shadow-1 transition hover:shadow-3"
@@ -103,7 +124,7 @@ export function fileUpload(file) {
           <option value="10">10</option>
         </select>
         <label for="print-options-size" class="mb-2 block text-sm">
-          Kích cỡ giấy</label
+          Khổ giấy</label
         >
         <select
           id="print-options-size"
@@ -113,16 +134,6 @@ export function fileUpload(file) {
           <option selected value="A4">A4</option>
           <option value="A5">A5</option>
           <option value="A6">A6</option>
-        </select>
-        <label for="print-options-color" class="mb-2 block text-sm">
-          Màu</label
-        >
-        <select
-          id="print-options-color"
-          class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
-        >
-          <option selected value="bw">Trắng đen</option>
-          <option value="color">Màu</option>
         </select>
         <label
           for="print-options-pages-per-side"
@@ -139,6 +150,11 @@ export function fileUpload(file) {
           <option value="4">4</option>
           <option value="6">6</option>
         </select>
+        <hr class="col-span-full mt-2" />
+        <div class="flex flex-row space-x-3 items-center py-1">
+          <input id="print-options-sided" type="checkbox" value="" class="w-4 h-4 text-blue-primary bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" >
+          <label for="print-options-sided" class="ms-2 text-sm">In hai mặt</label>
+        </div>
       </form>
     </div>
     <div class="flex w-full flex-row items-center justify-between">
@@ -155,9 +171,9 @@ export function fileUpload(file) {
         id="print"
         >
         Tiến hành in
-        </button>
-        </div>
-        </div>
+      </button>
+    </div>
+  </div>
         `;
   $('#drop-zone').replaceWith(uploaded);
 
@@ -233,10 +249,13 @@ function formatBytes(bytes, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
-function loadQueue() {
+export function loadQueue() {
   $.get('http://localhost:3000/account/printorders')
     .done(function (data) {
       $('#queue-content').html('');
+      if (data.length == 0) {
+        $('#queue-content').html('Bạn không có mục nào trong hàng đợi.');
+      }
       data.forEach((element) => {
         if (!element.status) {
           $.get('http://localhost:3000/spso/printer/' + element.printer).done(
@@ -289,145 +308,75 @@ function loadQueue() {
     .fail(() => {});
 }
 
-function loadHistory() {}
+export function loadHistory() {
+  $.get('http://localhost:3000/account/printorders')
+    .done(function (data) {
+      $('#history-content').html('');
+      if (data.length == 0) {
+        $('#history-content').html('Bạn không có mục nào trong lịch sử.');
+      }
+      data.forEach((element) => {
+        if (!element.status) {
+          $.get('http://localhost:3000/spso/printer/' + element.printer).done(
+            function (data) {
+              const fileName = element.fileName;
+              const queueLocation = data.data.location;
+              const queueStatus =
+                element.status === 'true' ? 'Đã in' : 'Đang xử lý';
+              const queueETA =
+                Date.parse(element.estimatedEndTime) - Date.now();
+              const historyItem =
+                `
+                <div
+                  class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+                >
+                  <p class="w-3/4 min-w-0 truncate md:w-full">` +
+                fileName +
+                `</p>
+                  <a
+                    href=""
+                    class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
+                    >Hủy</a
+                  >
+                  <div
+                    class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                  >
+                    <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                queueLocation +
+                `</p>
+                    <div class="md:hidden">•</div>
+                    <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                queueStatus +
+                `</p>
+                    <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
+                      ` +
+                queueETA +
+                `
+                    </p>
+                  </div>
+                </div>
+              `;
+              $('#history-content').append(historyItem);
+              // console.log(queueItem);
+            },
+          );
+        }
+      });
+      // console.log(data);
+    })
+    .fail(function (xhr, status, error) {
+      // console.log(xhr);
+      const errorCode = xhr.status;
+      const errorMessage = xhr.responseJSON.error.message;
+      window.location.href =
+        './error.html?num=' + errorCode + '&msg=' + errorMessage;
+      $('#error-code').html(errorCode);
+      $('#error-description').html(errorMessage);
+    });
+}
 
 // load queue and history on page load
 $(() => {
   loadQueue();
   loadHistory();
 });
-
-// setTimeout(function () {
-//   const Queue = [
-//     {
-//       title: 'Lab4_RelationalAlgebra.pdf',
-//       location: 'H1-203',
-//       time: 0,
-//       status: 1,
-//     },
-//     {
-//       title: '06_Ch6 System Modeling_2023.pdf',
-//       location: 'H1-203',
-//       time: 2,
-//       status: 0,
-//     },
-//     {
-//       title: 'Lab4_RelationalAlgebra.pdf',
-//       location: 'H1-203',
-//       time: 6,
-//       status: 0,
-//     },
-//   ];
-//   let str = '';
-//   Queue.forEach((el, index) => {
-//     str +=
-//       `
-//     <div
-//                 class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-//               >
-//                 <p class="w-3/4 min-w-0 truncate rounded-full md:w-full">
-//                   ` +
-//       el['title'] +
-//       `
-//                 </p>
-//                 <a
-//                   href=""
-//                   class="my-auto w-14 shrink-0 justify-end rounded-full text-right md:order-5 xl:w-16 2xl:w-20"
-//                   >Hủy</a
-//                 >
-//                 <div
-//                   class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-//                 >
-//                   <p class="shrink-0 rounded-full md:w-24 xl:w-28 2xl:w-32">
-//                   ` +
-//       el['location'] +
-//       `
-//                   </p>
-//                   <div class="md:hidden">•</div>
-
-//                   <p class="w-28 shrink-0 rounded-full xl:w-32 2xl:w-36">
-//                   `;
-//     if (el['status'] == -1) {
-//       str += 'Chưa in';
-//     }
-//     if (el['status'] == 0) {
-//       str += 'Đang in';
-//     }
-//     if (el['status'] == 1) {
-//       str += 'Đã in';
-//     }
-//     str +=
-//       `
-//                   </p>
-//                   <p
-//                     class="w-24 shrink-0 rounded-full max-md:hidden xl:w-28 2xl:w-32"
-//                   >
-//                   ` +
-//       el['time'] +
-//       ` phút
-//                   </p>
-//                 </div>
-//               </div>`;
-//   });
-//   $('#queue-content').html(str);
-// }, 2000);
-
-// const data = [
-//   {
-//     title: 'Chapter_5_V7.01_Accessible.pdf',
-//     location: 'H1-203',
-//     page: 23,
-//     date: 'T2, 30/10',
-//   },
-//   {
-//     title: 'Chapter_6_V7.01_Accessible.pdf',
-//     location: 'H2-201',
-//     page: 27,
-//     date: 'T7, 27/10',
-//   },
-//   {
-//     title: '05-2022-ĐỀ CƯƠNG MỚI-TƯ TƯỞNG HỒ CHÍ MINH-SP1037.pdf',
-//     location: 'H2-201',
-//     page: 3,
-//     date: 'T4, 25/10',
-//   },
-//   {
-//     title: '6_SQL.pdf',
-//     location: 'H3-402',
-//     page: 45,
-//     date: 'T4, 25/10',
-//   },
-// ];
-
-// setTimeout(function () {
-//   let str = `<div class="flex w-full flex-row items-center justify-between pb-2">
-//     <p class="text-xl font-bold">Lịch sử</p>
-//   </div>
-//   <div class="flex flex-row">
-//     <p class="grow text-sm font-bold text-gray-600">Tiêu đề</p>
-//     <p class="basis-24 text-sm font-bold text-gray-600">Địa điểm</p>
-//     <p class="basis-28 text-sm font-bold text-gray-600">Số trang</p>
-//     <p class="basis-24 text-sm font-bold text-gray-600">Ngày</p>
-//   </div>
-//   <hr class="w-full border" />`;
-//   data.forEach((el, index) => {
-//     str +=
-//       `<div class="flex flex-row py-1">
-//         <p class="grow truncate text-left">
-//           ` +
-//       el['title'] +
-//       `
-//         </p>
-//         <p class="shrink-0 basis-24">` +
-//       el['location'] +
-//       `</p>
-//         <p class="shrink-0 basis-28">` +
-//       el['page'] +
-//       ` trang</p>
-//         <p class="shrink-0 basis-24">` +
-//       el['date'] +
-//       `</p>
-//       </div>`;
-//   });
-//   $('#history').html(str);
-// }, 2000);

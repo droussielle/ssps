@@ -3,45 +3,100 @@ import 'flowbite';
 import $ from 'jquery';
 import { fileUpload } from './home.js';
 
+class User {
+  constructor(name, imageURL, remainingPages, resetDate, userType = 'student') {
+    this.name = name;
+    this.avatar = imageURL;
+    this.remainingPages = remainingPages;
+    this.resetDate = resetDate;
+    this.userType = userType;
+  }
+}
+
+let authToken;
+
+if (localStorage.getItem('userToken')) {
+  authToken = 'Bearer ' + JSON.parse(localStorage.getItem('userToken'));
+}
+
+$.ajaxSetup({
+  headers: {
+    Authorization: authToken,
+  },
+});
+
 /* load user info on page load */
 $(() => {
-  if (!localStorage.getItem('userInfo')) {
+  if (!localStorage.getItem('userToken')) {
     window.location.href = './login.html';
     throw new Error('Not logged in!');
   }
-  const user = JSON.parse(localStorage.getItem('userInfo'));
-  $('[id=user-name]')
-    .text(user.name)
-    .removeClass(
-      'h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
-    );
-  $('[id=user-avatar]')
-    .html('<img class="h-full aspect-square" src="' + user.avatar + '" />')
-    .removeClass('animate-pulse bg-gray-300');
-  $('[id=user-remaining-pages]')
-    .text(user.remainingPages + '/' + user.remainingPages + ' trang còn lại')
-    .removeClass(
-      'h-3 w-[60%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
-    );
-  $('[id=user-remaining-pages-mobile]')
-    .text(user.remainingPages + '/' + user.remainingPages)
-    .removeClass('animate-pulse');
-  $('[id=user-reset-date]').text('Đặt lại vào ' + user.resetDate);
-  if (user.userType == 'Admin') {
-    $('[id=user-type]')
-      .removeClass('hidden')
-      .text(user.userType)
-      .removeClass('bg-blue-secondary')
-      .addClass('bg-blue-primary');
-  }
-  if (user.userType == 'Staff') {
-    $('[id=user-type]')
-      .removeClass('hidden')
-      .text(user.userType)
-      .removeClass('bg-blue-primary')
-      .addClass('bg-blue-secondary');
-  }
-  // loadQueue();
+  $.get('http://localhost:3000/account/self')
+    .done(function (data) {
+      const user = new User(
+        data.name,
+        data.profile_image,
+        data.credit,
+        '01-01-2024',
+        data.role,
+        data.token,
+      );
+      localStorage.setItem('userInfo', JSON.stringify(user));
+      // console.log(data);
+      $('[id=user-name]')
+        .text(user.name)
+        .removeClass(
+          'h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
+        );
+      $('[id=user-avatar]')
+        .html('<img class="h-full aspect-square" src="' + user.avatar + '" />')
+        .removeClass('animate-pulse bg-gray-300');
+      $('[id=user-remaining-pages]')
+        .text(user.remainingPages + ' trang còn lại')
+        .removeClass(
+          'h-3 w-[60%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
+        );
+      $('[id=user-remaining-pages-mobile]')
+        .text(user.remainingPages)
+        .removeClass('animate-pulse');
+      $('[id=user-reset-date]').text('Đặt lại vào ' + user.resetDate);
+      if (user.userType == 'spso') {
+        const userTypeDiv =
+          `
+        <div
+          id="user-type"
+          class="rounded-lg bg-button-primary dark:bg-button-primary-dark p-1 text-xs text-white"
+        >
+          ` +
+          user.userType +
+          `
+        </div>`;
+        $('[id=user-info]').append(userTypeDiv);
+      }
+      if (user.userType == 'staff') {
+        const userTypeDiv =
+          `
+        <div
+          id="user-type"
+          class="rounded-lg bg-blue-secondary p-1 text-xs text-white"
+        >
+          ` +
+          user.userType +
+          `
+        </div>`;
+        $('[id=user-info]').append(userTypeDiv);
+      }
+    })
+    .fail(function (xhr, status, error) {
+      console.log(xhr);
+      console.log(status);
+      const errorCode = xhr.status;
+      const errorMessage = xhr.responseJSON.error.message;
+      window.location.href =
+        './error.html?num=' + errorCode + '&msg=' + errorMessage;
+      $('#error-code').html(errorCode);
+      $('#error-description').html(errorMessage);
+    });
 });
 
 const isDarkMode = localStorage.getItem('darkMode');

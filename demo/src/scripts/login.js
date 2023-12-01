@@ -3,24 +3,6 @@ import $ from 'jquery';
 
 const isEmpty = (str) => !str.trim().length;
 
-class User {
-  constructor(
-    name,
-    imageURL,
-    remainingPages,
-    resetDate,
-    userType = 'student',
-    token,
-  ) {
-    this.name = name;
-    this.avatar = imageURL;
-    this.remainingPages = remainingPages;
-    this.resetDate = resetDate;
-    this.userType = userType;
-    this.token = token;
-  }
-}
-
 $(() => {
   if (localStorage.getItem('userInfo')) {
     window.location.href = './home.html';
@@ -61,16 +43,7 @@ $('[name=submitButton]').on('click', function (e) {
   };
   $.post('http://localhost:3000/account/login', body)
     .done(function (data) {
-      // console.log(data);
-      const user = new User(
-        data.name,
-        '../../assets/avatar.png',
-        '25',
-        '01-01-2024',
-        data.role,
-        data.token,
-      );
-      localStorage.setItem('userInfo', JSON.stringify(user));
+      localStorage.setItem('userToken', JSON.stringify(data.token));
       window.location.href = './home.html';
     })
     .fail(() => {

@@ -12,8 +12,8 @@
       rel="stylesheet"
     />
     <link href="../../dist/output.css" rel="stylesheet" />
-    <script defer src="../../dist/src_scripts_home_js.bundle.js"></script>
     <script defer src="../../dist/index.bundle.js"></script>
+    <script defer src="../../dist/src_scripts_home_js.bundle.js"></script>
     <script defer src="../../dist/home.bundle.js"></script>
     <!-- <script defer src="../../dist/login.bundle.js"></script> -->
     <!-- <script defer src="../../dist/manage.bundle.js"></script> -->
@@ -69,17 +69,14 @@
           class="h-[48px] w-[48px] flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-90"
         ></div>
         <div class="grow flex-col text-left transition-all sm:space-y-1">
-          <div class="flex flex-row space-x-2 transition-all max-sm:hidden">
+          <div
+            class="flex flex-row space-x-2 transition-all max-sm:hidden"
+            id="user-info"
+          >
             <p
               id="user-name"
               class="h-4 w-[75%] animate-pulse rounded-full bg-gray-300 font-bold"
             ></p>
-            <div
-              id="user-type"
-              class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
-            >
-              Admin
-            </div>
           </div>
           <p
             id="user-remaining-pages"
@@ -138,14 +135,8 @@
             class="aspect-square min-h-full flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-75"
           ></div>
           <div class="grow flex-col space-y-1 text-left">
-            <div class="flex flex-row space-x-2">
+            <div class="flex flex-row space-x-2" id="user-info">
               <p id="user-name" class="font-bold"></p>
-              <div
-                id="user-type"
-                class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
-              >
-                Admin
-              </div>
             </div>
             <p id="user-remaining-pages" class="text-sm"></p>
             <div
@@ -529,6 +520,42 @@
               </div>
             </div>
             <div
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p
+                class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
+              <p
+                class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
+              ></p>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+              </div>
+            </div>
+            <div
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p
+                class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
+              <p
+                class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
+              ></p>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+              </div>
+            </div>
+            <!-- <div
               class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
             >
               <p class="w-2/3 min-w-0 truncate md:w-full">
@@ -546,7 +573,7 @@
                 <div class="md:hidden">•</div>
                 <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">12 trang</p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@
         <a href="home.html" class="underline">Go home/Quay về trang chủ</a>
         <button
           onclick="localStorage.clear();window.location.href = 'login.html';"
-          class="underline w-fit"
+          class="w-fit underline"
         >
           Log out/Đăng xuất
         </button>
@@ -52,5 +52,13 @@
         <img src="../../assets/cat.jpg" class="" />
       </div>
     </div>
+    <script>
+      const param = new URLSearchParams(window.location.search);
+      const num = param.get('num');
+      const msg = param.get('msg');
+      console.log(num, msg);
+      document.getElementById('error-code').innerHTML = num;
+      document.getElementById('error-description').innerHTML = msg;
+    </script>
   </body>
 </html>
