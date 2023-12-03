@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 import $ from 'jquery';
+const url = "http://localhost:3000/"
 // import printJS from 'print-js';
 
 let dropZone;
@@ -11,7 +12,7 @@ export function fileUpload(file) {
   }
   dropZone = $('#drop-zone').clone();
   // let printers = [];
-  $.get('http://localhost:3000/spso/printer/')
+  $.get(url + 'spso/printer/')
     .done(function (data) {
       console.log(data);
       if (data.data.length == 0) {
@@ -130,10 +131,14 @@ export function fileUpload(file) {
           id="print-options-size"
           class="block w-full rounded-lg border-0 bg-gray-100 p-2.5 text-sm text-gray-900 mix-blend-multiply focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-dark-surface dark:mix-blend-screen"
         >
+          <option value="A0">A0</option>
+          <option value="A1">A1</option>
+          <option value="A2">A2</option>
           <option value="A3">A3</option>
           <option selected value="A4">A4</option>
           <option value="A5">A5</option>
           <option value="A6">A6</option>
+          <option value="A7">A7</option>
         </select>
         <label
           for="print-options-pages-per-side"
@@ -199,10 +204,23 @@ export function fileUpload(file) {
       $('#expand-print-options-arrow').addClass('rotate-180');
     }
   });
+  const fileURL = URL.createObjectURL(file);
+  const pageSizes = {
+    A0: { width: 841, height: 1190 },
+    A1: { width: 594, height: 841 },
+    A2: { width: 420, height: 594 },
+    A3: { width: 297, height: 420 },
+    A4: { width: 210, height: 297 },
+    A5: { width: 148, height: 210 },
+    A6: { width: 105, height: 148 },
+    A7: { width: 74, height: 105 },
+  };
+
+
 
   $('#print-options').trigger('reset');
   // eslint-disable-next-line
-  const fileURL = URL.createObjectURL(file);
+
   // console.log(file.name, file.size);
 
   /* add file properties & verify file extensions */
@@ -216,18 +234,75 @@ export function fileUpload(file) {
   }
   pdfjsLib.getDocument(fileURL).promise.then((document) => {
     filePages = document.numPages;
-    // console.log(filePages);
-    $('#upload-document-properties').html(
-      '<p>' +
+    let old = $("#print-options-size").val()
+    let data = {
+      printer: "6569b65332e4f48b9382cebd",
+      note: "some note",
+      fileName: file.name,
+      printProperties: {
+        paperSize: $("#print-options-size").val(),
+        numberOfPages: String(Math.ceil(filePages)),
+        sided: String($("#print-options-sided").prop("checked")),
+        copies: $("#print-options-copies").val(),
+      }
+    }
+    $('#print-options-size').on('change', function () {
+      const selectedValue = $("#print-options-size").val();
+      filePages = filePages * pageSizes[old].width * pageSizes[old].height / (pageSizes[selectedValue].width * pageSizes[selectedValue].height)
+      $('#upload-document-properties').html(
+        '<p>' +
         file.name +
         '</p><p>' +
         formatBytes(file.size, 2) +
-        ' • ' +
-        filePages +
+        ' • ' + Math.ceil(filePages) +
         ' trang</p>',
+      );
+      old = selectedValue;
+      data.printProperties.paperSize = old;
+      data.printProperties.numberOfPages = String(Math.ceil(filePages))
+    });
+    $("#print-options-sided").on('change', function () {
+      const checkboxValue = $("#print-options-sided").prop("checked");
+      if (checkboxValue) {
+        filePages = filePages / 2;
+        $('#upload-document-properties').html(
+          '<p>' +
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' + Math.ceil(filePages) +
+          ' trang</p>',
+        );
+      }
+      else {
+        filePages = filePages * 2
+        $('#upload-document-properties').html(
+          '<p>' +
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
+        );
+      }
+      data.printProperties.sided = String($("#print-options-sided").prop("checked"));
+    });
+
+    // console.log(filePages);
+    $('#upload-document-properties').html(
+      '<p>' +
+      file.name +
+      '</p><p>' +
+      formatBytes(file.size, 2) +
+      ' • ' +
+      filePages +
+      ' trang</p>',
     );
+    uploadFile(file, data);
   });
   $('html, body').animate({ scrollTop: 0 }, 'fast');
+
 }
 
 function formatBytes(bytes, decimals = 2) {
@@ -250,7 +325,7 @@ function formatBytes(bytes, decimals = 2) {
 }
 
 export function loadQueue() {
-  $.get('http://localhost:3000/account/printorders')
+  $.get(url + 'account/printorders')
     .done(function (data) {
       $('#queue-content').html('');
       if (data.length == 0) {
@@ -258,14 +333,16 @@ export function loadQueue() {
       }
       data.forEach((element) => {
         if (!element.status) {
-          $.get('http://localhost:3000/spso/printer/' + element.printer).done(
+          $.get(url + 'spso/printer/' + element.printer).done(
             function (data) {
+
               const fileName = element.fileName;
               const queueLocation = data.data.location;
               const queueStatus =
                 element.status === 'true' ? 'Đã in' : 'Đang xử lý';
-              const queueETA =
+              let queueETA =
                 Date.parse(element.estimatedEndTime) - Date.now();
+              if (queueETA < 0) queueETA = 0;
               const queueItem =
                 `
                 <div
@@ -305,11 +382,11 @@ export function loadQueue() {
       });
       // console.log(data);
     })
-    .fail(() => {});
+    .fail(() => { });
 }
 
 export function loadHistory() {
-  $.get('http://localhost:3000/account/printorders')
+  $.get(url + 'account/printorders')
     .done(function (data) {
       $('#history-content').html('');
       if (data.length == 0) {
@@ -317,14 +394,14 @@ export function loadHistory() {
       }
       data.forEach((element) => {
         if (!element.status) {
-          $.get('http://localhost:3000/spso/printer/' + element.printer).done(
+          $.get(url + 'spso/printer/' + element.printer).done(
             function (data) {
               const fileName = element.fileName;
               const queueLocation = data.data.location;
               const queueStatus =
                 element.status === 'true' ? 'Đã in' : 'Đang xử lý';
-              const queueETA =
-                Date.parse(element.estimatedEndTime) - Date.now();
+              const queueETA = element.beginTime;
+
               const historyItem =
                 `
                 <div
@@ -349,9 +426,8 @@ export function loadHistory() {
                 queueStatus +
                 `</p>
                     <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
-                      ` +
-                queueETA +
-                `
+                    ${new Date(element.beginTime).getDate()
+                }/${new Date(element.beginTime).getMonth() + 1}/${new Date(element.beginTime).getFullYear()}
                     </p>
                   </div>
                 </div>
@@ -380,3 +456,35 @@ $(() => {
   loadQueue();
   loadHistory();
 });
+function uploadFile(file, data) {
+  $('#print').on('click', (e) => {
+    e.preventDefault();
+
+    let id
+
+    $.post(url + 'printorder/', JSON.stringify(data))
+      .done(function (data) {
+        id = data.newOrderData.data.orderID
+      }).then(() => {
+        var formData = new FormData();
+        formData.append("printFile", file);
+        $.ajax({
+          type: 'POST',
+          url: url + 'printorder/upload/' + id,
+          data: formData,
+          processData: false,
+          contentType: false,
+        })
+          .done(function (uploadData) {
+            console.log(uploadData);
+          })
+          .fail(function (xhr, status, error) {
+            console.error(status, error);
+          });
+      })
+      .fail(function (xhr, status, error) {
+        console.error(status, error);
+      });
+  });
+
+}
