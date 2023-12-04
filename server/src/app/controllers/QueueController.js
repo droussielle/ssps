@@ -69,6 +69,7 @@ class QueueController {
               ),
               status: orderStats.status,
               note: orderStats.note,
+              fileLocation:`/uploads/${orderStats._id}.pdf`,
             },
             current_queue: result.printOrders,
           });
