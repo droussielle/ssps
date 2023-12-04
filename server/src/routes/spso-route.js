@@ -73,7 +73,7 @@ router.get('/printer', async (req, res, next) => {
   }
 });
 
-router.get('/printer/:id', userauth, async (req, res, next) => {
+router.get('/printer/:id', async (req, res, next) => {
   try {
 
     const id = req.params.id;
@@ -89,16 +89,9 @@ router.get('/printer/:id', userauth, async (req, res, next) => {
   }
 });
 
-router.post('/printer', userauth, async (req, res, next) => {
+router.post('/printer', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const { brand, model, shortDescription, location, printerStatus } =
       req.body;
     if (
@@ -130,16 +123,9 @@ router.post('/printer', userauth, async (req, res, next) => {
   }
 });
 
-router.patch('/printer/:id', userauth, async (req, res, next) => {
+router.patch('/printer/:id', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const status = req.body.status;
     const id = req.params.id;
     if (status !== 'false' && status !== 'true') {
@@ -162,16 +148,9 @@ router.patch('/printer/:id', userauth, async (req, res, next) => {
   }
 });
 
-router.delete('/printer/:id', userauth, async (req, res, next) => {
+router.delete('/printer/:id', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const id = req.params.id;
     const mydata = await SPSO.deletePrinter(id);
     if (mydata.data.error) {
@@ -183,16 +162,8 @@ router.delete('/printer/:id', userauth, async (req, res, next) => {
   }
 });
 
-router.get('/student', userauth, async (req, res, next) => {
+router.get('/student', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
     const mydata = await SPSO.getAllStudent();
 
     return res.status(200).json(mydata);
@@ -201,16 +172,9 @@ router.get('/student', userauth, async (req, res, next) => {
   }
 });
 
-router.get('/student/:student_ID', userauth, async (req, res, next) => {
+router.get('/student/:student_ID', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const student_ID = req.params.student_ID;
     const mydata = await SPSO.getStudent(student_ID);
 
@@ -227,17 +191,9 @@ router.get('/student/:student_ID', userauth, async (req, res, next) => {
 //NOT TESTEST YET
 router.post(
   '/print-order/permitted-file-type',
-  userauth,
   async (req, res, next) => {
     try {
-      const isSPSO = await SPSO.spsoAuthorize(req.user);
-      if (!isSPSO) {
-        return res.status(401).json({
-          error: {
-            message: 'Unauthorized',
-          },
-        });
-      }
+
       const permittedFileType = req.body.fileTypes;
       const mydata = await SPSO.setFileType(permittedFileType);
       return res.json(mydata);
@@ -247,16 +203,9 @@ router.post(
   },
 );
 
-router.get('/staff', userauth, async (req, res, next) => {
+router.get('/staff', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const mydata = await SPSO.getAllStaff();
     return res.json(mydata);
   } catch (err) {
@@ -264,16 +213,9 @@ router.get('/staff', userauth, async (req, res, next) => {
   }
 });
 
-router.get('/staff/:staff_ID', userauth, async (req, res, next) => {
+router.get('/staff/:staff_ID', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const staff_ID = req.params.staff_ID;
     const mydata = await SPSO.getStaff(staff_ID);
 
@@ -287,16 +229,9 @@ router.get('/staff/:staff_ID', userauth, async (req, res, next) => {
   }
 });
 
-router.post('/set-default-pages', userauth, async (req, res, next) => {
+router.post('/set-default-pages', async (req, res, next) => {
   try {
-    const isSPSO = await SPSO.spsoAuthorize(req.user);
-    if (!isSPSO) {
-      return res.status(401).json({
-        error: {
-          message: 'Unauthorized',
-        },
-      });
-    }
+
     const amount = req.body.amount;
     const mydata = await SPSO.setDefaultCredit(amount);
     return res.json(mydata);

@@ -392,7 +392,7 @@ setTimeout(function () {
         str += `</p>
             </div>
 
-            <div class="w-9 shrink-0 max-md:hidden">Xem</div>
+            <div class="w-9 shrink-0 max-md:hidden"><a href="http://localhost:3000/uploads/`+ el.printOrder['_id'] + `.pdf">Xem</a></div>
           </div>`;
       }
     });
