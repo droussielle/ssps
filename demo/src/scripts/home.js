@@ -37,9 +37,7 @@ export function fileUpload(file) {
             `
             <div class="flex flex-row items-center space-x-2">
               <input
-                id="` +
-            element.location +
-            `"
+                id="`+ element.location + `"
                 type="radio"
                 value="` +
             element._id +
@@ -47,9 +45,7 @@ export function fileUpload(file) {
                 name="printer-select"
                 class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
               />
-              <label for="` +
-            element.location +
-            `">` +
+              <label for="`+ element.location + `">` +
             element.location +
             `</label>
             </div>
@@ -243,10 +239,6 @@ export function fileUpload(file) {
     A7: { width: 74, height: 105 },
   };
 
-  $('#print-options').trigger('reset');
-  // eslint-disable-next-line
-
-  // console.log(file.name, file.size);
 
   /* add file properties & verify file extensions */
   let filePages;
@@ -259,9 +251,10 @@ export function fileUpload(file) {
   }
   pdfjsLib.getDocument(fileURL).promise.then((document) => {
     filePages = document.numPages;
-    let old = $('#print-options-size').val();
+    let oldSize = $('#print-options-size').val();
+    let oldPerSheet = $('#print-options-pages-per-side').val()
     let data = {
-      printer: '6569b65332e4f48b9382cebd',
+      printer: '',
       note: 'some note',
       fileName: file.name,
       printProperties: {
@@ -271,23 +264,47 @@ export function fileUpload(file) {
         copies: $('#print-options-copies').val(),
       },
     };
+    $('#print-options').trigger('reset');
+    $('#print-options-pages-per-side').on('change', function () {
+      // Get the value of the selected radio button
+      const selectedValue = $('#print-options-pages-per-side').val()
+      filePages = filePages * oldPerSheet / selectedValue;
+      $('#upload-document-properties').html(
+        '<p>' +
+        file.name +
+        '</p><p>' +
+        formatBytes(file.size, 2) +
+        ' • ' +
+        Math.ceil(filePages) +
+        ' trang</p>',
+      );
+      oldPerSheet = selectedValue;
+      data.printProperties.numberOfPages = String(Math.ceil(filePages));
+    });
+    $('input[name="printer-select"]').on('change', function () {
+      data.printer = $('input[name="printer-select"]:checked').val();
+    });
+
     $('#print-options-size').on('change', function () {
       const selectedValue = $('#print-options-size').val();
       filePages =
-        (filePages * pageSizes[old].width * pageSizes[old].height) /
+        (filePages * pageSizes[oldSize].width * pageSizes[oldSize].height) /
         (pageSizes[selectedValue].width * pageSizes[selectedValue].height);
       $('#upload-document-properties').html(
         '<p>' +
-          file.name +
-          '</p><p>' +
-          formatBytes(file.size, 2) +
-          ' • ' +
-          Math.ceil(filePages) +
-          ' trang</p>',
+        file.name +
+        '</p><p>' +
+        formatBytes(file.size, 2) +
+        ' • ' +
+        Math.ceil(filePages) +
+        ' trang</p>',
       );
-      old = selectedValue;
-      data.printProperties.paperSize = old;
+      oldSize = selectedValue;
+      data.printProperties.paperSize = oldSize;
       data.printProperties.numberOfPages = String(Math.ceil(filePages));
+    });
+    $('#print-options-copies').on('change', function () {
+      data.copies = $('#print-options-copies').val();
     });
     $('#print-options-sided').on('change', function () {
       const checkboxValue = $('#print-options-sided').prop('checked');
@@ -295,23 +312,23 @@ export function fileUpload(file) {
         filePages = filePages / 2;
         $('#upload-document-properties').html(
           '<p>' +
-            file.name +
-            '</p><p>' +
-            formatBytes(file.size, 2) +
-            ' • ' +
-            Math.ceil(filePages) +
-            ' trang</p>',
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
         );
       } else {
         filePages = filePages * 2;
         $('#upload-document-properties').html(
           '<p>' +
-            file.name +
-            '</p><p>' +
-            formatBytes(file.size, 2) +
-            ' • ' +
-            Math.ceil(filePages) +
-            ' trang</p>',
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
         );
       }
       data.printProperties.sided = String(
@@ -322,12 +339,12 @@ export function fileUpload(file) {
     // console.log(filePages);
     $('#upload-document-properties').html(
       '<p>' +
-        file.name +
-        '</p><p>' +
-        formatBytes(file.size, 2) +
-        ' • ' +
-        filePages +
-        ' trang</p>',
+      file.name +
+      '</p><p>' +
+      formatBytes(file.size, 2) +
+      ' • ' +
+      filePages +
+      ' trang</p>',
     );
     uploadFile(file, data);
   });
@@ -360,54 +377,106 @@ export function loadQueue() {
       if (data.length == 0) {
         $('#queue-content').html('Bạn không có mục nào trong hàng đợi.');
       }
-      data.forEach((element) => {
-        if (!element.status) {
-          $.get(url + '/spso/printer/' + element.printer).done(function (data) {
-            const fileName = element.fileName;
-            const queueLocation = data.data.location;
-            const queueStatus =
-              element.status === 'true' ? 'Đã in' : 'Đang xử lý';
-            let queueETA = Date.parse(element.estimatedEndTime) - Date.now();
-            if (queueETA < 0) queueETA = 0;
-            const queueItem =
-              `
-                <div
-                  class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-                >
-                  <p class="w-3/4 min-w-0 truncate md:w-full">` +
-              fileName +
-              `</p>
-                  <a
-                    href=""
-                    class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
-                    >Hủy</a
-                  >
+      if (window.location.href.indexOf('home') !== -1) {
+        data.forEach((element, index) => {
+          if (index < 4) {
+            if (!element.status) {
+              $.get(url + '/spso/printer/' + element.printer).done(function (data) {
+                const fileName = element.fileName;
+                const queueLocation = data.data.location;
+                const queueStatus =
+                  element.status === 'true' ? 'Đã in' : 'Đang xử lý';
+                let queueETA = Date.parse(element.estimatedEndTime) - Date.now();
+                if (queueETA < 0) queueETA = 0;
+                const queueItem =
+                  `
+                    <div
+                      class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+                    >
+                      <p class="w-3/4 min-w-0 truncate md:w-full">` +
+                  fileName +
+                  `</p>
+                      <a
+                        href=""
+                        class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
+                        >Hủy</a
+                      >
+                      <div
+                        class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                      >
+                        <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                  queueLocation +
+                  `</p>
+                        <div class="md:hidden">•</div>
+                        <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                  queueStatus +
+                  `</p>
+                        <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
+                          ` +
+                  queueETA +
+                  `
+                        </p>
+                      </div>
+                    </div>
+                  `;
+                $('#queue-content').append(queueItem);
+                // console.log(queueItem);
+              });
+            }
+          }
+        });
+      }
+      else {
+        data.forEach((element) => {
+          if (!element.status) {
+            $.get(url + '/spso/printer/' + element.printer).done(function (data) {
+              const fileName = element.fileName;
+              const queueLocation = data.data.location;
+              const queueStatus =
+                element.status === 'true' ? 'Đã in' : 'Đang xử lý';
+              let queueETA = Date.parse(element.estimatedEndTime) - Date.now();
+              if (queueETA < 0) queueETA = 0;
+              const queueItem =
+                `
                   <div
-                    class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                    class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
                   >
-                    <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
-              queueLocation +
-              `</p>
-                    <div class="md:hidden">•</div>
-                    <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
-              queueStatus +
-              `</p>
-                    <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
-                      ` +
-              queueETA +
-              `
-                    </p>
+                    <p class="w-3/4 min-w-0 truncate md:w-full">` +
+                fileName +
+                `</p>
+                    <a
+                      href=""
+                      class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
+                      >Hủy</a
+                    >
+                    <div
+                      class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                    >
+                      <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                queueLocation +
+                `</p>
+                      <div class="md:hidden">•</div>
+                      <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                queueStatus +
+                `</p>
+                      <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
+                        ` +
+                queueETA +
+                `
+                      </p>
+                    </div>
                   </div>
-                </div>
-              `;
-            $('#queue-content').append(queueItem);
-            // console.log(queueItem);
-          });
-        }
-      });
-      // console.log(data);
+                `;
+              $('#queue-content').append(queueItem);
+              // console.log(queueItem);
+            });
+          }
+        });
+
+      }
     })
-    .fail(() => {});
+
+    .fail(() => { });
 }
 
 export function loadHistory() {
@@ -417,81 +486,162 @@ export function loadHistory() {
       if (data.length == 0) {
         $('#history-content').html('Bạn không có mục nào trong lịch sử.');
       }
-      data.forEach((element) => {
-        if (!element.status) {
-          $.get(url + '/spso/printer/' + element.printer).done(function (data) {
-            const fileName = element.fileName;
-            const historyLocation = data.data.location;
-            const historyPages = element.printProperties.numberOfPages;
-            const historyTime = new Date(element.beginTime);
-            const historyTimeString = historyTime.toDateString();
-            // const queueETA = element.beginTime;
-            const historyItem =
-              `
-              <div
-              class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-            >
-              <p class="grow min-w-0 truncate md:w-full">
+      if (window.location.href.indexOf('home') !== -1) {
+        data.forEach((element, index) => {
+          if (index < 4) {
+            if (!element.status) {
+              $.get(url + '/spso/printer/' + element.printer).done(function (data) {
+                const fileName = element.fileName;
+                const historyLocation = data.data.location;
+                const historyPages = element.printProperties.numberOfPages;
+                const historyTime = new Date(element.beginTime);
+                const historyTimeString = historyTime.toDateString();
+                // const queueETA = element.beginTime;
+                const historyItem =
+                  `
+                  <div
+                  class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+                >
+                  <p class="grow min-w-0 truncate md:w-full">
+                    ` +
+                  fileName +
+                  `
+                  </p>
+                  <div class="w-2 shrink-0 md:hidden"></div>
+                  <p
+                    class="w-40 shrink-0 truncate max-md:text-right md:order-3 xl:w-44 2xl:w-48"
+                  >
+                  ` +
+                  historyTimeString +
+                  `
+                  </p>
+                  <div
+                    class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                  >
+                    <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                  historyLocation +
+                  `</p>
+                    <div class="md:hidden">•</div>
+                    <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                  historyPages +
+                  ` trang</p>
+                  </div>
+                </div>`;
+                // const historyItem =
+                //   `
+                //     <div
+                //       class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+                //     >
+                //       <p class="w-3/4 min-w-0 truncate md:w-full">` +
+                //   fileName +
+                //   `</p>
+                //       <a
+                //         href=""
+                //         class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
+                //         >Hủy</a
+                //       >
+                //       <div
+                //         class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                //       >
+                //         <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                //   historyLocation +
+                //   `</p>
+                //         <div class="md:hidden">•</div>
+                //         <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                //   historyStatus +
+                //   `</p>
+                //         <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
+                //         ${new Date(element.beginTime).getDate()}/${
+                //           new Date(element.beginTime).getMonth() + 1
+                //         }/${new Date(element.beginTime).getFullYear()}
+                //         </p>
+                //       </div>
+                //     </div>
+                //   `;
+                $('#history-content').append(historyItem);
+                // console.log(queueItem);
+              });
+            }
+          }
+        });
+      }
+      else {
+        data.forEach((element) => {
+          if (!element.status) {
+            $.get(url + '/spso/printer/' + element.printer).done(function (data) {
+              const fileName = element.fileName;
+              const historyLocation = data.data.location;
+              const historyPages = element.printProperties.numberOfPages;
+              const historyTime = new Date(element.beginTime);
+              const historyTimeString = historyTime.toDateString();
+              // const queueETA = element.beginTime;
+              const historyItem =
+                `
+                <div
+                class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+              >
+                <p class="grow min-w-0 truncate md:w-full">
+                  ` +
+                fileName +
+                `
+                </p>
+                <div class="w-2 shrink-0 md:hidden"></div>
+                <p
+                  class="w-40 shrink-0 truncate max-md:text-right md:order-3 xl:w-44 2xl:w-48"
+                >
                 ` +
-              fileName +
-              `
-              </p>
-              <div class="w-2 shrink-0 md:hidden"></div>
-              <p
-                class="w-40 shrink-0 truncate max-md:text-right md:order-3 xl:w-44 2xl:w-48"
-              >
-              ` +
-              historyTimeString +
-              `
-              </p>
-              <div
-                class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-              >
-                <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
-              historyLocation +
-              `</p>
-                <div class="md:hidden">•</div>
-                <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
-              historyPages +
-              ` trang</p>
-              </div>
-            </div>`;
-            // const historyItem =
-            //   `
-            //     <div
-            //       class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-            //     >
-            //       <p class="w-3/4 min-w-0 truncate md:w-full">` +
-            //   fileName +
-            //   `</p>
-            //       <a
-            //         href=""
-            //         class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
-            //         >Hủy</a
-            //       >
-            //       <div
-            //         class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-            //       >
-            //         <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
-            //   historyLocation +
-            //   `</p>
-            //         <div class="md:hidden">•</div>
-            //         <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
-            //   historyStatus +
-            //   `</p>
-            //         <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
-            //         ${new Date(element.beginTime).getDate()}/${
-            //           new Date(element.beginTime).getMonth() + 1
-            //         }/${new Date(element.beginTime).getFullYear()}
-            //         </p>
-            //       </div>
-            //     </div>
-            //   `;
-            $('#history-content').append(historyItem);
-            // console.log(queueItem);
-          });
-        }
-      });
+                historyTimeString +
+                `
+                </p>
+                <div
+                  class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                >
+                  <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                historyLocation +
+                `</p>
+                  <div class="md:hidden">•</div>
+                  <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                historyPages +
+                ` trang</p>
+                </div>
+              </div>`;
+              // const historyItem =
+              //   `
+              //     <div
+              //       class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+              //     >
+              //       <p class="w-3/4 min-w-0 truncate md:w-full">` +
+              //   fileName +
+              //   `</p>
+              //       <a
+              //         href=""
+              //         class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
+              //         >Hủy</a
+              //       >
+              //       <div
+              //         class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+              //       >
+              //         <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+              //   historyLocation +
+              //   `</p>
+              //         <div class="md:hidden">•</div>
+              //         <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+              //   historyStatus +
+              //   `</p>
+              //         <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
+              //         ${new Date(element.beginTime).getDate()}/${
+              //           new Date(element.beginTime).getMonth() + 1
+              //         }/${new Date(element.beginTime).getFullYear()}
+              //         </p>
+              //       </div>
+              //     </div>
+              //   `;
+              $('#history-content').append(historyItem);
+              // console.log(queueItem);
+            });
+          }
+        });
+      }
       // console.log(data);
     })
     .fail(function (xhr, status, error) {
@@ -513,7 +663,6 @@ $(() => {
 function uploadFile(file, data) {
   $('#print').on('click', (e) => {
     e.preventDefault();
-
     let id;
 
     $.post(url + '/printorder/', JSON.stringify(data))
@@ -531,7 +680,8 @@ function uploadFile(file, data) {
           contentType: false,
         })
           .done(function (uploadData) {
-            console.log(uploadData);
+
+            window.location.reload();
           })
           .fail(function (xhr, status, error) {
             console.error(status, error);
