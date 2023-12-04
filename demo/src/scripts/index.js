@@ -2,6 +2,7 @@
 import 'flowbite';
 import $ from 'jquery';
 import { fileUpload } from './home.js';
+const url = localStorage.getItem('url');
 
 class User {
   constructor(name, imageURL, remainingPages, resetDate, userType = 'student') {
@@ -31,7 +32,7 @@ $(() => {
     window.location.href = './login.html';
     throw new Error('Not logged in!');
   }
-  $.get('http://localhost:3000/account/self')
+  $.get(url+'/account/self')
     .done(function (data) {
       const user = new User(
         data.name,

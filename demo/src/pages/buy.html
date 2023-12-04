@@ -69,17 +69,14 @@
           class="h-[48px] w-[48px] flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-90"
         ></div>
         <div class="grow flex-col text-left transition-all sm:space-y-1">
-          <div class="flex flex-row space-x-2 transition-all max-sm:hidden">
+          <div
+            class="flex flex-row space-x-2 transition-all max-sm:hidden"
+            id="user-info"
+          >
             <p
               id="user-name"
               class="h-4 w-[75%] animate-pulse rounded-full bg-gray-300 font-bold"
             ></p>
-            <div
-              id="user-type"
-              class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
-            >
-              Admin
-            </div>
           </div>
           <p
             id="user-remaining-pages"
@@ -138,14 +135,8 @@
             class="aspect-square min-h-full flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-75"
           ></div>
           <div class="grow flex-col space-y-1 text-left">
-            <div class="flex flex-row space-x-2">
+            <div class="flex flex-row space-x-2" id="user-info">
               <p id="user-name" class="font-bold"></p>
-              <div
-                id="user-type"
-                class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
-              >
-                Admin
-              </div>
             </div>
             <p id="user-remaining-pages" class="text-sm"></p>
             <div
@@ -350,222 +341,22 @@
         >
           <p class="text-xl font-bold">Mua thêm trang</p>
           <p>Chọn số trang cần mua</p>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>5 trang</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>5 trang</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>5 trang</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>5 trang</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>5 trang</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>Nhập số trang...</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p></p>
-            </div>
-          </div>
+          <div class="flex flex-col space-y-5" id="buy-item-area"></div>
+
           <div class="flex w-full flex-row items-center justify-between pb-2">
             <button
               type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:shadow-3 active:bg-gray-200"
+              id="buy-cancel"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Hủy
             </button>
             <button
               type="button"
-              class="items bg-blue-primary inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
+              id="buy-continue"
+              class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
             >
               Tiếp tục
-            </button>
-          </div>
-        </div>
-        <div
-          id="buy-pages"
-          class="flex flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
-        >
-          <p class="text-xl font-bold">Mua thêm trang</p>
-          <p>Chọn số trang cần mua</p>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                disabled
-                checked
-                id="disabled-radio-1"
-                type="radio"
-                value=""
-                name="disabled-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>5 trang</p>
-            </div>
-            <div class="flex flex-row items-center space-x-2">
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <p>Chọn phương thức thanh toán</p>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>MoMo</p>
-            </div>
-            <img src="../../assets/momo.png" />
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>Thẻ nội địa (NAPAS)</p>
-            </div>
-            <img src="../../assets/napas.png" />
-          </div>
-          <div class="flex flex-row justify-between" id="buy-item">
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                value=""
-                name="default-radio"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <p>BKPay</p>
-            </div>
-            <img src="../../assets/hcmut.png" />
-          </div>
-          <div class="flex w-full flex-row items-center justify-between pb-2">
-            <button
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:shadow-3 active:bg-gray-200"
-            >
-              Quay lại
-            </button>
-            <button
-              type="button"
-              class="items bg-blue-primary inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
-            >
-              Thanh toán
-            </button>
-          </div>
-          <p class="text-xs italic">
-            Bạn sẽ được chuyển hướng sang trang web của đơn vị thanh toán để
-            tiếp tục. Sau khi thanh toán thành công, bạn sẽ quay trở về SSPS với
-            xác nhận đơn hàng của mình.
-          </p>
-        </div>
-        <div
-          id="buy-pages"
-          class="flex flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
-        >
-          <p class="text-xl font-bold">Mua thêm trang</p>
-          <p>Đơn hàng SSPS293913 của bạn đã được xử lí thành công.</p>
-          <div class="flex flex-col space-y-2">
-            <p class="text-sm font-bold text-gray-600">Chi tiết</p>
-            <hr class="w-full border" />
-            <div class="flex flex-row justify-between">
-              <p>Số trang</p>
-              <p>5</p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>Ngày đặt đơn</p>
-              <p>30/10/2023</p>
-            </div>
-            <div class="flex flex-row justify-between">
-              <p>Tổng tiền</p>
-              <p>1.000₫</p>
-            </div>
-          </div>
-          <div class="flex w-full flex-row justify-end pb-1">
-            <button
-              type="button"
-              class="items bg-blue-primary inline-flex gap-x-1 rounded-full px-5 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-[#0d3eba] hover:shadow-3 active:bg-[#032478]"
-            >
-              Hoàn tất
             </button>
           </div>
         </div>
