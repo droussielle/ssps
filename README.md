@@ -17,8 +17,9 @@ students in its campuses to print their documents.
 
 
 ## Installation
-First, clone this branch to your local storage. 
-Then download and install Node.js 20.10.0 version at: https://nodejs.org/en.
+**Node.js**
+  - First, clone this branch to your local storage. 
+  - Then download and install Node.js 20.10.0 version at: https://nodejs.org/en.
 **Front-end:** 
   - Change terminal working directory to *./client/client/* folder
   - Use `npm i` command to install all required packages for Front-end
