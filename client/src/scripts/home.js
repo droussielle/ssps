@@ -505,7 +505,7 @@ export function loadHistory() {
       if (window.location.href.indexOf('home') !== -1) {
         data.forEach((element, index) => {
           if (index < 4) {
-            if (!element.status) {
+            if (element.status) {
               $.get(url + '/spso/printer/' + element.printer).done(
                 function (data) {
                   const fileName = element.fileName;

@@ -254,6 +254,7 @@ function loadPrinter() {
       console.log(xhr.responseJSON.error.message);
     });
 }
+
 function loadData() {
   $.ajax({
     type: 'get',
@@ -414,6 +415,7 @@ setTimeout(function () {
           </div>`;
   $('#printer-queue').html(str);
 }, 2000);
+
 function changeStatusPrinter() {
   // Use document or a static parent container that exists when the page loads
   $(document).on('change', '.printer-status', function () {
