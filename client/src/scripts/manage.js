@@ -281,7 +281,7 @@ function loadData() {
           .then(() => {
             localStorage.setItem('queue', JSON.stringify(matchedArray));
           })
-          .fail((xhr, text, error) => {});
+          .fail((xhr, text, error) => { });
       } else {
         console.log(res.error.msg);
       }
@@ -353,45 +353,47 @@ setTimeout(function () {
     str += '<p>Bạn không có mục nào trong hàng đợi</p>';
   } else {
     PrinterQueue.forEach((el, index) => {
-      str +=
-        `<div class="flex flex-col space-y-2" >
+      if (el.printOrder['status'] == false) {
+        str +=
+          `<div class="flex flex-col space-y-2" >
           <div
             class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
           >
             <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
               ` +
-        el.user +
-        `
+          el.user +
+          `
             </p>
             <p class="w-8/12 truncate max-md:order-1 md:w-full">
               ` +
-        el.printOrder['fileName'] +
-        `
+          el.printOrder['fileName'] +
+          `
             </p>
             <div class="div flex flex-row space-x-2 max-md:order-3">
               <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
-        el.printOrder['printProperties']['numberOfPages'] +
-        ` trang</p>
+          el.printOrder['printProperties']['numberOfPages'] +
+          ` trang</p>
               <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
               <p class="w-fit shrink-0 md:w-28 xl:w-32">
-                `;
-      if (el.printOrder['status'] == false) {
-        str += 'Chưa in';
-      }
-      if (el.printOrder['status'] == true) {
-        str += 'Đang in';
-      }
-      if (el.printOrder['status'] == 1) {
-        str += 'Chưa lấy';
-      }
-      if (el.printOrder['status'] == 2) {
-        str += 'Đã lấy';
-      }
-      str += `</p>
+                `
+        if (el.printOrder['status'] == false) {
+          str += 'Chưa in'
+        }
+        if (el.printOrder['status'] == true) {
+          str += 'Đang in'
+        }
+        if (el.printOrder['status'] == 1) {
+          str += 'Chưa lấy'
+        }
+        if (el.printOrder['status'] == 2) {
+          str += 'Đã lấy'
+        }
+        str += `</p>
             </div>
 
             <div class="w-9 shrink-0 max-md:hidden">Xem</div>
           </div>`;
+      }
     });
   }
 
@@ -520,6 +522,6 @@ function deletePrinter() {
         console.log(data);
         window.location.reload();
       })
-      .fail(() => {});
+      .fail(() => { });
   });
 }
