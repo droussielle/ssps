@@ -43,15 +43,15 @@ students in its campuses to print their documents.
   - Step 5: Click on each collection, on the right side screen, click on 'ADD DATA' -> 'Import JSON or CSV file'. Then choose the suitable ssps.<colection>.JSON where 'collection' is also the name of the collection that you clicked on. All of the JSON files are stored in /mongodb/ folder. After adding all the collections' initial data, the setup and config process have now done and database is ready to use.
 
 Notice: 
-- After Step 5, each time you run the application, run MongoDBCompass first, just hit 'connect' button.
-- All of the files stored in /schemas/ folder are only used to demonstrate what attributes are included in each model (schema) of the database and what are their data type, and what how they reference each other.
+- After Step 5, each time you run the application, run MongoDBCompass first, then just hit 'connect' button.
+- All of the files stored in ./database/schemas/ folder are only used to demonstrate what attributes are included in each model (schema) of the database and what are their data type, and how they reference each other.
 
 
 ## Start the website
 - Run and connect database at `mongodb://localhost:27017`
 - Navigate to `server` folder on your terminal, type `npm start` command to start backend server
-- Open VSCode or any editor that already have *Live Server* installed
-- Start live server on *./client/demo/src/pages/index.html* file at port `5500`
+- Open VSCode or any editor that already have *Live Server* extension installed
+- Start *Live Server* on `./client/demo/src/pages/index.html` file at `localhost` port `5500`
 - Default login information is:
   - `student@hcmut.edu.vn` for student
   - `staff@gmail.com` for staff
