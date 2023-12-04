@@ -22,7 +22,7 @@ students in its campuses to print their documents.
   - Then download and install Node.js 20.10.0 version at: https://nodejs.org/en.
 
 **Front-end:** 
-  - Change terminal working directory to *./client/* folder
+  - Change terminal working directory to *./client/demo* folder
   - Use `npm i` command to install all required packages for Front-end
   - Use `npm run build` command to build component files
   - Install *Live Server* extension on your Editor
