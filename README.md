@@ -22,7 +22,7 @@ students in its campuses to print their documents.
   - Then download and install Node.js 20.10.0 version at: https://nodejs.org/en.
 
 **Front-end:** 
-  - Change terminal working directory to *./client/demo* folder
+  - Change terminal working directory to *./demo* folder
   - Use `npm i` command to install all required packages for Front-end
   - Use `npm run build` command to build component files
   - Install *Live Server* extension on your Editor
@@ -40,7 +40,7 @@ students in its campuses to print their documents.
   
   - Step 4: Add the other collections to the database. Click on the 'spss' database, on the right side of the screen, click 'Create Collection', then create the following collections: printers, printorders, queues, spsos, staffs, students.
   
-  - Step 5: Click on each collection, on the right side screen, click on 'ADD DATA' -> 'Import JSON or CSV file'. Then choose the suitable ssps.<colection>.JSON where 'collection' is also the name of the collection that you clicked on. All of the JSON files are stored in /mongodb/ folder. After adding all the collections' initial data, the setup and config process have now done and database is ready to use.
+  - Step 5: Click on each collection, on the right side screen, click on 'ADD DATA' -> 'Import JSON or CSV file'. Then choose the suitable ssps.<colection>.JSON where 'collection' is also the name of the collection that you clicked on. All of the JSON files are stored in `/database/mongodb/` folder. After adding all the collections' initial data, the setup and config process have now done and database is ready to use.
 
 Notice: 
 - After Step 5, each time you run the application, run MongoDBCompass first, then just hit 'connect' button.
@@ -51,7 +51,7 @@ Notice:
 - Run and connect database at `mongodb://localhost:27017`
 - Navigate to `server` folder on your terminal, type `npm start` command to start backend server
 - Open VSCode or any editor that already have *Live Server* extension installed
-- Start *Live Server* on `./client/demo/src/pages/index.html` file at `localhost` port `5500`
+- Start *Live Server* on `./demo/src/pages/index.html` file at `localhost` port `5500`
 - Default login information is:
   - `student@hcmut.edu.vn` for student
   - `staff@gmail.com` for staff
