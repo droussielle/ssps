@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import $, { queue } from 'jquery';
 import jQuery from 'jquery';
+import printJS from 'print-js'
 const url = localStorage.getItem('url');
 
 jQuery.each(['put', 'delete', 'patch'], function (i, method) {
@@ -281,7 +282,7 @@ function loadData() {
           .then(() => {
             localStorage.setItem('queue', JSON.stringify(matchedArray));
           })
-          .fail((xhr, text, error) => { });
+          .fail((xhr, text, error) => {});
       } else {
         console.log(res.error.msg);
       }
@@ -376,23 +377,26 @@ setTimeout(function () {
           ` trang</p>
               <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
               <p class="w-fit shrink-0 md:w-28 xl:w-32">
-                `
+                `;
         if (el.printOrder['status'] == false) {
-          str += 'Chưa in'
+          str += 'Chưa in';
         }
         if (el.printOrder['status'] == true) {
-          str += 'Đang in'
+          str += 'Đang in';
         }
         if (el.printOrder['status'] == 1) {
-          str += 'Chưa lấy'
+          str += 'Chưa lấy';
         }
         if (el.printOrder['status'] == 2) {
-          str += 'Đã lấy'
+          str += 'Đã lấy';
         }
-        str += `</p>
+        str +=
+          `</p>
             </div>
 
-            <div class="w-9 shrink-0 max-md:hidden"><a href="http://localhost:3000/uploads/`+ el.printOrder['_id'] + `.pdf">Xem</a></div>
+            <div class="w-9 shrink-0 max-md:hidden"><a class="underline" href="http://localhost:3000/uploads/` +
+          el.printOrder['_id'] +
+          `.pdf" target="_blank">Xem</a></div>
           </div>`;
       }
     });
@@ -410,6 +414,23 @@ setTimeout(function () {
         </button>
           </div>`;
   $('#printer-queue').html(str);
+  $('#print-next').on('click', () => {
+    $.post(
+      'http://localhost:3000/queue/next',
+      JSON.stringify({
+        printer_id: '656df1df0811a88360b55582',
+      }),
+    )
+      .done(function (data) {
+        console.log(data);
+        const URL = 'http://localhost:3000' + data.message.order.fileLocation;
+        console.log(URL);
+        console.log(data.message.order);
+        // printJS('http://localhost:3000' + data.message.order.fileLocation);
+      })
+      .fail();
+    // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
+  });
 }, 2000);
 
 function changeStatusPrinter() {
@@ -516,6 +537,6 @@ function deletePrinter() {
         console.log(data);
         window.location.reload();
       })
-      .fail(() => { });
+      .fail(() => {});
   });
 }
