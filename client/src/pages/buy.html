@@ -16,8 +16,8 @@
     <script defer src="../../dist/index.bundle.js"></script>
     <!-- <script defer src="../../dist/home.bundle.js"></script> -->
     <!-- <script defer src="../../dist/login.bundle.js"></script> -->
-    <script defer src="../../dist/manage.bundle.js"></script>
-    <!-- <script defer src="../../dist/buy.bundle.js"></script> -->
+    <!-- <script defer src="../../dist/manage.bundle.js"></script> -->
+    <script defer src="../../dist/buy.bundle.js"></script>
     <!-- <script defer src="../../dist/history.bundle.js"></script> -->
     <!-- <script defer src="../../dist/queue.bundle.js"></script> -->
     <!-- <script defer src="../../dist/report.bundle.js"></script> -->
@@ -69,17 +69,14 @@
           class="h-[48px] w-[48px] flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-90"
         ></div>
         <div class="grow flex-col text-left transition-all sm:space-y-1">
-          <div class="flex flex-row space-x-2 transition-all max-sm:hidden">
+          <div
+            class="flex flex-row space-x-2 transition-all max-sm:hidden"
+            id="user-info"
+          >
             <p
               id="user-name"
               class="h-4 w-[75%] animate-pulse rounded-full bg-gray-300 font-bold"
             ></p>
-            <div
-              id="user-type"
-              class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
-            >
-              Admin
-            </div>
           </div>
           <p
             id="user-remaining-pages"
@@ -138,14 +135,8 @@
             class="aspect-square min-h-full flex-none animate-pulse overflow-clip rounded-full bg-gray-300 transition-all max-sm:scale-75"
           ></div>
           <div class="grow flex-col space-y-1 text-left">
-            <div class="flex flex-row space-x-2">
+            <div class="flex flex-row space-x-2" id="user-info">
               <p id="user-name" class="font-bold"></p>
-              <div
-                id="user-type"
-                class="hidden rounded-lg bg-button-primary p-1 text-xs text-white"
-              >
-                Admin
-              </div>
             </div>
             <p id="user-remaining-pages" class="text-sm"></p>
             <div
@@ -232,7 +223,7 @@
           <li>
             <a
               href="./home.html"
-              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-button-hover active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Trang chủ</a
             >
@@ -256,7 +247,7 @@
           <li>
             <a
               href="./manage.html"
-              class="flex rounded-3xl bg-card-background p-3 font-bold transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:bg-button-hover-dark dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Quản lí</a
             >
@@ -279,6 +270,17 @@
           </li>
         </ul>
       </div>
+      <script>
+        if (
+          JSON.parse(localStorage.getItem('userInfo')).userType == 'student'
+        ) {
+          // $('a[href^="manage"]').addClass('hidden');
+          const item1 = document.querySelector('a[href*="manage"]');
+          const item2 = document.querySelector('a[href*="report"]');
+          item1.classList.add('hidden');
+          item2.classList.add('hidden');
+        }
+      </script>
       <div class="space-y-3">
         <hr />
         <p class="text-sm">
@@ -342,162 +344,52 @@
       id="content-area"
     >
       <div
-        class="flex w-full flex-col space-y-6 bg-white dark:bg-content-background-dark max-sm:p-5 sm:rounded-[48px] sm:p-10"
+        class="flex w-full flex-col space-y-8 bg-white dark:bg-content-background-dark max-sm:p-5 sm:rounded-[48px] sm:p-10"
       >
         <div
-          id="manage-printer"
-          class="flex flex-col space-y-5 rounded-3xl bg-card-background p-6 text-left transition-all dark:bg-card-background-dark sm:p-8"
+          id="buy-pages"
+          class="flex flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
         >
-          <p id="printer-name" class="text-xl font-bold">Máy in</p>
-          <div
-            id="manage-printer-body"
-            class="flex flex-col space-y-2 transition-all"
-          >
-            <p>Chưa có máy in được thêm vào.</p>
-          </div>
+          <p class="text-xl font-bold">Mua thêm trang</p>
+          <p>Chọn số trang cần mua</p>
+          <div class="flex flex-col space-y-5" id="buy-item-area"></div>
 
-          <div
-            id="manage-printer-actions"
-            class="flex w-full flex-wrap items-center justify-end gap-y-3 space-x-3"
-          >
+          <div class="flex w-full flex-row items-center justify-between pb-2">
             <button
-              id="add-printer"
               type="button"
+              id="buy-cancel"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+            >
+              Hủy
+            </button>
+            <button
+              type="button"
+              id="buy-continue"
               class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
             >
-              Thêm máy in
-            </button>
-          </div>
-        </div>
-        <div
-          id="printer-queue"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
-        >
-          <div class="flex w-full flex-row items-center justify-between pb-2">
-            <p class="text-xl font-bold">Hàng đợi máy in</p>
-            <button
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-            >
-              Xem tất cả
-            </button>
-          </div>
-          <div class="flex flex-row space-x-2 max-md:hidden">
-            <p
-              class="w-20 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28"
-            >
-              MSSV
-            </p>
-            <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
-              Tiêu đề
-            </p>
-            <p
-              class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
-            >
-              Số trang
-            </p>
-            <p
-              class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
-            >
-              Tình trạng
-            </p>
-            <div class="w-9 shrink-0"></div>
-          </div>
-          <hr class="w-full border" />
-          <div class="flex flex-col space-y-2">
-            <div
-              class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-            >
-              <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
-                2112945
-              </p>
-              <p class="w-8/12 truncate max-md:order-1 md:w-full">
-                Chapter_6_V7.01_Accessible.pdf
-              </p>
-              <div class="div flex flex-row space-x-2 max-md:order-3">
-                <p class="w-fit shrink-0 md:w-28 xl:w-32">85 trang</p>
-                <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
-                <p class="w-fit shrink-0 md:w-28 xl:w-32">Đang in</p>
-              </div>
-
-              <div class="w-9 shrink-0 max-md:hidden">Xem</div>
-            </div>
-            <div
-              class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-            >
-              <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
-                2112945
-              </p>
-              <p class="w-8/12 truncate max-md:order-1 md:w-full">
-                Chapter_6_V7.01_Accessible.pdf
-              </p>
-              <div class="div flex flex-row space-x-2 max-md:order-3">
-                <p class="w-fit shrink-0 md:w-28 xl:w-32">85 trang</p>
-                <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
-                <p class="w-fit shrink-0 md:w-28 xl:w-32">Đang in</p>
-              </div>
-
-              <div class="w-9 shrink-0 max-md:hidden">Xem</div>
-            </div>
-          </div>
-          <div class="flex w-full flex-row items-center justify-end space-x-3">
-            <button
-              id="pause-print"
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-            >
-              Tạm dừng in
-            </button>
-            <button
-              id="stop-print"
-              type="button"
-              class="items dark:active:bg-red-6000 inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700"
-            >
-              Dừng in
-            </button>
-          </div>
-        </div>
-        <div
-          id="admin-panel"
-          class="flex flex-col space-y-5 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
-        >
-          <p class="text-xl font-bold">Quản trị hệ thống</p>
-          <div class="flex flex-col space-y-2">
-            <p class="text-sm font-bold text-gray-600 dark:text-gray-300">
-              Chi tiết
-            </p>
-            <hr class="w-full border" />
-            <div class="grid grid-cols-1 gap-y-2 sm:grid-cols-2">
-              <p>Các loại tệp được phép</p>
-              <p id="allowed-file-types">pdf</p>
-              <p>Kích thước tệp tối đa</p>
-              <p id="maximum-file-type">5MB</p>
-              <p>Số tờ in mặc định</p>
-              <p id="default-credit">200</p>
-              <p>Ngày đặt lại số tờ</p>
-              <p id="credit-reset-date">Ngày 1 hàng tháng</p>
-              <p>Giá tiền 1 tờ</p>
-              <p id="price-per-page">200₫</p>
-            </div>
-          </div>
-          <div
-            class="flex w-full flex-row items-center justify-between space-x-3"
-          >
-            <button
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-            >
-              Chỉnh sửa
-            </button>
-            <button
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700 dark:active:bg-red-600"
-            >
-              Đặt về mặc định
+              Tiếp tục
             </button>
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        class="items fixed bottom-5 right-5 inline-flex gap-x-3 rounded-xl bg-button-primary px-8 py-3.5 text-center text-base font-bold text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:text-dark-surface dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark max-sm:rounded-2xl max-sm:px-4 max-sm:py-4 lg:hidden"
+        id="uploadButton"
+      >
+        <svg
+          class="fill-white dark:fill-dark-surface"
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -960 960 960"
+          width="24"
+        >
+          <path
+            d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
+          />
+        </svg>
+        <p class="max-sm:hidden">Tải lên</p>
+      </button>
     </div>
     <!-- <script src="../../dist/main.bundle.js"></script> -->
     <!-- <script src="../../dist/index.bundle.js"></script> -->

@@ -17,17 +17,26 @@
     <!-- <script defer src="../../dist/home.bundle.js"></script> -->
     <!-- <script defer src="../../dist/login.bundle.js"></script> -->
     <!-- <script defer src="../../dist/manage.bundle.js"></script> -->
-    <script defer src="../../dist/buy.bundle.js"></script>
+    <!-- <script defer src="../../dist/buy.bundle.js"></script> -->
     <!-- <script defer src="../../dist/history.bundle.js"></script> -->
     <!-- <script defer src="../../dist/queue.bundle.js"></script> -->
-    <!-- <script defer src="../../dist/report.bundle.js"></script> -->
+    <script defer src="../../dist/report.bundle.js"></script>
     <script defer src="../../dist/vendors.bundle.js"></script>
+    <script>
+      if (JSON.parse(localStorage.getItem('userInfo')).userType == 'student') {
+        window.location.href =
+          './error.html?num=' +
+          403 +
+          '&msg=' +
+          'Bạn không có quyền truy cập vào tài nguyên này.';
+      }
+    </script>
   </head>
 
-  <body class="min-w-[375px]">
+  <body>
     <nav
       id="navigation-bar"
-      class="fixed left-0 top-0 z-50 flex w-screen flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12 min-w-[375px]"
+      class="fixed left-0 top-0 z-50 flex w-screen flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12"
     >
       <div
         class="flex flex-row items-center space-x-3 transition-all duration-200 ease-out"
@@ -255,7 +264,7 @@
           <li>
             <a
               href="./report.html"
-              class="flex rounded-3xl p-3 transition-all duration-200 ease-out hover:bg-card-background active:bg-button-active dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="flex rounded-3xl bg-card-background p-3 font-bold transition-all duration-200 ease-out hover:bg-button-hover active:bg-button-active dark:bg-button-hover-dark dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
             >
               Báo cáo</a
             >
@@ -336,28 +345,39 @@
         class="flex w-full flex-col space-y-8 bg-white dark:bg-content-background-dark max-sm:p-5 sm:rounded-[48px] sm:p-10"
       >
         <div
-          id="buy-pages"
-          class="flex flex-col space-y-5 rounded-3xl bg-card-background px-8 pb-6 pt-8 text-left dark:bg-card-background-dark"
+          id="admin-report"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background px-10 py-8 text-left dark:bg-card-background-dark"
         >
-          <p class="text-xl font-bold">Mua thêm trang</p>
-          <p>Chọn số trang cần mua</p>
-          <div class="flex flex-col space-y-5" id="buy-item-area"></div>
-
           <div class="flex w-full flex-row items-center justify-between pb-2">
+            <p class="text-xl font-bold">Báo cáo</p>
             <button
               type="button"
-              id="buy-cancel"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:shadow-3 active:bg-gray-200"
             >
-              Hủy
+              Xem chi tiết
             </button>
-            <button
-              type="button"
-              id="buy-continue"
-              class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
-            >
-              Tiếp tục
-            </button>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <p class="text-sm font-bold text-gray-600 dark:text-gray-300">
+              Chi tiết
+            </p>
+            <hr class="w-full border" />
+            <div class="flex flex-row justify-between">
+              <p>Số tờ được in</p>
+              <p id="numPage"></p>
+            </div>
+            <div class="flex flex-row justify-between">
+              <p>Thời gian hoạt động</p>
+              <p id="numTime">243h 18p</p>
+            </div>
+            <div class="flex flex-row justify-between">
+              <p>Lượt sử dụng</p>
+              <p id="numUse">822</p>
+            </div>
+            <div class="flex flex-row justify-between">
+              <p>Loại giấy được in nhiều nhất</p>
+              <p id="mostPage">A4</p>
+            </div>
           </div>
         </div>
       </div>
