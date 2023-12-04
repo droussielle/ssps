@@ -172,31 +172,25 @@ $('#buy-continue').on('click', () => {
       window.location.reload();
     });
     $('#checkout').on('click', () => {
-      const body =
-        `
-        {
-          "increment": "` +selectedValue +`"
-      }`;
-      console.log(body);
-      $.post(url + '/account/buy-credit', body)
+      $.post(url + '/account/buy-credit', { increment: selectedValue })
         .done(() => {
           const checkoutDiv = `
       <p class="text-xl font-bold">Mua thêm trang</p>
-      <p>Đơn hàng SSPS293913 của bạn đã được xử lí thành công.</p>
+      <p>Đơn hàng SSPS`+Date.now()+` của bạn đã được xử lí thành công.</p>
       <div class="flex flex-col space-y-2">
         <p class="text-sm font-bold text-gray-600">Chi tiết</p>
         <hr class="w-full border" />
         <div class="flex flex-row justify-between">
           <p>Số trang</p>
-          <p>5</p>
+          <p>`+selectedValue+`</p>
         </div>
         <div class="flex flex-row justify-between">
           <p>Ngày đặt đơn</p>
-          <p>30/10/2023</p>
+          <p>`+new Date().toLocaleString()+`</p>
         </div>
         <div class="flex flex-row justify-between">
           <p>Tổng tiền</p>
-          <p>1.000₫</p>
+          <p>`+selectedPrice+`</p>
         </div>
       </div>
       <div class="flex w-full flex-row justify-end pb-1">
