@@ -24,10 +24,10 @@
     <script defer src="../../dist/vendors.bundle.js"></script>
   </head>
 
-  <body>
+  <body class="min-w-[375px]">
     <nav
       id="navigation-bar"
-      class="fixed left-0 top-0 z-50 flex w-screen flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12"
+      class="fixed left-0 top-0 z-50 flex w-screen min-w-[375px] flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12"
     >
       <div
         class="flex flex-row items-center space-x-3 transition-all duration-200 ease-out"
@@ -344,91 +344,91 @@
       <div
         class="flex w-full flex-col space-y-8 bg-white dark:bg-content-background-dark max-sm:p-5 sm:rounded-[48px] sm:p-10"
       >
-      <div
-      id="history"
-      class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
-    >
-      <div class="flex w-full flex-row items-center justify-between pb-2">
-        <p class="text-xl font-bold">Lịch sử</p>
-      </div>
-      <div class="flex flex-row space-x-2 max-md:hidden">
-        <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
-          Tiêu đề
-        </p>
-        <p
-          class="w-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28 2xl:w-32"
-        >
-          Địa điểm
-        </p>
-        <p
-          class="w-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32 2xl:w-36"
-        >
-          Số trang
-        </p>
-        <p
-          class="w-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28 2xl:w-32"
-        >
-          Ngày
-        </p>
-      </div>
-      <hr class="w-full border" />
-      <div class="flex flex-col space-y-2" id="history-content">
         <div
-          class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+          id="history"
+          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left dark:bg-card-background-dark sm:p-8"
         >
-          <p
-            class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
-          ></p>
-          <p
-            class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
-          ></p>
-          <div class="flex w-full flex-row space-x-2 md:max-w-max">
+          <div class="flex w-full flex-row items-center justify-between pb-2">
+            <p class="text-xl font-bold">Lịch sử</p>
+          </div>
+          <div class="flex flex-row space-x-2 max-md:hidden">
+            <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
+              Tiêu đề
+            </p>
             <p
-              class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
-            ></p>
+              class="w-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28 2xl:w-32"
+            >
+              Địa điểm
+            </p>
             <p
-              class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
-            ></p>
+              class="w-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32 2xl:w-36"
+            >
+              Số trang
+            </p>
+            <p
+              class="w-40 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-44 2xl:w-48"
+            >
+              Ngày
+            </p>
+          </div>
+          <hr class="w-full border" />
+          <div class="flex flex-col space-y-2" id="history-content">
+            <div
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p
+                class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
+              <p
+                class="h-6 w-40 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-44 2xl:w-48"
+              ></p>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+              </div>
+            </div>
+            <div
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p
+                class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
+              <p
+                class="h-6 w-40 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-44 2xl:w-48"
+              ></p>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+              </div>
+            </div>
+            <div
+              class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p
+                class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
+              ></p>
+              <p
+                class="h-6 w-40 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-44 2xl:w-48"
+              ></p>
+              <div class="flex w-full flex-row space-x-2 md:max-w-max">
+                <p
+                  class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
+                ></p>
+                <p
+                  class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
+                ></p>
+              </div>
+            </div>
           </div>
         </div>
-        <div
-          class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-        >
-          <p
-            class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
-          ></p>
-          <p
-            class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
-          ></p>
-          <div class="flex w-full flex-row space-x-2 md:max-w-max">
-            <p
-              class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
-            ></p>
-            <p
-              class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
-            ></p>
-          </div>
-        </div>
-        <div
-          class="flex w-full animate-pulse items-center gap-y-1 py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-        >
-          <p
-            class="h-6 w-2/3 rounded-full bg-gray-300 dark:bg-gray-500 md:w-full"
-          ></p>
-          <p
-            class="h-6 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:order-3 xl:w-28 2xl:w-32"
-          ></p>
-          <div class="flex w-full flex-row space-x-2 md:max-w-max">
-            <p
-              class="h-5 w-24 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-28 2xl:w-32"
-            ></p>
-            <p
-              class="h-5 w-28 shrink-0 rounded-full bg-gray-300 dark:bg-gray-500 md:h-6 xl:w-32 2xl:w-36"
-            ></p>
-          </div>
-        </div>
-      </div>
-    </div>
       </div>
       <button
         type="button"

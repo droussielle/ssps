@@ -24,10 +24,10 @@
     <script defer src="../../dist/vendors.bundle.js"></script>
   </head>
 
-  <body>
+  <body class="min-w-[375px]">
     <nav
       id="navigation-bar"
-      class="fixed left-0 top-0 z-50 flex w-screen flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12"
+      class="fixed left-0 top-0 z-50 flex w-screen min-w-[375px] flex-row justify-between bg-page-background text-center text-black dark:bg-page-background-dark dark:text-white max-sm:h-16 max-sm:px-4 sm:h-20 sm:pl-8 sm:pr-12"
     >
       <div
         class="flex flex-row items-center space-x-3 transition-all duration-200 ease-out"
@@ -358,7 +358,9 @@
             </button>
           </div>
           <div class="flex flex-col space-y-2">
-            <p class="text-sm font-bold text-gray-600 dark:text-gray-300">Chi tiết</p>
+            <p class="text-sm font-bold text-gray-600 dark:text-gray-300">
+              Chi tiết
+            </p>
             <hr class="w-full border" />
             <div class="flex flex-row justify-between">
               <p>Số tờ được in</p>

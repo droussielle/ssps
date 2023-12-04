@@ -24,6 +24,7 @@ $.ajaxSetup({
   headers: {
     Authorization: authToken,
   },
+  contentType: 'application/json',
 });
 
 /* load user info on page load */
@@ -32,7 +33,7 @@ $(() => {
     window.location.href = './login.html';
     throw new Error('Not logged in!');
   }
-  $.get(url+'/account/self')
+  $.get(url + '/account/self')
     .done(function (data) {
       const user = new User(
         data.name,
