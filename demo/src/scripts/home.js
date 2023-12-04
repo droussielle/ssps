@@ -85,7 +85,7 @@ export function fileUpload(file) {
     </div>
     <form class="flex flex-col space-y-3">
       <p>Chọn địa điểm</p>
-      <div class="flex flex-col space-x-2" id="printer-list">
+      <div class="flex flex-col space-y-3" id="printer-list">
       </div>
     </form>
     <div
