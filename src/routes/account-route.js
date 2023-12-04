@@ -97,4 +97,18 @@ router.get('/self',userauth,async(req,res,next)=>{
   }
 })
 
+
+router.get('/userid/:user_id',async(req,res,next)=>{
+  try{  
+    const user_id = req.params.user_id;
+    const data = await AccountController.getself(user_id);
+    if(data.data.error){
+      return res.status(400).json(data.data);
+    } else return res.status(200).json(data.data);
+    
+  } catch(err){
+    next(err);
+  }
+})
+
 module.exports = router;
