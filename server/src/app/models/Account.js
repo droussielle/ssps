@@ -1,11 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
 const Account = new Schema({
-  _id: ObjectId,
-  id: { type: String, minLength: 7, maxLength: 7 },
-  username: String,
-  userpassword: String,
-  idRole: Number,
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  name: { type: String, required: true },
+  role: { type: String, required: true }, //{student,staff,spso}
+  profile_image: { type: String },
+  phone_number: { type: String, required: true },
+  credit: { type: Number, required: true, default: 0 },
+  salt: String,
 });
-module.exports = mongoose.model("Account", Account);
+module.exports = mongoose.model('Account', Account);
