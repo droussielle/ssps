@@ -309,6 +309,7 @@ function loadData() {
 //     status: -1,
 //   },
 // ];
+
 setTimeout(function () {
   var PrinterQueue = [];
   if (localStorage.getItem('queue')) {
@@ -400,20 +401,13 @@ setTimeout(function () {
   str += `
   </div >
           <div class="flex w-full flex-row items-center justify-end space-x-3">
-            <button
-              id="pause-print"
-              type="button"
-              class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-            >
-              Tạm dừng in
-            </button>
-            <button
-              id="stop-print"
-              type="button"
-              class="items dark:active:bg-red-6000 inline-flex gap-x-3 rounded-full bg-red-700 px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-red-600 hover:shadow-3 active:bg-red-800 dark:bg-red-800 dark:hover:bg-red-700"
-            >
-              Dừng in
-            </button>
+          <button
+          id="print-next"
+          type="button"
+          class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
+        >
+        In đơn kế tiếp
+        </button>
           </div>`;
   $('#printer-queue').html(str);
 }, 2000);
