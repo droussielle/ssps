@@ -23,8 +23,8 @@ module.exports = async (app) => {
   // app.use(cors());
   app.use(
     cors({
-      // origin: ['http://127.0.0.1:5500','192.168.1.12', '192.168.1.9'],
-      methods: 'GET,POST,PUT,DELETE',
+      origin: ['http://127.0.0.1:5500','192.168.1.12', '192.168.1.9'],
+      methods: 'GET,POST,PUT,DELETE,PATCH',
       credentials: true,
     }),
   );

@@ -1,8 +1,9 @@
 /* eslint-disable require-jsdoc */
 import $, { queue } from 'jquery';
 import jQuery from 'jquery';
+const url = localStorage.getItem('url');
 
-jQuery.each(["put", "delete", "patch"], function (i, method) {
+jQuery.each(['put', 'delete', 'patch'], function (i, method) {
   jQuery[method] = function (url, data, callback, type) {
     if (jQuery.isFunction(data)) {
       type = type || callback;
@@ -15,18 +16,23 @@ jQuery.each(["put", "delete", "patch"], function (i, method) {
       type: method,
       dataType: type,
       data: data,
-      success: callback
+      success: callback,
     });
   };
 });
-var printers = []
+var printers = [];
 function Printer(name) {
   this.name = name;
   this.status = 'Active';
   this.mode = 'Automatic';
   this.uptimeSince = 'date';
 }
+
 $(() => {
+  if (JSON.parse(localStorage.getItem('userInfo')).userType !== 'spso') {
+    // $('a[href^="manage"]').addClass('hidden');
+    $('#manage-printer').remove();
+  }
   loadData();
   loadPrinter();
   addPrinter();
@@ -34,6 +40,7 @@ $(() => {
   // editPrinter();
   deletePrinter();
 });
+
 const printer1 = new Printer('H3-404');
 
 // $('#add-printer').on('click', function () {
@@ -73,6 +80,7 @@ const printer1 = new Printer('H3-404');
 //     `,
 //   );
 // });
+
 function addPrinter() {
   $('#add-printer').on('click', function () {
     $('#manage-printer').html(`
@@ -86,7 +94,7 @@ function addPrinter() {
       class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark">
       Thêm máy in
     </button>
-  </div>`)
+  </div>`);
     $('#printer-name').text('Thêm máy in');
     $('#manage-printer-body').html(
       `<p class="text-sm font-bold text-gray-600 dark:text-gray-300">Chi tiết</p>
@@ -136,22 +144,19 @@ function addPrinter() {
         shortDescription: desValue,
         location: addressValue,
         printerStatus: statusValue,
-      }
+      };
       $.post('http://localhost:3000/spso/printer', JSON.stringify(data))
         .done(function (data) {
           console.log(data.data);
-          window.location.reload()
+          window.location.reload();
         })
         .fail(function (xhr, status, error) {
           console.log(xhr.status);
           console.log(xhr.responseJSON);
         });
-    })
-
-
+    });
   });
 }
-
 
 let printing = true;
 
@@ -174,52 +179,80 @@ $('#stop-print').on('click', function () {
     );
   $('#pause-print').addClass('invisible');
 });
+
 function loadPrinter() {
-  $.get('http://localhost:3000/spso/printer')
+  $.get(url + '/spso/printer')
     .done(function (data) {
       printers = data.data;
-      var str = ``
+      var str = ``;
       printers.forEach((el, index) => {
-        str += `<span class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
-        `+ index + `
-      </span>
-      <span class="w-24 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28 2xl:w-32">
-        `+ el.brand + `
-      </span>
-      <span class="w-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32 2xl:w-36">
-        `+ el.model + `
-      </span>
-      <span class="w-28 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32 2xl:w-36">
-        `+ el.location + `
-      </span>
-      <span class="w-40 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-44 2xl:w-48">
-      `+ el.shortDescription + `
-      </span>
-      <span class="w-40 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-44 2xl:w-48">
-      <div class="flex flex-row space-x-3 items-center py-1">
-      `
+        str +=
+          `<div class="flex flex-row space-x-2 items-center">
+            <span class="w-8">
+          ` +
+          index +
+          `
+          </span>
+          <span class="w-28 text-left xl:w-32 2xl:w-36">
+          ` +
+          el.brand +
+          `
+          </span>
+          <span class="w-40 text-left xl:w-44 2xl:w-48">
+          ` +
+          el.model +
+          `
+          </span>
+          <span class="w-40 text-left xl:w-44 2xl:w-48">
+          ` +
+          el.location +
+          `
+          </span>
+          <span class="w-40 text-left xl:w-44 2xl:w-48">
+        ` +
+          el.shortDescription +
+          `
+          </span>
+          <div class=" flex flex-row space-x-5 w-40 text-left xl:w-44 2xl:w-48">
+            <div class="flex flex-row space-x-3 items-center py-1">
+              `;
         if (el.printerStatus === true) {
-          str += `<input data-id="` + el._id + `" checked class="printer-status" type="checkbox" value="" class="w-4 h-4 text-blue-primary bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" >`
+          str +=
+            `<input data-id="` +
+            el._id +
+            `" checked class="printer-status" type="checkbox" value="" class="w-4 h-4 text-blue-primary bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" >`;
         } else {
-          str += `<input class="printer-status" data-id="` + el._id + `" type="checkbox" value="" class="w-4 h-4 text-blue-primary bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" >`
+          str +=
+            `<input class="printer-status" data-id="` +
+            el._id +
+            `" type="checkbox" value="" class="w-4 h-4 text-blue-primary bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" >`;
         }
-        str += `
-    </div>
-    <!-- <button class="edit" data-printer="` + el._id + `" data-id="` + index + `" class="w-40 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-44 2xl:w-48">
-      Sửa
-      </button> -->
-      <button class="delete" data-printer="` + el._id + `" data-id="` + index + `" class="w-40 text-left text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-44 2xl:w-48">
-      Xóa
-      </button>
-      </span>`
-        $('#manage-printer-body').html(str)
+        str +=
+          `
+          </div>
+          <!-- <button class="edit" data-printer="` +
+          el._id +
+          `" data-id="` +
+          index +
+          `" class="w-40 text-left xl:w-44 2xl:w-48">
+            Sửa
+          </button> -->
+          <button class="delete" data-printer="` +
+          el._id +
+          `" data-id="` +
+          index +
+          `" class="w-40 text-left xl:w-44 2xl:w-48">
+            Xóa
+          </button>
+        </div>
+      </div>`;
+        $('#manage-printer-body').html(str);
       });
     })
     .fail(function (xhr, status, error) {
       console.log(xhr.status);
       console.log(xhr.responseJSON.error.message);
     });
-
 }
 function loadData() {
   $.ajax({
@@ -229,32 +262,30 @@ function loadData() {
     dataType: 'JSON',
     success: function (res) {
       if (!res.error) {
-        var matchedArray = []
+        var matchedArray = [];
         $.get('http://localhost:3000/spso/student/')
           .done((res1) => {
             for (let i = 0; i < res1.data.length; i++) {
               for (let j = 0; j < res.length; j++) {
-
                 if (res[j].user === res1.data[i].account) {
                   const temp = {
                     printOrder: res[j],
-                    user: res1.data[i].student_ID
-                  }
-                  matchedArray.push(temp)
+                    user: res1.data[i].student_ID,
+                  };
+                  matchedArray.push(temp);
                 }
               }
             }
-          }).then(() => {
+          })
+          .then(() => {
             localStorage.setItem('queue', JSON.stringify(matchedArray));
           })
-          .fail((xhr, text, error) => { })
-
+          .fail((xhr, text, error) => {});
       } else {
         console.log(res.error.msg);
       }
     },
   });
-
 }
 // status: -1:Chưa in, 0:Đang in  1: Chưa lấy 2: Đã lấy
 // const PrinterQueue = [
@@ -278,7 +309,7 @@ function loadData() {
 //   },
 // ];
 setTimeout(function () {
-  var PrinterQueue = []
+  var PrinterQueue = [];
   if (localStorage.getItem('queue')) {
     PrinterQueue = JSON.parse(localStorage.getItem('queue'));
   }
@@ -317,8 +348,9 @@ setTimeout(function () {
 </div>
 <hr class="w-full border" />
         `;
-  if (PrinterQueue.length == 0) { str += "<p>Bạn không có mục nào trong hàng đợi</p>" }
-  else {
+  if (PrinterQueue.length == 0) {
+    str += '<p>Bạn không có mục nào trong hàng đợi</p>';
+  } else {
     PrinterQueue.forEach((el, index) => {
       str +=
         `<div class="flex flex-col space-y-2" >
@@ -326,27 +358,33 @@ setTimeout(function () {
             class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
           >
             <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
-              `+ el.user + `
+              ` +
+        el.user +
+        `
             </p>
             <p class="w-8/12 truncate max-md:order-1 md:w-full">
-              `+ el.printOrder['fileName'] + `
+              ` +
+        el.printOrder['fileName'] +
+        `
             </p>
             <div class="div flex flex-row space-x-2 max-md:order-3">
-              <p class="w-fit shrink-0 md:w-28 xl:w-32">`+ el.printOrder['printProperties']['numberOfPages'] + ` trang</p>
+              <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
+        el.printOrder['printProperties']['numberOfPages'] +
+        ` trang</p>
               <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
               <p class="w-fit shrink-0 md:w-28 xl:w-32">
-                `
+                `;
       if (el.printOrder['status'] == false) {
-        str += 'Chưa in'
+        str += 'Chưa in';
       }
       if (el.printOrder['status'] == true) {
-        str += 'Đang in'
+        str += 'Đang in';
       }
       if (el.printOrder['status'] == 1) {
-        str += 'Chưa lấy'
+        str += 'Chưa lấy';
       }
       if (el.printOrder['status'] == 2) {
-        str += 'Đã lấy'
+        str += 'Đã lấy';
       }
       str += `</p>
             </div>
@@ -375,7 +413,7 @@ setTimeout(function () {
             </button>
           </div>`;
   $('#printer-queue').html(str);
-}, 2000)
+}, 2000);
 function changeStatusPrinter() {
   // Use document or a static parent container that exists when the page loads
   $(document).on('change', '.printer-status', function () {
@@ -414,7 +452,7 @@ function changeStatusPrinter() {
 //       `<p class="text-sm font-bold text-gray-600 dark:text-gray-300">Chi tiết</p>
 //         <hr class="border w-full" />
 //         <div class="flex flex-row justify-between">
-//           <p>Hãng</p> 
+//           <p>Hãng</p>
 //           <input type="text" value=`+ printers[index].brand + ` id="brand">
 //         </div>
 //         <div class="flex flex-row justify-between">
@@ -470,7 +508,6 @@ function changeStatusPrinter() {
 //         });
 //     })
 
-
 //   });
 // }
 function deletePrinter() {
@@ -478,11 +515,9 @@ function deletePrinter() {
     let idPrinter = $(this).attr('data-printer');
     $.delete('http://localhost:3000/spso/printer/' + idPrinter)
       .done((data) => {
-        console.log(data)
-        window.location.reload()
+        console.log(data);
+        window.location.reload();
       })
-      .fail(() => {
-
-      })
-  })
+      .fail(() => {});
+  });
 }

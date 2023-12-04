@@ -44,6 +44,13 @@ $(() => {
         data.token,
       );
       localStorage.setItem('userInfo', JSON.stringify(user));
+      if (data.role == 'student') {
+        // $('a[href^="manage"]').addClass('hidden');
+        const item1 = document.querySelector('a[href*="manage"]');
+        const item2 = document.querySelector('a[href*="report"]');
+        item1.classList.add('hidden');
+        item2.classList.add('hidden');
+      }
       // console.log(data);
       $('[id=user-name]')
         .text(user.name)
@@ -51,7 +58,9 @@ $(() => {
           'h-4 w-[75%] animate-pulse rounded-full bg-gray-300 dark:bg-gray-700',
         );
       $('[id=user-avatar]')
-        .html('<img class="h-14 w-14 aspect-square" src="' + user.avatar + '" />')
+        .html(
+          '<img class="h-14 w-14 aspect-square" src="' + user.avatar + '" />',
+        )
         .removeClass('animate-pulse bg-gray-300');
       $('[id=user-remaining-pages]')
         .text(user.remainingPages + ' trang còn lại')
@@ -99,7 +108,6 @@ $(() => {
       $('#error-code').html(errorCode);
       $('#error-description').html(errorMessage);
     });
-  
 });
 
 const isDarkMode = localStorage.getItem('darkMode');
