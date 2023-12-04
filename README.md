@@ -40,7 +40,7 @@ students in its campuses to print their documents.
   
   - Step 4: Add the other collections to the database. Click on the 'spss' database, on the right side of the screen, click 'Create Collection', then create the following collections: printers, printorders, queues, spsos, staffs, students.
   
-  - Step 5: Click on each collection, on the right side screen, click on 'ADD DATA' -> 'Import JSON or CSV file'. Then choose the suitable ssps.<colection>.JSON where 'collection' is also the name of the collection that you clicked on. All of the JSON files are stored in /mongodb/ folder. After adding all the collections' initial data, the setup and config process have now done and ready to use.
+  - Step 5: Click on each collection, on the right side screen, click on 'ADD DATA' -> 'Import JSON or CSV file'. Then choose the suitable ssps.<colection>.JSON where 'collection' is also the name of the collection that you clicked on. All of the JSON files are stored in /mongodb/ folder. After adding all the collections' initial data, the setup and config process have now done and database is ready to use.
 
 Notice: 
 - After Step 5, each time you run the application, run MongoDBCompass first, just hit 'connect' button.
