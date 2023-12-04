@@ -20,7 +20,7 @@ $(() => {
   // getPrintOrder();
   // getQueue();
   // printNextFile();
-  uploadFile();
+  //uploadFile();
 });
 jQuery.each(["put", "delete", "patch"], function (i, method) {
   jQuery[method] = function (url, data, callback, type) {
@@ -258,3 +258,31 @@ function uploadFile() {
       console.log(xhr.responseJSON.error.message);
     });
 }
+var arr = [0, 0, 0, 0, 0, 0, 0]
+var count = 0
+var time
+$.ajax({
+  type: 'get',
+  url: 'http://localhost:3000/spso/all-orders',
+  headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
+  dataType: 'JSON',
+  success: function (res) {
+    if (!res.error) {
+      time = Number(Date.now() - Date.parse(res[0].beginTime))
+      console.log(time);
+      for (let i = 0; i < res.length; i++) {
+        arr[Number(res[i].printProperties.paperSize.replace(/\D/g, ''))] += res[i].printProperties.numberOfPages;
+        count++;
+      }
+      let day = Math.floor(time / (3600 * 24 * 1000))
+      let hour = Math.floor((time - day * (3600 * 24 * 1000)) / (1000 * 3600))
+      $('#numTime').html(day + ' ngày ' + hour + ' giờ ')
+      $('#numPage').html((arr[0] + arr[1] + arr[2] + arr[3] + arr[4] + arr[5] + arr[6]))
+      $('#numUse').html(count)
+      $('#mostPage').html("A" + arr.indexOf(Math.max(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6])))
+    } else {
+      console.log(res.error.msg);
+    }
+  },
+});
+

@@ -24,7 +24,7 @@ $.ajaxSetup({
   headers: {
     Authorization: authToken,
   },
-  contentType: 'application/json',
+  contentType: 'application/json'
 });
 
 /* load user info on page load */
