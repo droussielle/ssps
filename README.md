@@ -52,5 +52,10 @@ Notice:
 - Navigate to `server` folder on your terminal, type `npm start` command to start backend server
 - Open VSCode or any editor that already have *Live Server* installed
 - Start live server on *./client/demo/src/pages/index.html* file at port `5500`
+- Default login information is:
+  - `student@hcmut.edu.vn` for student
+  - `staff@gmail.com` for staff
+  - `spso@gmail.com` for spso
+  - password: `example` for 3 of them
 
 
