@@ -284,7 +284,7 @@ function loadData() {
           .then(() => {
             localStorage.setItem('queue', JSON.stringify(matchedArray));
           })
-          .fail((xhr, text, error) => {});
+          .fail((xhr, text, error) => { });
       } else {
         console.log(res.error.msg);
       }
@@ -299,56 +299,74 @@ function loadDataOfPrinter(printer) {
     .done(function (data) {
       const printerQueue = data.data.queue;
       // console.log(printerQueue);
-      printerQueue.forEach((element) => {
-        console.log(element);
-        const queueDiv =
-          `<div class="flex flex-col space-y-2" >
-            <div
-              class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-            >
-              <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
-                ` +
-          0 +
-          `
-              </p>
-              <p class="w-8/12 truncate max-md:order-1 md:w-full">
-                ` +
-          element.fileName +
-          `
-              </p>
-              <div class="div flex flex-row space-x-2 max-md:order-3">
-                <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
-          element.printProperties.numberOfPages +
-          ` trang</p>
-              <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
-              <p class="w-fit shrink-0 md:w-28 xl:w-32">
-              </p>
-            </div>
-          <div class="w-9 shrink-0 max-md:hidden"><a class="underline" href="http://localhost:3000` +
-          element.fileLocation +
-          `" target="_blank">Xem</a></div>
-          </div>`;
-        $('#printer-queue-content').append(queueDiv);
-      });
-      $('#print-next').on('click', () => {
-        $.post(
-          'http://localhost:3000/queue/next',
-          JSON.stringify({
-            printer_id: printer,
-          }),
-        )
-          .done(function (data) {
-            console.log(data);
-            const fileURL = url + data.message.order.fileLocation;
-            console.log(fileURL);
-            window.open(fileURL, '_blank').focus();
-            console.log(data.message.order);
-            loadDataOfPrinter(printer);
-            // printJS('http://localhost:3000' + data.message.order.fileLocation);
-          })
-          .fail();
-        // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
-      });
+      var matchedArray = []
+      $.get('http://localhost:3000/spso/student/')
+        .done((res1) => {
+          for (let i = 0; i < res1.data.length; i++) {
+            for (let j = 0; j < printerQueue.length; j++) {
+              if (printerQueue[j].user === res1.data[i].account) {
+                const temp = {
+                  printOrder: printerQueue[j],
+                  user: res1.data[i].student_ID,
+                };
+                matchedArray.push(temp);
+              }
+            }
+          }
+        }).then(() => {
+          matchedArray.forEach((element) => {
+            console.log(element);
+            const queueDiv =
+              `<div class="flex flex-col space-y-2" >
+                <div
+                  class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+                >
+                  <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
+                    ` +
+              element.user +
+              `
+                  </p>
+                  <p class="w-8/12 truncate max-md:order-1 md:w-full">
+                    ` +
+              element.printOrder.fileName +
+              `
+                  </p>
+                  <div class="div flex flex-row space-x-2 max-md:order-3">
+                    <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
+              element.printOrder.printProperties.numberOfPages +
+              ` trang</p>
+                  <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
+                  <p class="w-fit shrink-0 md:w-28 xl:w-32">
+                  </p>
+                </div>
+              <div class="w-9 shrink-0 max-md:hidden"><a class="underline" href="http://localhost:3000` +
+              element.printOrder.fileLocation +
+              `" target="_blank">Xem</a></div>
+              </div>`;
+            $('#printer-queue-content').append(queueDiv);
+          });
+          $('#print-next').on('click', () => {
+            $.post(
+              'http://localhost:3000/queue/next',
+              JSON.stringify({
+                printer_id: printer,
+              }),
+            )
+              .done(function (data) {
+                console.log(data);
+                const fileURL = url + data.message.order.fileLocation;
+                console.log(fileURL);
+                window.open(fileURL, '_blank').focus();
+                console.log(data.message.order);
+                loadDataOfPrinter(printer);
+                // printJS('http://localhost:3000' + data.message.order.fileLocation);
+              })
+              .fail();
+            // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
+          });
+        })
+
+
     })
     .fail(() => {
       $('#printer-queue-content').html('Không có mục nào trong hàng đợi máy in.');
@@ -602,7 +620,7 @@ function deletePrinter() {
         console.log(data);
         window.location.reload();
       })
-      .fail(() => {});
+      .fail(() => { });
   });
 }
 
