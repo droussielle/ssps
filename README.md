@@ -51,7 +51,7 @@ Notice:
 - Run and connect database at `mongodb://localhost:27017`
 - Navigate to `server` folder on your terminal, type `npm start` command to start backend server
 - Open VSCode or any editor that already have *Live Server* extension installed
-- Start *Live Server* on `./client/src/pages/index.html` file at `localhost` port `5500`
+- Start *Live Server* on `./client/src/pages/home.html` file at `localhost` port `5500`
 - Default login information is:
   - `student@hcmut.edu.vn` for student
   - `staff@gmail.com` for staff
