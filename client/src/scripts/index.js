@@ -17,7 +17,7 @@ class User {
 let authToken;
 
 if (localStorage.getItem('userToken')) {
-  authToken = 'Bearer ' + JSON.parse(localStorage.getItem('userToken'));
+  authToken = 'Bearer ' + localStorage.getItem('userToken');
 }
 
 $.ajaxSetup({

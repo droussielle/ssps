@@ -44,7 +44,7 @@ $('[name=submitButton]').on('click', function (e) {
   };
   $.post(url+'/account/login', body)
     .done(function (data) {
-      localStorage.setItem('userToken', JSON.stringify(data.token));
+      localStorage.setItem('userToken', data.token);
       localStorage.setItem('url', url);
       window.location.href = './home.html';
     })
