@@ -33,28 +33,30 @@ export function fileUpload(file) {
       } else {
         const printerList = data.data;
         printerList.forEach((element) => {
-          const printerDiv =
-            `
-            <div class="flex flex-row items-center space-x-2">
-              <input
-                id="` +
-            element.location +
-            `"
-                type="radio"
-                value="` +
-            element._id +
-            `"
-                name="printer-select"
-                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-              />
-              <label for="` +
-            element.location +
-            `">` +
-            element.location +
-            `</label>
-            </div>
-          `;
-          $('#printer-list').append(printerDiv);
+          if (element.printerStatus) {
+            const printerDiv =
+              `
+              <div class="flex flex-row items-center space-x-2">
+                <input
+                  id="` +
+              element.location +
+              `"
+                  type="radio"
+                  value="` +
+              element._id +
+              `"
+                  name="printer-select"
+                  class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                />
+                <label for="` +
+              element.location +
+              `">` +
+              element.location +
+              `</label>
+              </div>
+            `;
+            $('#printer-list').append(printerDiv);
+          }
         });
       }
     })
@@ -67,6 +69,7 @@ export function fileUpload(file) {
       $('#error-code').html(errorCode);
       $('#error-description').html(errorMessage);
     });
+  
   const uploaded = `
   <div
     id="drop-zone"

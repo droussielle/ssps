@@ -342,14 +342,12 @@
       >
         <div
           id="manage-printer"
-          class="flex flex-col space-y-2 rounded-3xl bg-card-background p-6 text-left transition-all dark:bg-card-background-dark sm:p-8"
+          class="flex flex-col space-y-3 rounded-3xl bg-card-background p-6 text-left transition-all dark:bg-card-background-dark sm:p-8"
         >
-          <p id="printer-name" class="text-xl font-bold pb-2">Máy in</p>
+          <p id="printer-name" class="pb-2 text-xl font-bold">Máy in</p>
           <div class="flex flex-col space-y-2">
             <div class="flex flex-row space-x-2 max-md:hidden">
-              <p
-                class="w-8 text-sm font-bold text-gray-600 dark:text-gray-300"
-              >
+              <p class="w-8 text-sm font-bold text-gray-600 dark:text-gray-300">
                 #
               </p>
               <p
@@ -413,30 +411,34 @@
               Xem tất cả
             </button>
           </div>
-          <div class="flex flex-row space-x-2 max-md:hidden">
-            <p
-              class="w-20 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28"
-            >
-              MSSV
-            </p>
-            <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
-              Tiêu đề
-            </p>
-            <p
-              class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
-            >
-              Số trang
-            </p>
-            <p
-              class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
-            >
-              Tình trạng
-            </p>
-            <div class="w-9 shrink-0"></div>
+          <div class="flex hidden flex-col space-y-2" id="printer-list-legend">
+            <div class="flex flex-row space-x-2 max-md:hidden">
+              <p
+                class="w-20 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28"
+              >
+                MSSV
+              </p>
+              <p
+                class="grow text-sm font-bold text-gray-600 dark:text-gray-300"
+              >
+                Tiêu đề
+              </p>
+              <p
+                class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
+              >
+                Số trang
+              </p>
+              <p
+                class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
+              >
+                Tình trạng
+              </p>
+              <div class="w-9 shrink-0"></div>
+            </div>
+            <hr class="w-full border" />
           </div>
-          <hr class="w-full border" />
           <div class="flex flex-col space-y-2" id="printer-queue-content">
-            
+            <p>Chọn máy in</p>
           </div>
           <div class="flex w-full flex-row items-center justify-end space-x-3">
             <!-- <button
@@ -454,9 +456,16 @@
               Dừng in
             </button> -->
             <button
-              id="print-next"
+              id="select-printer"
               type="button"
               class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
+            >
+              Chọn
+            </button>
+            <button
+              id="print-next"
+              type="button"
+              class="items hidden inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
             >
               In đơn kế tiếp
             </button>

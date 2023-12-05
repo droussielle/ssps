@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import $, { queue } from 'jquery';
 import jQuery from 'jquery';
-import printJS from 'print-js'
+import printJS from 'print-js';
 const url = localStorage.getItem('url');
 
 jQuery.each(['put', 'delete', 'patch'], function (i, method) {
@@ -34,7 +34,9 @@ $(() => {
     // $('a[href^="manage"]').addClass('hidden');
     $('#manage-printer').remove();
   }
-  loadData();
+  loadPrinterSelectQueue();
+  // loadData();
+  // loadDataOfPrinter('656ef3598216dbff305d0006');
   loadPrinter();
   addPrinter();
   changeStatusPrinter();
@@ -289,6 +291,69 @@ function loadData() {
     },
   });
 }
+
+function loadDataOfPrinter(printer) {
+  // console.log('http://localhost:3000/queue/all?printer_id=' + printer);
+  $('#printer-queue-content').html('');
+  $.get(url + '/queue/all?printer_id=' + printer)
+    .done(function (data) {
+      const printerQueue = data.data.queue;
+      // console.log(printerQueue);
+      printerQueue.forEach((element) => {
+        console.log(element);
+        const queueDiv =
+          `<div class="flex flex-col space-y-2" >
+            <div
+              class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+            >
+              <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
+                ` +
+          0 +
+          `
+              </p>
+              <p class="w-8/12 truncate max-md:order-1 md:w-full">
+                ` +
+          element.fileName +
+          `
+              </p>
+              <div class="div flex flex-row space-x-2 max-md:order-3">
+                <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
+          element.printProperties.numberOfPages +
+          ` trang</p>
+              <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
+              <p class="w-fit shrink-0 md:w-28 xl:w-32">
+              </p>
+            </div>
+          <div class="w-9 shrink-0 max-md:hidden"><a class="underline" href="http://localhost:3000` +
+          element.fileLocation +
+          `" target="_blank">Xem</a></div>
+          </div>`;
+        $('#printer-queue-content').append(queueDiv);
+      });
+      $('#print-next').on('click', () => {
+        $.post(
+          'http://localhost:3000/queue/next',
+          JSON.stringify({
+            printer_id: printer,
+          }),
+        )
+          .done(function (data) {
+            console.log(data);
+            const fileURL = url + data.message.order.fileLocation;
+            console.log(fileURL);
+            window.open(fileURL, '_blank').focus();
+            console.log(data.message.order);
+            loadDataOfPrinter(printer);
+            // printJS('http://localhost:3000' + data.message.order.fileLocation);
+          })
+          .fail();
+        // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
+      });
+    })
+    .fail(() => {
+      $('#printer-queue-content').html('Không có mục nào trong hàng đợi máy in.');
+    });
+}
 // status: -1:Chưa in, 0:Đang in  1: Chưa lấy 2: Đã lấy
 // const PrinterQueue = [
 //   {
@@ -311,127 +376,127 @@ function loadData() {
 //   },
 // ];
 
-setTimeout(function () {
-  var PrinterQueue = [];
-  if (localStorage.getItem('queue')) {
-    PrinterQueue = JSON.parse(localStorage.getItem('queue'));
-  }
+// setTimeout(function () {
+//   var PrinterQueue = [];
+//   if (localStorage.getItem('queue')) {
+//     PrinterQueue = JSON.parse(localStorage.getItem('queue'));
+//   }
 
-  let str = '';
-  str += `
-          <div class="flex w-full flex-row items-center justify-between pb-2" >
-  <p class="text-xl font-bold">Hàng đợi máy in</p>
-  <button
-    type="button"
-    class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
-  >
-    Xem tất cả
-  </button>
-</div >
-<div class="flex flex-row space-x-2 max-md:hidden">
-  <p
-    class="w-20 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28"
-  >
-    MSSV
-  </p>
-  <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
-    Tiêu đề
-  </p>
-  <p
-    class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
-  >
-    Số trang
-  </p>
-  <p
-    class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
-  >
-    Tình trạng
-  </p>
-  <div class="w-9 shrink-0"></div>
-</div>
-<hr class="w-full border" />
-        `;
-  if (PrinterQueue.length == 0) {
-    str += '<p>Bạn không có mục nào trong hàng đợi</p>';
-  } else {
-    PrinterQueue.forEach((el, index) => {
-      if (el.printOrder['status'] == false) {
-        str +=
-          `<div class="flex flex-col space-y-2" >
-          <div
-            class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-          >
-            <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
-              ` +
-          el.user +
-          `
-            </p>
-            <p class="w-8/12 truncate max-md:order-1 md:w-full">
-              ` +
-          el.printOrder['fileName'] +
-          `
-            </p>
-            <div class="div flex flex-row space-x-2 max-md:order-3">
-              <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
-          el.printOrder['printProperties']['numberOfPages'] +
-          ` trang</p>
-              <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
-              <p class="w-fit shrink-0 md:w-28 xl:w-32">
-                `;
-        if (el.printOrder['status'] == false) {
-          str += 'Chưa in';
-        }
-        if (el.printOrder['status'] == true) {
-          str += 'Đang in';
-        }
-        if (el.printOrder['status'] == 1) {
-          str += 'Chưa lấy';
-        }
-        if (el.printOrder['status'] == 2) {
-          str += 'Đã lấy';
-        }
-        str +=
-          `</p>
-            </div>
+//   let str = '';
+//   str += `
+//           <div class="flex w-full flex-row items-center justify-between pb-2" >
+//   <p class="text-xl font-bold">Hàng đợi máy in</p>
+//   <button
+//     type="button"
+//     class="items inline-flex gap-x-3 rounded-full px-6 py-2.5 text-center text-black shadow-1 transition ease-out hover:bg-button-hover hover:shadow-3 active:bg-button-active dark:bg-button-dark dark:text-dark-surface dark:hover:bg-button-hover-dark dark:active:bg-button-active-dark"
+//   >
+//     Xem tất cả
+//   </button>
+// </div >
+// <div class="flex flex-row space-x-2 max-md:hidden">
+//   <p
+//     class="w-20 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-28"
+//   >
+//     MSSV
+//   </p>
+//   <p class="grow text-sm font-bold text-gray-600 dark:text-gray-300">
+//     Tiêu đề
+//   </p>
+//   <p
+//     class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
+//   >
+//     Số trang
+//   </p>
+//   <p
+//     class="w-28 shrink-0 text-sm font-bold text-gray-600 dark:text-gray-300 xl:w-32"
+//   >
+//     Tình trạng
+//   </p>
+//   <div class="w-9 shrink-0"></div>
+// </div>
+// <hr class="w-full border" />
+//         `;
+//   if (PrinterQueue.length == 0) {
+//     str += '<p>Bạn không có mục nào trong hàng đợi</p>';
+//   } else {
+//     PrinterQueue.forEach((el, index) => {
+//       if (el.printOrder['status'] == false) {
+//         str +=
+//           `<div class="flex flex-col space-y-2" >
+//           <div
+//             class="flex py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+//           >
+//             <p class="w-20 shrink-0 max-md:order-2 max-md:text-right xl:w-28">
+//               ` +
+//           el.user +
+//           `
+//             </p>
+//             <p class="w-8/12 truncate max-md:order-1 md:w-full">
+//               ` +
+//           el.printOrder['fileName'] +
+//           `
+//             </p>
+//             <div class="div flex flex-row space-x-2 max-md:order-3">
+//               <p class="w-fit shrink-0 md:w-28 xl:w-32">` +
+//           el.printOrder['printProperties']['numberOfPages'] +
+//           ` trang</p>
+//               <p class="w-fit shrink-0 md:hidden md:w-20 xl:w-28">•</p>
+//               <p class="w-fit shrink-0 md:w-28 xl:w-32">
+//                 `;
+//         if (el.printOrder['status'] == false) {
+//           str += 'Chưa in';
+//         }
+//         if (el.printOrder['status'] == true) {
+//           str += 'Đang in';
+//         }
+//         if (el.printOrder['status'] == 1) {
+//           str += 'Chưa lấy';
+//         }
+//         if (el.printOrder['status'] == 2) {
+//           str += 'Đã lấy';
+//         }
+//         str +=
+//           `</p>
+//             </div>
 
-            <div class="w-9 shrink-0 max-md:hidden"><a class="underline" href="http://localhost:3000/uploads/` +
-          el.printOrder['_id'] +
-          `.pdf" target="_blank">Xem</a></div>
-          </div>`;
-      }
-    });
-  }
+//             <div class="w-9 shrink-0 max-md:hidden"><a class="underline" href="http://localhost:3000/uploads/` +
+//           el.printOrder['_id'] +
+//           `.pdf" target="_blank">Xem</a></div>
+//           </div>`;
+//       }
+//     });
+//   }
 
-  str += `
-  </div >
-          <div class="flex w-full flex-row items-center justify-end space-x-3">
-          <button
-          id="print-next"
-          type="button"
-          class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
-        >
-        In đơn kế tiếp
-        </button>
-          </div>`;
-  $('#printer-queue').html(str);
-  $('#print-next').on('click', () => {
-    $.post(
-      'http://localhost:3000/queue/next',
-      JSON.stringify({
-        printer_id: '656df1df0811a88360b55582',
-      }),
-    )
-      .done(function (data) {
-        console.log(data);
-        const URL = 'http://localhost:3000' + data.message.order.fileLocation;
-        console.log(URL);
-        console.log(data.message.order);
-        // printJS('http://localhost:3000' + data.message.order.fileLocation);
-      })
-      .fail();
-    // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
-  });
-}, 2000);
+//   str += `
+//   </div >
+//           <div class="flex w-full flex-row items-center justify-end space-x-3">
+//           <button
+//           id="print-next"
+//           type="button"
+//           class="items inline-flex gap-x-3 rounded-full bg-button-primary px-6 py-2.5 text-center text-white shadow-1 transition ease-out hover:bg-button-primary-hover hover:shadow-3 active:bg-button-primary-active dark:bg-button-primary-dark dark:hover:bg-button-primary-hover-dark dark:active:bg-button-primary-active-dark"
+//         >
+//         In đơn kế tiếp
+//         </button>
+//           </div>`;
+//   $('#printer-queue').html(str);
+//   $('#print-next').on('click', () => {
+//     $.post(
+//       'http://localhost:3000/queue/next',
+//       JSON.stringify({
+//         printer_id: '656df1df0811a88360b55582',
+//       }),
+//     )
+//       .done(function (data) {
+//         console.log(data);
+//         const URL = 'http://localhost:3000' + data.message.order.fileLocation;
+//         console.log(URL);
+//         console.log(data.message.order);
+//         // printJS('http://localhost:3000' + data.message.order.fileLocation);
+//       })
+//       .fail();
+//     // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
+//   });
+// }, 2000);
 
 function changeStatusPrinter() {
   // Use document or a static parent container that exists when the page loads
@@ -540,3 +605,91 @@ function deletePrinter() {
       .fail(() => {});
   });
 }
+
+function loadPrinterSelectQueue() {
+  $.get(url + '/spso/printer/')
+    .done(function (data) {
+      // console.log(data);
+      if (data.data.length == 0) {
+        $('#print').attr(
+          'class',
+          'items inline-flex gap-x-1 rounded-full bg-[#4d69b2] px-5 py-2.5 text-center text-white shadow-1 transition ease-out dark:bg-button-primary-dark cursor-not-allowed',
+        );
+        const errorDiv = `
+      <div class="px-3 py-2 bg-red-200 dark:bg-red-900 mix-blend-multiply dark:mix-blend-lighten rounded-full flex flex-row space-x-5 items-center">
+        <svg class="self-center" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+          <path fill="#B3261E" d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
+        </svg>
+        <p>Không tìm thấy máy in nào</p>
+      </div>
+      `;
+        $('#drop-zone').append(errorDiv);
+      } else {
+        const printerList = data.data;
+        printerList.forEach((element) => {
+          if (element.printerStatus) {
+            const printerDiv =
+              `
+            <div class="flex flex-row items-center space-x-2">
+              <input
+                id="` +
+              element.location +
+              `"
+                type="radio"
+                value="` +
+              element._id +
+              `"
+                name="printer-select"
+                class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+              />
+              <label for="` +
+              element.location +
+              `">` +
+              element.location +
+              `</label>
+            </div>
+          `;
+            // $('#printer-queue-content').html('');
+            $('#printer-queue-content').append(printerDiv);
+          }
+        });
+      }
+    })
+    .fail(function (xhr, status, error) {
+      // console.log(xhr);
+      const errorCode = xhr.status;
+      const errorMessage = xhr.responseJSON.error.message;
+      window.location.href =
+        './error.html?num=' + errorCode + '&msg=' + errorMessage;
+      $('#error-code').html(errorCode);
+      $('#error-description').html(errorMessage);
+    });
+}
+
+$('#select-printer').on('click', () => {
+  const printer = $('input[name="printer-select"]:checked').val();
+  $('#printer-list-legend').removeClass('hidden');
+  $('#select-printer').addClass('hidden');
+  $('#print-next').removeClass('hidden');
+  $('#printer-queue-content').html('');
+  loadDataOfPrinter(printer);
+});
+
+// $('#print-next').on('click', () => {
+//       $.post(
+//         'http://localhost:3000/queue/next',
+//         JSON.stringify({
+//           printer_id: '656df1df0811a88360b55582',
+//         }),
+//       )
+//         .done(function (data) {
+//           console.log(data);
+//           const URL = 'http://localhost:3000' + data.message.order.fileLocation;
+//           console.log(URL);
+//           console.log(data.message.order);
+//           // printJS('http://localhost:3000' + data.message.order.fileLocation);
+
+//         })
+//         .fail();
+//       // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
+//     });
