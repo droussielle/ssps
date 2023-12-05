@@ -65,11 +65,11 @@ class QueueController {
               total_a4_pages_used: Math.ceil(
                 (orderStats.printProperties.numberOfPages *
                   orderStats.printProperties.copies) /
-                  (orderStats.printProperties.sided ? 2 : 1),
+                (orderStats.printProperties.sided ? 2 : 1),
               ),
               status: orderStats.status,
               note: orderStats.note,
-              fileLocation:`/uploads/${orderStats._id}.pdf`,
+              fileLocation: `/uploads/${orderStats._id}.pdf`,
             },
             current_queue: result.printOrders,
           });
@@ -96,7 +96,6 @@ class QueueController {
       });
       if (queue) {
         const result = await printordermodel.findById(queue.printOrders);
-
         if (result) {
           return formatedata({
             message: 'Order found',

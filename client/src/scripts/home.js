@@ -277,12 +277,12 @@ export function fileUpload(file) {
       filePages = (filePages * oldPerSheet) / selectedValue;
       $('#upload-document-properties').html(
         '<p>' +
-          file.name +
-          '</p><p>' +
-          formatBytes(file.size, 2) +
-          ' • ' +
-          Math.ceil(filePages) +
-          ' trang</p>',
+        file.name +
+        '</p><p>' +
+        formatBytes(file.size, 2) +
+        ' • ' +
+        Math.ceil(filePages) +
+        ' trang</p>',
       );
       oldPerSheet = selectedValue;
       data.printProperties.numberOfPages = String(Math.ceil(filePages));
@@ -298,12 +298,12 @@ export function fileUpload(file) {
         (pageSizes[selectedValue].width * pageSizes[selectedValue].height);
       $('#upload-document-properties').html(
         '<p>' +
-          file.name +
-          '</p><p>' +
-          formatBytes(file.size, 2) +
-          ' • ' +
-          Math.ceil(filePages) +
-          ' trang</p>',
+        file.name +
+        '</p><p>' +
+        formatBytes(file.size, 2) +
+        ' • ' +
+        Math.ceil(filePages) +
+        ' trang</p>',
       );
       oldSize = selectedValue;
       data.printProperties.paperSize = oldSize;
@@ -318,23 +318,23 @@ export function fileUpload(file) {
         filePages = filePages / 2;
         $('#upload-document-properties').html(
           '<p>' +
-            file.name +
-            '</p><p>' +
-            formatBytes(file.size, 2) +
-            ' • ' +
-            Math.ceil(filePages) +
-            ' trang</p>',
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
         );
       } else {
         filePages = filePages * 2;
         $('#upload-document-properties').html(
           '<p>' +
-            file.name +
-            '</p><p>' +
-            formatBytes(file.size, 2) +
-            ' • ' +
-            Math.ceil(filePages) +
-            ' trang</p>',
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
         );
       }
       data.printProperties.sided = String(
@@ -345,12 +345,12 @@ export function fileUpload(file) {
     // console.log(filePages);
     $('#upload-document-properties').html(
       '<p>' +
-        file.name +
-        '</p><p>' +
-        formatBytes(file.size, 2) +
-        ' • ' +
-        filePages +
-        ' trang</p>',
+      file.name +
+      '</p><p>' +
+      formatBytes(file.size, 2) +
+      ' • ' +
+      filePages +
+      ' trang</p>',
     );
     uploadFile(file, data);
   });
@@ -385,10 +385,11 @@ export function loadQueue() {
       }
       if (window.location.href.indexOf('home') !== -1) {
         //console.log(data);
-        data.forEach((element, index) => {
-          if (index <= data.length - 1 || index >= data.length - 4) {
+        let count = 0;
+        data.forEach((element) => {
+          if (count < 4) {
             if (!element.status) {
-              console.log('guh');
+              count++;
               $.get(url + '/spso/printer/' + element.printer).done(
                 function (data) {
                   const fileName = element.fileName;
@@ -400,41 +401,42 @@ export function loadQueue() {
                   if (queueETA < 0) queueETA = 0;
                   const queueItem =
                     `
-                    <div
-                      class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-                    >
-                      <p class="w-3/4 min-w-0 truncate md:w-full">` +
+                      <div
+                        class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
+                      >
+                        <p class="w-3/4 min-w-0 truncate md:w-full">` +
                     fileName +
                     `</p>
-                      <a
-                        href=""
-                        class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
-                        >Hủy</a
-                      >
-                      <div
-                        class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-                      >
-                        <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
+                        <a
+                          href=""
+                          class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
+                          >Hủy</a
+                        >
+                        <div
+                          class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
+                        >
+                          <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
                     queueLocation +
                     `</p>
-                        <div class="md:hidden">•</div>
-                        <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
+                          <div class="md:hidden">•</div>
+                          <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
                     queueStatus +
                     `</p>
-                        <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
-                          ` +
+                          <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
+                            ` +
                     queueETA +
                     `
-                        </p>
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  `;
+                    `;
                   $('#queue-content').append(queueItem);
                   // console.log(queueItem);
                 },
               );
             }
           }
+
         });
       } else {
         data.forEach((element) => {
@@ -511,10 +513,10 @@ export function loadHistory() {
         let str = '';
         let check = false;
         let count = 0;
-        for (let i = data.length - 1; i >= 0; i++) {
+        for (let i = data.length - 1; i >= 0; i--) {
           if (data[i].status === true) {
             if (count < 4) {
-              element = data[i];
+              let element = data[i];
               check = true;
               count++;
 
@@ -601,7 +603,7 @@ export function loadHistory() {
           $('#history-content').append(str);
         }
       } else {
-        check = false;
+        let check = false;
         data.forEach((element) => {
           if (element.status === true) {
             check = true;

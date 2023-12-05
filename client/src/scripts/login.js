@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc, no-unused-vars */
 import $ from 'jquery';
-const url = 'http://192.168.31.52:3000';
+const url = 'http://127.0.0.1:3000';
 
 const isEmpty = (str) => !str.trim().length;
 

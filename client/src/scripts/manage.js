@@ -293,13 +293,14 @@ function loadData() {
 }
 
 function loadDataOfPrinter(printer) {
+  var matchedArray = []
   // console.log('http://localhost:3000/queue/all?printer_id=' + printer);
   $('#printer-queue-content').html('');
   $.get(url + '/queue/all?printer_id=' + printer)
     .done(function (data) {
       const printerQueue = data.data.queue;
       // console.log(printerQueue);
-      var matchedArray = []
+
       $.get('http://localhost:3000/spso/student/')
         .done((res1) => {
           for (let i = 0; i < res1.data.length; i++) {
@@ -313,9 +314,10 @@ function loadDataOfPrinter(printer) {
               }
             }
           }
+          console.log(matchedArray);
         }).then(() => {
           matchedArray.forEach((element) => {
-            console.log(element);
+
             const queueDiv =
               `<div class="flex flex-col space-y-2" >
                 <div

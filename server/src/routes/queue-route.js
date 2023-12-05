@@ -44,45 +44,46 @@ router.post("/next", async (req, res, next) => {
 router.get("/all", async (req, res, next) => {
   try {
     const { printer_id } = req.query;
-    console.log(printer_id);
     var { data } = await QueueController.getall(printer_id);
     linux_code = [];
     win_code = [];
     if (data.error) {
       return res.status(400).json(data);
     } else {
-      data.queue = data.queue.filter((item) => item.status !== true);
-      data.queue.map((el) => {
-        let temp =
-          `lpr -P Canon-LBP214-UFR-II http://localhost:3000/uploads/` +
-          el._id +
-          `.pdf -o PageSize=` +
-          el.printProperties.paperSize +
-          ` CNCopies=` +
-          el.printProperties.copies +
-          ` Duplex=` +
-          (el.printProperties.sided === "true"
-            ? "DuplexTumble"
-            : "DuplexNoTumble");
-        linux_code.push(temp);
-        let temp1 =
-          `Start-Process -FilePath "lpr" -ArgumentList @(
-          http://localhost:3000/uploads/` +
-          el._id +
-          `.pdf,
+      if (data.queue) {
+        data.queue = data.queue.filter((item) => item.status !== true);
+        data.queue.map((el) => {
+          let temp =
+            `lpr -P Canon-LBP214-UFR-II ` +
+            el._id +
+            `.pdf -o PageSize=` +
+            el.printProperties.paperSize +
+            ` CNCopies=` +
+            el.printProperties.copies +
+            ` Duplex=` +
+            (el.printProperties.sided === "true"
+              ? "DuplexTumble"
+              : "DuplexNoTumble");
+          linux_code.push(temp);
+          let temp1 =
+            `Start-Process -FilePath "lpr" -ArgumentList @(
+          ` +
+            el._id +
+            `.pdf,
           "-o", PageSize=` +
-          el.printProperties.paperSize +
-          `,
+            el.printProperties.paperSize +
+            `,
           "-o", CNCopies=` +
-          el.printProperties.copies +
-          `,
+            el.printProperties.copies +
+            `,
           "-o", Duplex=` +
-          (el.printProperties.sided === "true"
-            ? "DuplexTumble"
-            : "DuplexNoTumble") +
-          `) - NoNewWindow - Wait`;
-        win_code.push(temp1);
-      });
+            (el.printProperties.sided === "true"
+              ? "DuplexTumble"
+              : "DuplexNoTumble") +
+            `) - NoNewWindow - Wait`;
+          win_code.push(temp1);
+        });
+      }
     }
     return res.status(200).json({
       data: data,
