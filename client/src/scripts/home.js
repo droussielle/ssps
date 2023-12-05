@@ -69,7 +69,7 @@ export function fileUpload(file) {
       $('#error-code').html(errorCode);
       $('#error-description').html(errorMessage);
     });
-  
+
   const uploaded = `
   <div
     id="drop-zone"
@@ -384,9 +384,11 @@ export function loadQueue() {
         $('#queue-content').html('Bạn không có mục nào trong hàng đợi.');
       }
       if (window.location.href.indexOf('home') !== -1) {
+        //console.log(data);
         data.forEach((element, index) => {
-          if (index < 4) {
+          if (index <= data.length - 1 || index >= data.length - 4) {
             if (!element.status) {
+              console.log('guh');
               $.get(url + '/spso/printer/' + element.printer).done(
                 function (data) {
                   const fileName = element.fileName;
@@ -506,9 +508,16 @@ export function loadHistory() {
         $('#history-content').html('Bạn không có mục nào trong lịch sử.');
       }
       if (window.location.href.indexOf('home') !== -1) {
-        data.forEach((element, index) => {
-          if (index < 4) {
-            if (element.status) {
+        let str = '';
+        let check = false;
+        let count = 0;
+        for (let i = data.length - 1; i >= 0; i++) {
+          if (data[i].status === true) {
+            if (count < 4) {
+              element = data[i];
+              check = true;
+              count++;
+
               $.get(url + '/spso/printer/' + element.printer).done(
                 function (data) {
                   const fileName = element.fileName;
@@ -578,16 +587,24 @@ export function loadHistory() {
                   //       </div>
                   //     </div>
                   //   `;
-                  $('#history-content').append(historyItem);
-                  // console.log(queueItem);
+                  str = historyItem + str;
+
+                  // console.log(queueItem)
                 },
               );
             }
           }
-        });
+        }
+        if (check == false) {
+          $('#history-content').append('Bạn không có mục nào trong lịch sử.');
+        } else {
+          $('#history-content').append(str);
+        }
       } else {
+        check = false;
         data.forEach((element) => {
-          if (!element.status) {
+          if (element.status === true) {
+            check = true;
             $.get(url + '/spso/printer/' + element.printer).done(
               function (data) {
                 const fileName = element.fileName;
@@ -663,6 +680,9 @@ export function loadHistory() {
             );
           }
         });
+        if (check === false) {
+          $('#history-content').append('Bạn không có mục nào trong lịch sử.');
+        }
       }
       // console.log(data);
     })

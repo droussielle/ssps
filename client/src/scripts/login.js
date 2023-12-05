@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc, no-unused-vars */
 import $ from 'jquery';
-const url = 'http://localhost:3000';
+const url = 'http://192.168.31.52:3000';
 
 const isEmpty = (str) => !str.trim().length;
 
@@ -42,7 +42,7 @@ $('[name=submitButton]').on('click', function (e) {
     email: username,
     password: password,
   };
-  $.post(url+'/account/login', body)
+  $.post(url + '/account/login', body)
     .done(function (data) {
       localStorage.setItem('userToken', data.token);
       localStorage.setItem('url', url);
