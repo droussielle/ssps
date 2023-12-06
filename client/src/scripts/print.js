@@ -2,10 +2,11 @@ const prompt = require('prompt-sync')({ sigint: true });
 const { exec } = require('child_process');
 const fs = require('fs').promises;
 const fetch = require('node-fetch');
+const url = 'http://127.0.0.1:3000';
 
 async function main() {
   try {
-    const response = await fetch('http://localhost:3000/queue/all?printer_id=656f19cd329a7ea68bd0de64', {
+    const response = await fetch(url + '/queue/all?printer_id=656f19cd329a7ea68bd0de64', {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -33,7 +34,33 @@ async function main() {
 
     if (i >= 1 && i <= data.data.queue.length) {
       const isWindows = process.platform === 'win32';
-      const command = isWindows ? String(data.win_code[i - 1]) : String(data.linux_code[i - 1]);
+      linux_code = `lpr -P Canon-LBP214-UFR-II ../downloads/` +
+        data.data.queue[i - 1]._id +
+        `.pdf -o PageSize=` +
+        data.data.queue[i - 1].printProperties.paperSize +
+        ` CNCopies=` +
+        data.data.queue[i - 1].printProperties.copies +
+        ` Duplex=` +
+        (data.data.queue[i - 1].printProperties.sided === "true"
+          ? "DuplexTumble"
+          : "DuplexNoTumble");
+      win_code =
+        `Start-Process -FilePath "lpr" -ArgumentList @(
+            ../downloads/` +
+        data.data.queue[i - 1]._id +
+        `.pdf,
+        "-o", PageSize=` +
+        data.data.queue[i - 1].printProperties.paperSize +
+        `,
+        "-o", CNCopies=` +
+        data.data.queue[i - 1].printProperties.copies +
+        `,
+        "-o", Duplex=` +
+        (data.data.queue[i - 1].printProperties.sided === "true"
+          ? "DuplexTumble"
+          : "DuplexNoTumble") +
+        `) - NoNewWindow - Wait`;
+      const command = isWindows ? win_code : linux_code;
 
       await downloadFile(data.data.queue[i - 1].fileLocation, data.data.queue[i - 1]._id);
       await executeCommand(command);
@@ -46,7 +73,7 @@ async function main() {
 }
 
 async function downloadFile(file, filename) {
-  const apiUrl = 'http://127.0.0.1:3000' + file;
+  const apiUrl = url + file;
 
   try {
     const response = await fetch(apiUrl, {
@@ -66,7 +93,7 @@ async function downloadFile(file, filename) {
       }
     }
 
-    const fileContent = await response.buffer(); // Use buffer to get the entire file content
+    const fileContent = await response.buffer();
     await fs.writeFile(fileName, fileContent);
 
     console.log(`File downloaded as: ${fileName}`);
