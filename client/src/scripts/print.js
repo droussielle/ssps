@@ -3,7 +3,6 @@ const { exec } = require('child_process');
 const fs = require('fs').promises;
 const fetch = require('node-fetch');
 const url = 'http://127.0.0.1:3000';
-
 async function main() {
   try {
     const response = await fetch(url + '/queue/all?printer_id=656f19cd329a7ea68bd0de64', {
@@ -34,7 +33,7 @@ async function main() {
 
     if (i >= 1 && i <= data.data.queue.length) {
       const isWindows = process.platform === 'win32';
-      linux_code = `lpr -P Canon-LBP214-UFR-II ../downloads/` +
+      linux_code = `lpr ../downloads/` +
         data.data.queue[i - 1]._id +
         `.pdf -o PageSize=` +
         data.data.queue[i - 1].printProperties.paperSize +
