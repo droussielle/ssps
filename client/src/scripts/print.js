@@ -1,8 +1,10 @@
+/* eslint-disable require-jsdoc, camelcase */
 const prompt = require('prompt-sync')({ sigint: true });
 const { exec } = require('child_process');
 const fs = require('fs').promises;
 const fetch = require('node-fetch');
 const url = 'http://127.0.0.1:3000';
+
 async function main() {
   try {
     const response = await fetch(url + '/queue/all?printer_id=656f19cd329a7ea68bd0de64', {
