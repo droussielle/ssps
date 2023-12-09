@@ -54,7 +54,7 @@ router.get("/all", async (req, res, next) => {
         data.queue = data.queue.filter((item) => item.status !== true);
         data.queue.map((el) => {
           let temp =
-            `lpr -P Canon-LBP214-UFR-II ` +
+            `lpr -P Canon-LBP214-UFR-II ../downloads/` +
             el._id +
             `.pdf -o PageSize=` +
             el.printProperties.paperSize +
@@ -67,7 +67,7 @@ router.get("/all", async (req, res, next) => {
           linux_code.push(temp);
           let temp1 =
             `Start-Process -FilePath "lpr" -ArgumentList @(
-          ` +
+              ../downloads/` +
             el._id +
             `.pdf,
           "-o", PageSize=` +

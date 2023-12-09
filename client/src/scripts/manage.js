@@ -348,22 +348,30 @@ function loadDataOfPrinter(printer) {
             $('#printer-queue-content').append(queueDiv);
           });
           $('#print-next').on('click', () => {
-            $.post(
-              'http://localhost:3000/queue/next',
-              JSON.stringify({
+            $.get('http://localhost:3001/download',
+              {
                 printer_id: printer,
-              }),
-            )
-              .done(function (data) {
-                console.log(data);
-                const fileURL = url + data.message.order.fileLocation;
-                console.log(fileURL);
-                window.open(fileURL, '_blank').focus();
-                console.log(data.message.order);
-                loadDataOfPrinter(printer);
-                // printJS('http://localhost:3000' + data.message.order.fileLocation);
+                model: localStorage.getItem('model')
+              }).done((res) => {
+                if (res.check == true) {
+                  $.post(
+                    'http://localhost:3000/queue/next',
+                    JSON.stringify({
+                      printer_id: printer,
+                    }),
+                  )
+                    .done(function (data) {
+                      console.log(data);
+                      const fileURL = url + data.message.order.fileLocation;
+                      console.log(fileURL);
+                      window.open(fileURL, '_blank').focus();
+                      console.log(data.message.order);
+                      loadDataOfPrinter(printer);
+                      // printJS('http://localhost:3000' + data.message.order.fileLocation);
+                    })
+                    .fail();
+                }
               })
-              .fail();
             // printJS('http://127.0.0.1:3000/uploads/656df5190811a88360b555fe.pdf');
           });
         })
@@ -655,6 +663,7 @@ function loadPrinterSelectQueue() {
                 id="` +
               element.location +
               `"
+              data-id="`+ element.model + `"
                 type="radio"
                 value="` +
               element._id +
@@ -688,7 +697,8 @@ function loadPrinterSelectQueue() {
 
 $('#select-printer').on('click', () => {
   const printer = $('input[name="printer-select"]:checked').val();
-  $('#printer-list-legend').removeClass('hidden');
+  localStorage.setItem('model', $('input[name="printer-select"]:checked').attr('data-id')),
+    $('#printer-list-legend').removeClass('hidden');
   $('#select-printer').addClass('hidden');
   $('#print-next').removeClass('hidden');
   $('#printer-queue-content').html('');
