@@ -507,7 +507,7 @@ export function loadHistory() {
     .done(function (data) {
       $('#history-content').html('');
       if (data.length == 0) {
-        $('#history-content').html('Bạn không có mục nào trong lịch sử.');
+        // $('#history-content').html('Bạn không có mục nào trong lịch sử.');
       }
       if (window.location.href.indexOf('home') !== -1) {
         let str = '';
