@@ -503,6 +503,7 @@ export function loadQueue() {
 }
 
 export function loadHistory() {
+
   $.get(url + '/account/printorders')
     .done(function (data) {
       $('#history-content').html('');
@@ -558,49 +559,13 @@ export function loadHistory() {
                     ` trang</p>
                   </div>
                 </div>`;
-                  // const historyItem =
-                  //   `
-                  //     <div
-                  //       class="flex w-full items-center py-1 max-md:flex-wrap max-md:justify-between md:flex-row md:space-x-2"
-                  //     >
-                  //       <p class="w-3/4 min-w-0 truncate md:w-full">` +
-                  //   fileName +
-                  //   `</p>
-                  //       <a
-                  //         href=""
-                  //         class="my-auto w-14 shrink-0 justify-end text-right md:order-5 xl:w-16 2xl:w-20"
-                  //         >Hủy</a
-                  //       >
-                  //       <div
-                  //         class="flex w-full flex-row space-x-2 max-md:text-sm md:max-w-max"
-                  //       >
-                  //         <p class="shrink-0 truncate md:w-24 xl:w-28 2xl:w-32">` +
-                  //   historyLocation +
-                  //   `</p>
-                  //         <div class="md:hidden">•</div>
-                  //         <p class="w-28 shrink-0 truncate xl:w-32 2xl:w-36">` +
-                  //   historyStatus +
-                  //   `</p>
-                  //         <p class="w-24 shrink-0 truncate max-md:hidden xl:w-28 2xl:w-32">
-                  //         ${new Date(element.beginTime).getDate()}/${
-                  //           new Date(element.beginTime).getMonth() + 1
-                  //         }/${new Date(element.beginTime).getFullYear()}
-                  //         </p>
-                  //       </div>
-                  //     </div>
-                  //   `;
                   str = historyItem + str;
-
-                  // console.log(queueItem)
-                },
-              );
+                }).then(() => { $('#history-content').html(str); })
             }
           }
         }
         if (check == false) {
           $('#history-content').append('Bạn không có mục nào trong lịch sử.');
-        } else {
-          $('#history-content').append(str);
         }
       } else {
         let check = false;
