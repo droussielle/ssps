@@ -277,12 +277,12 @@ export function fileUpload(file) {
       filePages = (filePages * oldPerSheet) / selectedValue;
       $('#upload-document-properties').html(
         '<p>' +
-        file.name +
-        '</p><p>' +
-        formatBytes(file.size, 2) +
-        ' • ' +
-        Math.ceil(filePages) +
-        ' trang</p>',
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
       );
       oldPerSheet = selectedValue;
       data.printProperties.numberOfPages = String(Math.ceil(filePages));
@@ -298,12 +298,12 @@ export function fileUpload(file) {
         (pageSizes[selectedValue].width * pageSizes[selectedValue].height);
       $('#upload-document-properties').html(
         '<p>' +
-        file.name +
-        '</p><p>' +
-        formatBytes(file.size, 2) +
-        ' • ' +
-        Math.ceil(filePages) +
-        ' trang</p>',
+          file.name +
+          '</p><p>' +
+          formatBytes(file.size, 2) +
+          ' • ' +
+          Math.ceil(filePages) +
+          ' trang</p>',
       );
       oldSize = selectedValue;
       data.printProperties.paperSize = oldSize;
@@ -318,23 +318,23 @@ export function fileUpload(file) {
         filePages = filePages / 2;
         $('#upload-document-properties').html(
           '<p>' +
-          file.name +
-          '</p><p>' +
-          formatBytes(file.size, 2) +
-          ' • ' +
-          Math.ceil(filePages) +
-          ' trang</p>',
+            file.name +
+            '</p><p>' +
+            formatBytes(file.size, 2) +
+            ' • ' +
+            Math.ceil(filePages) +
+            ' trang</p>',
         );
       } else {
         filePages = filePages * 2;
         $('#upload-document-properties').html(
           '<p>' +
-          file.name +
-          '</p><p>' +
-          formatBytes(file.size, 2) +
-          ' • ' +
-          Math.ceil(filePages) +
-          ' trang</p>',
+            file.name +
+            '</p><p>' +
+            formatBytes(file.size, 2) +
+            ' • ' +
+            Math.ceil(filePages) +
+            ' trang</p>',
         );
       }
       data.printProperties.sided = String(
@@ -345,12 +345,12 @@ export function fileUpload(file) {
     // console.log(filePages);
     $('#upload-document-properties').html(
       '<p>' +
-      file.name +
-      '</p><p>' +
-      formatBytes(file.size, 2) +
-      ' • ' +
-      filePages +
-      ' trang</p>',
+        file.name +
+        '</p><p>' +
+        formatBytes(file.size, 2) +
+        ' • ' +
+        filePages +
+        ' trang</p>',
     );
     uploadFile(file, data);
   });
@@ -384,7 +384,7 @@ export function loadQueue() {
         $('#queue-content').html('Bạn không có mục nào trong hàng đợi.');
       }
       if (window.location.href.indexOf('home') !== -1) {
-        //console.log(data);
+        // console.log(data);
         let count = 0;
         data.forEach((element) => {
           if (count < 4) {
@@ -436,7 +436,6 @@ export function loadQueue() {
               );
             }
           }
-
         });
       } else {
         data.forEach((element) => {
@@ -503,7 +502,6 @@ export function loadQueue() {
 }
 
 export function loadHistory() {
-
   $.get(url + '/account/printorders')
     .done(function (data) {
       $('#history-content').html('');
@@ -521,8 +519,8 @@ export function loadHistory() {
               check = true;
               count++;
 
-              $.get(url + '/spso/printer/' + element.printer).done(
-                function (data) {
+              $.get(url + '/spso/printer/' + element.printer)
+                .done(function (data) {
                   const fileName = element.fileName;
                   const historyLocation = data.data.location;
                   const historyPages = element.printProperties.numberOfPages;
@@ -560,7 +558,10 @@ export function loadHistory() {
                   </div>
                 </div>`;
                   str = historyItem + str;
-                }).then(() => { $('#history-content').html(str); })
+                })
+                .then(() => {
+                  $('#history-content').html(str);
+                });
             }
           }
         }

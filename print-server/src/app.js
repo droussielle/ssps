@@ -63,7 +63,8 @@ module.exports = async (app) => {
           ` -o CNCopies=` +
           data.data.queue[0].printProperties.copies +
           ` -o Duplex=` +
-          (data.data.queue[0].printProperties.sided === "true"
+          (data.data.queue[0].printProperties.sided === "true" ||
+          data.data.queue[0].printProperties.sided === true
             ? "DuplexNoTumble"
             : "None");
         const command = linux_code;

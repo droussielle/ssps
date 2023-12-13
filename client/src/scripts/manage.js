@@ -351,23 +351,24 @@ function loadDataOfPrinter(printer) {
             $.get('http://localhost:3001/download', {
               printer_id: printer,
               model: localStorage.getItem('model'),
+            }).always(() => {
+              $.post(
+                'http://localhost:3000/queue/next',
+                JSON.stringify({
+                  printer_id: printer,
+                }),
+              )
+                .done(function (data) {
+                  // console.log(data);
+                  const fileURL = url + data.message.order.fileLocation;
+                  // console.log(fileURL);
+                  window.open(fileURL, '_blank').focus();
+                  // console.log(data.message.order);
+                  loadDataOfPrinter(printer);
+                  // printJS('http://localhost:3000' + data.message.order.fileLocation);
+                })
+                .fail();
             });
-            $.post(
-              'http://localhost:3000/queue/next',
-              JSON.stringify({
-                printer_id: printer,
-              }),
-            )
-              .done(function (data) {
-                console.log(data);
-                const fileURL = url + data.message.order.fileLocation;
-                console.log(fileURL);
-                window.open(fileURL, '_blank').focus();
-                console.log(data.message.order);
-                loadDataOfPrinter(printer);
-                // printJS('http://localhost:3000' + data.message.order.fileLocation);
-              })
-              .fail();
           });
         });
     })
